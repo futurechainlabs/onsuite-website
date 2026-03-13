@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="tr" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OnSuite - Fabrikanizi tek bir akilli platformdan yonetin. Makine verilerinizi ve uretim sureclerinizi modern bir dashboard'da birlestirin.">
+  <title>OnSuite | Akilli Uretim Yonetim Platformu</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+  <!-- Cursor-following glow (desktop only) -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+
+  <!-- ============================================================
+       HEADER / NAVIGATION
+       ============================================================ -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo" aria-label="OnSuite Ana Sayfa">
+        <img src="assets/images/logo.png" alt="OnSuite" width="160" height="40">
+      </a>
+
+      <nav class="header__nav" aria-label="Ana menu">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link" aria-expanded="false" aria-haspopup="true">
+              Platform
+              <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="mega-menu">
+              <div class="mega-menu__inner">
+                <div class="mega-menu__col">
+                  <span class="mega-menu__label">Genel Bakis</span>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
+                    <div><span class="mega-menu__name">Dashboard</span><span class="mega-menu__desc">Tek ekrandan tum veriler</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <div><span class="mega-menu__name">Entegrasyon</span><span class="mega-menu__desc">ERP ve otomasyon uyumu</span></div>
+                  </a>
+                </div>
+                <div class="mega-menu__col">
+                  <span class="mega-menu__label">Yetenekler</span>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                    <div><span class="mega-menu__name">OEE & Performans</span><span class="mega-menu__desc">Gercek zamanli analiz</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+                    <div><span class="mega-menu__name">Uretim Takibi</span><span class="mega-menu__desc">Canli uretim izleme</span></div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav__item nav__item--dropdown">
+            <button class="nav__link" aria-expanded="false" aria-haspopup="true">
+              Moduller
+              <svg class="nav__chevron" width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="mega-menu mega-menu--wide">
+              <div class="mega-menu__inner">
+                <div class="mega-menu__col">
+                  <span class="mega-menu__label">Uretim Yonetimi</span>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8"/><path d="M16 17H8"/></svg></div>
+                    <div><span class="mega-menu__name">OnTrace</span><span class="mega-menu__desc">Izlenebilirlik</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+                    <div><span class="mega-menu__name">OnOptima</span><span class="mega-menu__desc">Uretim Optimizasyonu</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                    <div><span class="mega-menu__name">OnOEE</span><span class="mega-menu__desc">Performans Analizi</span></div>
+                  </a>
+                </div>
+                <div class="mega-menu__col">
+                  <span class="mega-menu__label">Veri & Entegrasyon</span>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+                    <div><span class="mega-menu__name">OnIntegra</span><span class="mega-menu__desc">ERP Entegrasyonu</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
+                    <div><span class="mega-menu__name">OnMonitora</span><span class="mega-menu__desc">Makine Izleme</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+                    <div><span class="mega-menu__name">OnCNC</span><span class="mega-menu__desc">CNC Veri Toplama</span></div>
+                  </a>
+                </div>
+                <div class="mega-menu__col">
+                  <span class="mega-menu__label">Sektorel</span>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/></svg></div>
+                    <div><span class="mega-menu__name">OnTMC</span><span class="mega-menu__desc">Tutun Sektoru</span></div>
+                  </a>
+                  <a href="#" class="mega-menu__item">
+                    <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+                    <div><span class="mega-menu__name">OnSmartForms</span><span class="mega-menu__desc">Dijital Formlar</span></div>
+                  </a>
+                </div>
+              </div>
+              <div class="mega-menu__footer">
+                <a href="#modules" class="btn--link">Tum modulleri kesfet <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav__item"><a href="#sectors" class="nav__link">Sektorler</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Kaynaklar</a></li>
+          <li class="nav__item"><a href="#" class="nav__link">Hakkimizda</a></li>
+        </ul>
+      </nav>
+
+      <div class="header__actions">
+        <div class="lang-switch" role="radiogroup" aria-label="Dil secimi">
+          <button class="lang-switch__btn lang-switch__btn--active" role="radio" aria-checked="true">TR</button>
+          <span class="lang-switch__sep">|</span>
+          <button class="lang-switch__btn" role="radio" aria-checked="false">EN</button>
+        </div>
+        <a href="#demo" class="btn btn--primary btn--sm header__cta">
+          Demo Talep Et
+          <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <button class="header__hamburger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-menu__inner">
+      <nav aria-label="Mobil menu">
+        <ul class="mobile-menu__list">
+          <li><a href="#" class="mobile-menu__link">Platform</a></li>
+          <li><a href="#modules" class="mobile-menu__link">Moduller</a></li>
+          <li><a href="#sectors" class="mobile-menu__link">Sektorler</a></li>
+          <li><a href="#" class="mobile-menu__link">Kaynaklar</a></li>
+          <li><a href="#" class="mobile-menu__link">Hakkimizda</a></li>
+        </ul>
+      </nav>
+      <div class="mobile-menu__footer">
+        <a href="#demo" class="btn btn--primary" style="width:100%">Demo Talep Et <span class="btn__arrow">&rarr;</span></a>
+        <div class="lang-switch" style="justify-content:center;margin-top:var(--s4)">
+          <button class="lang-switch__btn lang-switch__btn--active">TR</button>
+          <span class="lang-switch__sep">|</span>
+          <button class="lang-switch__btn">EN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main>
+
+    <!-- ============================================================
+         SECTION 1: HERO
+         ============================================================ -->
+    <section class="hero" id="hero">
+      <div class="hero__particle hero__particle--1" aria-hidden="true"></div>
+      <div class="hero__particle hero__particle--2" aria-hidden="true"></div>
+      <div class="hero__particle hero__particle--3" aria-hidden="true"></div>
+      <div class="hero__particle hero__particle--4" aria-hidden="true"></div>
+      <div class="hero__particle hero__particle--5" aria-hidden="true"></div>
+
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <div class="badge reveal">
+            <span class="badge__dot"></span>
+            Uretim Yonetim Platformu
+          </div>
+          <h1 class="hero__title reveal reveal-d1">
+            Fabrikanizi<br><span class="hero__highlight">Tek Ekrandan</span><br>Yonetin
+          </h1>
+          <p class="hero__desc reveal reveal-d2">
+            Makine verilerinizi ve uretim sureclerinizi tek bir modern dashboard'da birlestirin. Duruslari azaltin, verimliligi artirin.
+          </p>
+          <div class="hero__actions reveal reveal-d3">
+            <a href="#demo" class="btn btn--primary">
+              Demo Talep Et
+              <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <a href="#modules" class="btn btn--secondary">Platformu Kesfet</a>
+          </div>
+        </div>
+        <div class="hero__visual reveal reveal-d2">
+          <div class="hero-image">
+            <img src="assets/images/hero/macbook-dashboard.png"
+                 alt="OnSuite Akilli Uretim Platformu - Dashboard Macbook Gorunumu"
+                 class="hero-image__img"
+                 loading="eager">
+            <div class="hero-image__glow" aria-hidden="true"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2: SOCIAL PROOF BAR
+         ============================================================ -->
+    <section class="proof-bar" aria-label="Referanslar">
+      <div class="container">
+        <div class="proof-bar__logos reveal">
+          <img src="assets/images/logos/references/bosch.png" alt="Bosch" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/bsh.png" alt="BSH" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/haier-europe.png" alt="Haier Europe" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/unilever.png" alt="Unilever" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/pmi.png" alt="Philip Morris" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/borgwarner.png" alt="BorgWarner" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/diageo.png" alt="Diageo" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/jti.png" alt="JTI" class="proof-bar__logo" loading="lazy">
+          <img src="assets/images/logos/references/maxion.png" alt="Maxion" class="proof-bar__logo" loading="lazy">
+        </div>
+        <div class="proof-bar__metrics reveal reveal-d1">
+          <div class="proof-bar__metric">
+            <span class="proof-bar__number" data-count="40">0</span><span class="proof-bar__plus">+</span>
+            <span class="proof-bar__label">Ulke</span>
+          </div>
+          <span class="proof-bar__sep" aria-hidden="true">&middot;</span>
+          <div class="proof-bar__metric">
+            <span class="proof-bar__number" data-count="100">0</span><span class="proof-bar__plus">+</span>
+            <span class="proof-bar__label">Proje</span>
+          </div>
+          <span class="proof-bar__sep" aria-hidden="true">&middot;</span>
+          <div class="proof-bar__metric">
+            <span class="proof-bar__number" data-count="500">0</span><span class="proof-bar__plus">+</span>
+            <span class="proof-bar__label">Uretim Hatti</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: BENTO GRID MODULES
+         ============================================================ -->
+    <section class="section" id="modules">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Cozumler</p>
+          <h2 class="section__title reveal reveal-d1">Uretim Surecleriniz Icin<br><span class="text-gradient">Moduler Cozumler</span></h2>
+          <p class="section__sub reveal reveal-d2">Her modulu bagimsiz kullanin veya tam entegre bir platform olarak birlestirin.</p>
+        </div>
+
+        <div class="bento-grid">
+          <!-- Large Card: OnTrace -->
+          <div class="card bento-grid__item bento-grid__item--large reveal">
+            <div class="card__visual">
+              <img src="assets/images/modules/trace-hero.png" alt="OnTrace Izlenebilirlik Modulu" class="card__visual-img" loading="lazy">
+            </div>
+            <h3 class="card__title">OnTrace</h3>
+            <p class="card__desc">Uretim hattinizda hammaddeden bitmiis urune kadar tam izlenebilirlik. Geri cagirma sureclerini saniyeye indirin.</p>
+            <span class="card__metric">%99.2 izlenebilirlik</span>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Large Card: OnOptima -->
+          <div class="card bento-grid__item bento-grid__item--large reveal reveal-d1">
+            <div class="card__visual">
+              <img src="assets/images/modules/optima-hero.png" alt="OnOptima Uretim Optimizasyonu" class="card__visual-img" loading="lazy">
+            </div>
+            <h3 class="card__title">OnOptima</h3>
+            <p class="card__desc">Uretim sureclerinizi yapay zeka destekli analizlerle optimize edin. Darbogazlari tanimlayip otomatik aksiyonlar alin.</p>
+            <span class="card__metric">%15 verimlilik artisi</span>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Small Card: OnIntegra -->
+          <div class="card bento-grid__item reveal">
+            <img src="assets/images/icons/erp-entegrasyon.png" alt="OnIntegra" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnIntegra</h4>
+            <p class="card__desc">ERP sistemlerinizle sorunsuz entegrasyon. SAP, Microsoft Dynamics ve daha fazlasi.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Small Card: OnOEE -->
+          <div class="card bento-grid__item reveal reveal-d1">
+            <img src="assets/images/icons/analiz-optimizasyon.png" alt="OnOEE" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnOEE</h4>
+            <p class="card__desc">Gercek zamanli OEE takibi ve performans analizleri.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Small Card: OnCNC -->
+          <div class="card bento-grid__item reveal reveal-d2">
+            <img src="assets/images/icons/cnc.png" alt="OnCNC" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnCNC</h4>
+            <p class="card__desc">CNC tezgahlarinizdan otomatik veri toplama.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Small Card: OnTMC -->
+          <div class="card bento-grid__item reveal reveal-d3">
+            <img src="assets/images/icons/tmc.png" alt="OnTMC" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnTMC</h4>
+            <p class="card__desc">OPC UA TMC uyumlu tutun sektoru cozumleri.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Wide Card: OnSmartForms -->
+          <div class="card bento-grid__item bento-grid__item--wide reveal">
+            <img src="assets/images/icons/forms-responsive.png" alt="OnSmartForms" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnSmartForms</h4>
+            <p class="card__desc">Kagitsiz uretime gecin. Dijital formlarla veri toplama, onay surecleri ve raporlamayi otomatiklestirin.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+
+          <!-- Regular Card: OnMonitora -->
+          <div class="card bento-grid__item reveal reveal-d1">
+            <img src="assets/images/icons/dashboard.png" alt="OnMonitora" class="card__icon-img" loading="lazy">
+            <h4 class="card__title">OnMonitora</h4>
+            <p class="card__desc">Makinelerinizi gercek zamanli izleyin ve analiz edin.</p>
+            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4: HOW IT WORKS
+         ============================================================ -->
+    <section class="section section--alt" id="how-it-works">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Nasil Calisir?</p>
+          <h2 class="section__title reveal reveal-d1">Dort Adimda <span class="text-gradient">Akilli Fabrika</span></h2>
+        </div>
+
+        <div class="steps">
+          <div class="step reveal">
+            <div class="step__icon">
+              <img src="assets/images/icons/entegrasyon-nodes.png" alt="Baglan" class="step__icon-img" loading="lazy">
+            </div>
+            <div class="step__number">1</div>
+            <h4 class="step__title">Baglan</h4>
+            <p class="step__desc">PLC, SCADA ve makine kontrolculerinizi OnSuite'e baglayin. Mevcut altyapinizi degistirmenize gerek yok.</p>
+          </div>
+          <div class="steps__connector" aria-hidden="true"></div>
+          <div class="step reveal reveal-d1">
+            <div class="step__icon">
+              <img src="assets/images/icons/veri-toplama.png" alt="Topla" class="step__icon-img" loading="lazy">
+            </div>
+            <div class="step__number">2</div>
+            <h4 class="step__title">Topla</h4>
+            <p class="step__desc">Tum uretim verileriniz gercek zamanli olarak merkezi bir veri tabaninda toplanir ve islenir.</p>
+          </div>
+          <div class="steps__connector" aria-hidden="true"></div>
+          <div class="step reveal reveal-d2">
+            <div class="step__icon">
+              <img src="assets/images/icons/analiz-raporlama.png" alt="Analiz Et" class="step__icon-img" loading="lazy">
+            </div>
+            <div class="step__number">3</div>
+            <h4 class="step__title">Analiz Et</h4>
+            <p class="step__desc">OEE, durus analizi, kalite metrikleri ve trend analizleri otomatik olarak hesaplanir.</p>
+          </div>
+          <div class="steps__connector" aria-hidden="true"></div>
+          <div class="step reveal reveal-d3">
+            <div class="step__icon">
+              <img src="assets/images/icons/analiz-optimizasyon.png" alt="Optimize Et" class="step__icon-img" loading="lazy">
+            </div>
+            <div class="step__number">4</div>
+            <h4 class="step__title">Optimize Et</h4>
+            <p class="step__desc">Aksiyon onerileri ve otomatik uyarilarla sureclerinizi surekli iyilestirin.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: RESULT METRICS
+         ============================================================ -->
+    <section class="section metrics" id="metrics">
+      <div class="container">
+        <div class="metrics__grid reveal">
+          <div class="metric">
+            <img src="assets/images/icons/alarm-yonetimi.png" alt="Durus Azalmasi" class="metric__icon-img" loading="lazy">
+            <span class="metric__number" data-count="30">0</span>
+            <span class="metric__suffix">%</span>
+            <span class="metric__label">Durus Azalmasi</span>
+          </div>
+          <div class="metric__divider" aria-hidden="true"></div>
+          <div class="metric">
+            <img src="assets/images/icons/gercek-zamanli.png" alt="OEE Artisi" class="metric__icon-img" loading="lazy">
+            <span class="metric__number" data-count="15">0</span>
+            <span class="metric__suffix">%</span>
+            <span class="metric__label">OEE Artisi</span>
+          </div>
+          <div class="metric__divider" aria-hidden="true"></div>
+          <div class="metric">
+            <img src="assets/images/icons/entegrasyon-raporlama.png" alt="Raporlama Hizi" class="metric__icon-img" loading="lazy">
+            <span class="metric__number" data-count="2">0</span>
+            <span class="metric__suffix">x</span>
+            <span class="metric__label">Raporlama Hizi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: SECTORS
+         ============================================================ -->
+    <section class="section section--alt" id="sectors">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Sektorler</p>
+          <h2 class="section__title reveal reveal-d1">Sektorunuze Ozel <span class="text-gradient">Cozumler</span></h2>
+        </div>
+
+        <div class="tabs reveal">
+          <div class="tabs__nav" role="tablist">
+            <button class="tabs__tab tabs__tab--active" role="tab" aria-selected="true" data-tab="automotive">Otomotiv</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="food">Gida & Icecek</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="pharma">Ilac</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="tobacco">Tutun</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="general">Genel Uretim</button>
+          </div>
+
+          <div class="tabs__content">
+            <!-- Otomotiv -->
+            <div class="tabs__panel tabs__panel--active" role="tabpanel" data-panel="automotive">
+              <div class="tabs__panel-inner">
+                <div class="tabs__visual">
+                  <img src="assets/images/sectors/otomotiv.png" alt="Otomotiv sektorunde izlenebilirlik" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/trace-hero.png" alt="OnTrace Izlenebilirlik" class="tabs__visual-img" loading="lazy">
+                </div>
+                <div class="tabs__info">
+                  <h3>Otomotiv Sektorunde Tam Izlenebilirlik</h3>
+                  <p>Otomotiv tedarik zincirinde her parcayi hammaddeden montaja kadar takip edin. IATF 16949 uyumlulugu ve tam lot izlenebilirlik ile geri cagirma sureclerinizi dakikalardan saniyelere indirin.</p>
+                  <div class="tabs__modules">
+                    <span class="tabs__module-tag">OnTrace</span>
+                    <span class="tabs__module-tag">OnOEE</span>
+                    <span class="tabs__module-tag">OnIntegra</span>
+                  </div>
+                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gida -->
+            <div class="tabs__panel" role="tabpanel" data-panel="food" hidden>
+              <div class="tabs__panel-inner">
+                <div class="tabs__visual">
+                  <img src="assets/images/sectors/gida.png" alt="Gida sektorunde kalite guvencesi" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/connect-hero.png" alt="OnSuite Connect" class="tabs__visual-img" loading="lazy">
+                </div>
+                <div class="tabs__info">
+                  <h3>Gida & Icecek Sektorunde Kalite Guvencesi</h3>
+                  <p>FDA, BRC ve IFS standartlarina uyumlu uretim izleme. Sicaklik, nem ve proses parametrelerini gercek zamanli takip edin.</p>
+                  <div class="tabs__modules">
+                    <span class="tabs__module-tag">OnTrace</span>
+                    <span class="tabs__module-tag">OnOptima</span>
+                    <span class="tabs__module-tag">OnSmartForms</span>
+                  </div>
+                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Ilac -->
+            <div class="tabs__panel" role="tabpanel" data-panel="pharma" hidden>
+              <div class="tabs__panel-inner">
+                <div class="tabs__visual">
+                  <img src="assets/images/sectors/ilac.png" alt="Ilac sektorunde regulator uyumluluk" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/hero/factory-isometric.png" alt="Akilli Fabrika" class="tabs__visual-img" loading="lazy">
+                </div>
+                <div class="tabs__info">
+                  <h3>Ilac Sektorunde Regulator Uyumluluk</h3>
+                  <p>GMP ve FDA 21 CFR Part 11 uyumlu dijital kayit sistemi. Her urunu seri numarasindan gecmisine kadar tam izlenebilirlik.</p>
+                  <div class="tabs__modules">
+                    <span class="tabs__module-tag">OnTrace</span>
+                    <span class="tabs__module-tag">OnSmartForms</span>
+                    <span class="tabs__module-tag">OnIntegra</span>
+                  </div>
+                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tutun -->
+            <div class="tabs__panel" role="tabpanel" data-panel="tobacco" hidden>
+              <div class="tabs__panel-inner">
+                <div class="tabs__visual">
+                  <img src="assets/images/icons/tmc.png" alt="Tutun sektorunde TMC uyumluluk" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/monitora-hero.png" alt="OnMonitora Makine Izleme" class="tabs__visual-img" loading="lazy">
+                </div>
+                <div class="tabs__info">
+                  <h3>Tutun Sektorunde OPC UA TMC Uyumluluk</h3>
+                  <p>TMC (Tobacco Machine Communication) standardina tam uyumlu veri toplama. Sigara makineleri ile dogrudan iletisim.</p>
+                  <div class="tabs__modules">
+                    <span class="tabs__module-tag">OnTMC</span>
+                    <span class="tabs__module-tag">OnTrace</span>
+                    <span class="tabs__module-tag">OnOEE</span>
+                  </div>
+                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Genel -->
+            <div class="tabs__panel" role="tabpanel" data-panel="general" hidden>
+              <div class="tabs__panel-inner">
+                <div class="tabs__visual">
+                  <img src="assets/images/sectors/genel-uretim.png" alt="Genel uretimde verimlilik" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/optima-hero.png" alt="OnOptima Dashboard" class="tabs__visual-img" loading="lazy">
+                </div>
+                <div class="tabs__info">
+                  <h3>Genel Uretimde Verimlilik Devrimi</h3>
+                  <p>Sektorunuz ne olursa olsun, OnSuite modulerligiyle ihtiyaciniza ozel cozum sunulur. OEE, kalite, bakim ve raporlama tek platformda.</p>
+                  <div class="tabs__modules">
+                    <span class="tabs__module-tag">OnOEE</span>
+                    <span class="tabs__module-tag">OnOptima</span>
+                    <span class="tabs__module-tag">OnMonitora</span>
+                  </div>
+                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 7: INTEGRATION ECOSYSTEM
+         ============================================================ -->
+    <section class="section" id="integrations">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Entegrasyon</p>
+          <h2 class="section__title reveal reveal-d1">Mevcut Altyapinizla <span class="text-gradient">Uyumlu</span></h2>
+          <p class="section__sub reveal reveal-d2">OnSuite, kullandiginiz ERP ve otomasyon sistemleriyle sorunsuz entegre olur.</p>
+        </div>
+
+        <div class="partner-grid reveal">
+          <div class="partner-card"><img src="assets/images/logos/partners/microsoft.png" alt="Microsoft" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/beckhoff.png" alt="Beckhoff" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/ge-vernova.png" alt="GE Vernova" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/inginition.png" alt="Ignition" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/sick.png" alt="SICK" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/universal-robots.png" alt="Universal Robots" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/sewio.png" alt="Sewio" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/markem-maje.png" alt="Markem-Imaje" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="assets/images/logos/partners/interroll.png" alt="Interroll" class="partner-card__logo" loading="lazy"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 8: TESTIMONIAL
+         ============================================================ -->
+    <section class="section section--alt" id="testimonial">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Basari Hikayeleri</p>
+          <h2 class="section__title reveal reveal-d1">Musterilerimizin <span class="text-gradient">Deneyimi</span></h2>
+        </div>
+
+        <div class="testimonial-card reveal">
+          <div class="testimonial-card__quote" aria-hidden="true">&ldquo;</div>
+          <blockquote class="testimonial-card__text">
+            OnSuite sayesinde uretim hattimizdaki durus surelerini %35 azalttik. Artik tum verimizi tek bir ekrandan takip ediyoruz. Entegrasyon sureci bekledigimizden cok daha hizli tamamlandi.
+          </blockquote>
+          <div class="testimonial-card__author">
+            <div class="testimonial-card__avatar">YK</div>
+            <div>
+              <strong class="testimonial-card__name">Yilmaz Kaya</strong>
+              <span class="testimonial-card__role">Uretim Muduru, Endustriyel Otomasyon A.S.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 9: ROI CALCULATOR
+         ============================================================ -->
+    <section class="section" id="roi">
+      <div class="container">
+        <div class="section__header">
+          <p class="section__overline reveal">Yatirim Getirisi</p>
+          <h2 class="section__title reveal reveal-d1">OnSuite'in Tesisinize <span class="text-gradient">Kazandiracaklarini</span> Hesaplayin</h2>
+          <p class="section__sub reveal reveal-d2">Sadece birkac parametre girin, tahmini kazaniminizi aninda gorun.</p>
+        </div>
+
+        <div class="roi-calc reveal">
+          <div class="roi-calc__inputs">
+            <div class="roi-calc__field">
+              <label class="roi-calc__label">Uretim Hatti Sayisi</label>
+              <input type="range" class="roi-calc__slider" id="roiLines" min="1" max="50" value="8">
+              <div class="roi-calc__value"><span id="roiLinesVal">8</span></div>
+            </div>
+            <div class="roi-calc__field">
+              <label class="roi-calc__label">Mevcut OEE (%)</label>
+              <input type="range" class="roi-calc__slider" id="roiOee" min="30" max="90" value="65">
+              <div class="roi-calc__value"><span id="roiOeeVal">65%</span></div>
+            </div>
+            <div class="roi-calc__field">
+              <label class="roi-calc__label">Aylik Plansiz Durus (saat)</label>
+              <input type="range" class="roi-calc__slider" id="roiDowntime" min="10" max="500" value="80" step="10">
+              <div class="roi-calc__value"><span id="roiDowntimeVal">80</span></div>
+            </div>
+            <div class="roi-calc__field">
+              <label class="roi-calc__label">Sektor</label>
+              <select class="roi-calc__select" id="roiSector">
+                <option value="general">Genel Uretim</option>
+                <option value="automotive">Otomotiv</option>
+                <option value="food">Gida & Icecek</option>
+                <option value="pharma">Ilac</option>
+                <option value="tobacco">Tutun</option>
+              </select>
+            </div>
+            <div class="roi-calc__field">
+              <label class="roi-calc__label">Yillik Uretim Hacmi (adet)</label>
+              <input type="range" class="roi-calc__slider" id="roiVolume" min="10000" max="10000000" value="500000" step="10000">
+              <div class="roi-calc__value"><span id="roiVolumeVal">500K</span></div>
+            </div>
+          </div>
+
+          <div class="roi-calc__results">
+            <span class="roi-calc__results-label">Tahmini Yillik Kazanim</span>
+            <div class="roi-calc__big-number">
+              <span class="roi-calc__currency">&#8378;</span>
+              <span class="roi-calc__amount" id="roiAmount">1.2M</span>
+            </div>
+            <div class="roi-calc__breakdown">
+              <div class="roi-calc__row"><span>OEE Artisi</span><span class="roi-calc__row-value" id="roiOeeGain" style="color:var(--success-light)">+12%</span></div>
+              <div class="roi-calc__row"><span>Durus Azalmasi</span><span class="roi-calc__row-value" id="roiDowntimeGain" style="color:var(--success-light)">-30%</span></div>
+              <div class="roi-calc__row"><span>Hurda Azalmasi</span><span class="roi-calc__row-value" id="roiScrapGain" style="color:var(--success-light)">-18%</span></div>
+              <div class="roi-calc__row"><span>ROI Suresi</span><span class="roi-calc__row-value" id="roiPayback" style="color:var(--cyan-200)">9 ay</span></div>
+            </div>
+            <div class="roi-calc__actions">
+              <a href="#demo" class="btn btn--primary" style="width:100%">
+                Demo'da Dogrulayin
+                <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 10: DEMO CTA BLOCK
+         ============================================================ -->
+    <section class="section section--dark cta-block" id="demo">
+      <div class="container text-center" style="position:relative;z-index:1">
+        <h2 class="section__title reveal" style="color:#fff">Sisteminizi Kendi <span style="color:var(--cyan-200)">Verinizle</span> Gorun</h2>
+        <p class="section__sub reveal reveal-d1" style="color:rgba(255,255,255,.55)">15 dakikalik kisisellestirilmis demo ile OnSuite'in tesisinize nasil deger katacagini gorun.</p>
+        <div class="cta-block__actions reveal reveal-d2">
+          <a href="#" class="btn btn--primary">
+            Demo Talep Et
+            <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a href="tel:+902322450076" class="btn btn--ghost">Bizi Arayin</a>
+        </div>
+        <p class="cta-block__phone reveal reveal-d3">Veya direkt arayin: <a href="tel:+902322450076">+90 (232) 245 00 76</a></p>
+      </div>
+      <div class="cta-block__pattern" aria-hidden="true"></div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <img src="assets/images/logo.png" alt="OnSuite" class="footer__logo" style="filter:brightness(0) invert(1)" width="140" height="35">
+          <p class="footer__desc">Fabrikanizi tek bir akilli platformdan yonetin. Siskon Otomasyon'un uretim yonetim cozumu.</p>
+        </div>
+        <div class="footer__col">
+          <h6 class="footer__heading">Platform</h6>
+          <ul class="footer__links">
+            <li><a href="#">Genel Bakis</a></li>
+            <li><a href="#">OEE & Performans</a></li>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Entegrasyon</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h6 class="footer__heading">Moduller</h6>
+          <ul class="footer__links">
+            <li><a href="#">OnTrace</a></li>
+            <li><a href="#">OnOptima</a></li>
+            <li><a href="#">OnIntegra</a></li>
+            <li><a href="#">OnCNC</a></li>
+            <li><a href="#">OnTMC</a></li>
+          </ul>
+        </div>
+        <div class="footer__col">
+          <h6 class="footer__heading">Sirket</h6>
+          <ul class="footer__links">
+            <li><a href="#">Hakkimizda</a></li>
+            <li><a href="#">Kariyer</a></li>
+            <li><a href="#">Iletisim</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Referanslar</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">&copy; 2025 Siskon Otomasyon. Tum haklari saklidir.</p>
+        <div class="footer__bottom-right">
+          <div class="lang-switch">
+            <button class="lang-switch__btn lang-switch__btn--active" style="color:#fff">TR</button>
+            <span class="lang-switch__sep" style="color:rgba(255,255,255,.3)">|</span>
+            <button class="lang-switch__btn" style="color:rgba(255,255,255,.4)">EN</button>
+          </div>
+          <div class="footer__social">
+            <a href="#" aria-label="LinkedIn" class="footer__social-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+            <a href="#" aria-label="YouTube" class="footer__social-link"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CHATBOT WIDGET
+       ============================================================ -->
+  <div class="chatbot" id="chatbot">
+    <button class="chatbot__trigger" id="chatbotTrigger" aria-label="OnSuite Asistan">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="chatbot__teaser" id="chatbotTeaser" hidden>
+      <p>Size nasil yardimci olabilirim?</p>
+      <button class="chatbot__teaser-close" aria-label="Kapat">&times;</button>
+    </div>
+    <div class="chatbot__panel" id="chatbotPanel" hidden>
+      <div class="chatbot__header">
+        <div class="chatbot__header-info">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="1.5"/></svg>
+          <span>OnSuite Asistan</span>
+        </div>
+        <button class="chatbot__minimize" id="chatbotMinimize" aria-label="Kucult"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+      </div>
+      <div class="chatbot__messages" id="chatbotMessages">
+        <div class="chatbot__msg chatbot__msg--bot"><p>Merhaba! OnSuite hakkinda ne ogrenmek istersiniz?</p></div>
+        <div class="chatbot__quick-replies">
+          <button class="chatbot__chip" data-reply="modules">Moduller</button>
+          <button class="chatbot__chip" data-reply="demo">Demo</button>
+          <button class="chatbot__chip" data-reply="tech">Teknik Destek</button>
+        </div>
+      </div>
+      <div class="chatbot__input-bar">
+        <input type="text" class="chatbot__input" placeholder="Mesajinizi yazin..." aria-label="Mesaj">
+        <button class="chatbot__send" aria-label="Gonder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

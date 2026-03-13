@@ -1,0 +1,19 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+
+# Claude Code
+.claude/
+
+# Original design source files (too large for git)
+ornek/
+
+# Backups and research docs
+backup_v2.0/
+MES_Website_Strategy_Research.md
+WIREFRAME_SPEC.md
