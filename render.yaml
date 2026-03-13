@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: onsuite-website
+    runtime: node
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASS
+        value: OnSuite2025!
+      - key: SESSION_SECRET
+        value: onsuite-render-prod-secret-2025
