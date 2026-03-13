@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnSuite Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.6}
+    .topbar{background:linear-gradient(135deg,#000020,#011845,#03285a);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .topbar__logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+    .topbar__logo span{background:linear-gradient(135deg,#0089CF,#08DCFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .topbar__actions{display:flex;gap:12px;align-items:center}
+    .topbar__link{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;padding:8px 16px;border-radius:100px;transition:all .2s}
+    .topbar__link:hover{color:#fff;background:rgba(255,255,255,.1)}
+    .topbar__link--site{background:rgba(0,185,242,.15);color:#08DCFF}
+    .topbar__link--site:hover{background:rgba(0,185,242,.3)}
+    .topbar__link--logout{color:#ff6b8a}
+    .topbar__link--logout:hover{background:rgba(255,59,120,.1);color:#ff3b78}
+
+    .layout{display:flex;min-height:calc(100vh - 56px)}
+    .sidebar{width:240px;background:#fff;border-right:1px solid #e2e8f0;padding:24px 0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
+    .sidebar__title{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:#94a3b8;padding:0 20px;margin-bottom:12px}
+    .sidebar__link{display:block;padding:10px 20px;font-size:14px;font-weight:500;color:#64748b;text-decoration:none;border-left:3px solid transparent;transition:all .15s}
+    .sidebar__link:hover,.sidebar__link--active{color:#0089CF;background:rgba(0,137,207,.04);border-left-color:#0089CF}
+    .main{flex:1;padding:32px;max-width:900px}
+
+    .success{background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;padding:14px 20px;border-radius:12px;font-size:14px;margin-bottom:24px;display:flex;align-items:center;gap:8px}
+    .success::before{content:'\\2713';font-weight:700;font-size:16px}
+
+    .card{background:#fff;border-radius:16px;border:1px solid #e2e8f0;margin-bottom:24px;overflow:hidden}
+    .card__header{padding:20px 24px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+    .card__title{font-size:16px;font-weight:700;color:#0f172a}
+    .card__badge{font-size:11px;font-weight:600;color:#0089CF;background:rgba(0,137,207,.08);padding:4px 12px;border-radius:100px}
+    .card__body{padding:24px}
+
+    .field{margin-bottom:20px}
+    .field:last-child{margin-bottom:0}
+    .field label{display:block;font-size:12px;font-weight:600;color:#334155;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
+    .field input,.field textarea,.field select{width:100%;padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:inherit;transition:border-color .2s,box-shadow .2s;outline:none;background:#f8fafc;color:#0f172a}
+    .field input:focus,.field textarea:focus,.field select:focus{border-color:#0089CF;box-shadow:0 0 0 3px rgba(0,137,207,.08);background:#fff}
+    .field textarea{resize:vertical;min-height:80px}
+    .field small{color:#94a3b8;font-size:12px;margin-top:4px;display:block}
+
+    .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .field-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+
+    .btn-save{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:none;border-radius:100px;background:linear-gradient(135deg,#ff3b78,#ef4060);color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:transform .2s,box-shadow .2s}
+    .btn-save:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,59,120,.3)}
+
+    .section-divider{font-size:12px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:1.5px;margin:8px 0 16px;padding-bottom:8px;border-bottom:1px dashed #e2e8f0}
+
+    .module-item{padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #f1f5f9}
+    .module-item__header{font-size:13px;font-weight:700;color:#0089CF;margin-bottom:8px}
+    .step-item{padding:16px;background:#f8fafc;border-radius:12px;margin-bottom:12px;border:1px solid #f1f5f9}
+    .step-item__header{font-size:13px;font-weight:700;color:#0089CF;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .step-num{width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#0089CF,#08DCFF);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:700}
+
+    @media(max-width:768px){
+      .sidebar{display:none}
+      .main{padding:16px}
+      .field-row,.field-row-3{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar__logo"><span>OnSuite</span> Admin Panel</div>
+    <div class="topbar__actions">
+      <a href="/" class="topbar__link topbar__link--site" target="_blank">Siteyi Gor</a>
+      <a href="/admin/logout" class="topbar__link topbar__link--logout">Cikis Yap</a>
+    </div>
+  </div>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar__title">Bolumler</div>
+      <a href="#sec-site" class="sidebar__link sidebar__link--active">Genel Ayarlar</a>
+      <a href="#sec-hero" class="sidebar__link">Hero Bolumu</a>
+      <a href="#sec-proof" class="sidebar__link">Rakamlar (Proof Bar)</a>
+      <a href="#sec-modules" class="sidebar__link">Moduller</a>
+      <a href="#sec-steps" class="sidebar__link">Nasil Calisir</a>
+      <a href="#sec-metrics" class="sidebar__link">Sonuc Metrikleri</a>
+      <a href="#sec-testimonial" class="sidebar__link">Musteri Yorumu</a>
+      <a href="#sec-cta" class="sidebar__link">CTA Bolumu</a>
+    </aside>
+
+    <main class="main">
+      <% if (success) { %>
+        <div class="success">Degisiklikler basariyla kaydedildi!</div>
+      <% } %>
+
+      <!-- SITE SETTINGS -->
+      <div class="card" id="sec-site">
+        <div class="card__header">
+          <span class="card__title">Genel Ayarlar</span>
+          <span class="card__badge">Site</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="site">
+            <div class="field">
+              <label>Site Basligi</label>
+              <input type="text" name="siteTitle" value="<%= data.site.title %>">
+            </div>
+            <div class="field">
+              <label>Meta Aciklama</label>
+              <textarea name="siteDescription"><%= data.site.description %></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>Telefon</label>
+                <input type="text" name="phone" value="<%= data.site.phone %>">
+              </div>
+              <div class="field">
+                <label>Copyright</label>
+                <input type="text" name="copyright" value="<%= data.site.copyright %>">
+              </div>
+            </div>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- HERO -->
+      <div class="card" id="sec-hero">
+        <div class="card__header">
+          <span class="card__title">Hero Bolumu</span>
+          <span class="card__badge">Ana Sayfa</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="hero">
+            <div class="field">
+              <label>Badge Metni</label>
+              <input type="text" name="badge" value="<%= data.hero.badge %>">
+            </div>
+            <div class="field-row-3">
+              <div class="field">
+                <label>Baslik Satir 1</label>
+                <input type="text" name="titleLine1" value="<%= data.hero.titleLine1 %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan Metin</label>
+                <input type="text" name="titleHighlight" value="<%= data.hero.titleHighlight %>">
+              </div>
+              <div class="field">
+                <label>Baslik Satir 3</label>
+                <input type="text" name="titleLine3" value="<%= data.hero.titleLine3 %>">
+              </div>
+            </div>
+            <div class="field">
+              <label>Aciklama</label>
+              <textarea name="description"><%= data.hero.description %></textarea>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label>CTA Buton 1 (Birincil)</label>
+                <input type="text" name="ctaPrimary" value="<%= data.hero.ctaPrimary %>">
+              </div>
+              <div class="field">
+                <label>CTA Buton 2 (Ikincil)</label>
+                <input type="text" name="ctaSecondary" value="<%= data.hero.ctaSecondary %>">
+              </div>
+            </div>
+            <div class="field">
+              <label>Hero Gorsel Yolu</label>
+              <input type="text" name="heroImage" value="<%= data.hero.heroImage %>">
+              <small>Ornek: assets/images/hero/macbook-dashboard.png</small>
+            </div>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- PROOF BAR -->
+      <div class="card" id="sec-proof">
+        <div class="card__header">
+          <span class="card__title">Rakamlar (Proof Bar)</span>
+          <span class="card__badge">Istatistik</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="proofBar">
+            <% data.proofBar.metrics.forEach(function(m, i) { %>
+              <div class="field-row" style="margin-bottom:16px">
+                <div class="field">
+                  <label>Sayi #<%= i+1 %></label>
+                  <input type="number" name="proof_count_<%= i %>" value="<%= m.count %>">
+                </div>
+                <div class="field">
+                  <label>Etiket #<%= i+1 %></label>
+                  <input type="text" name="proof_label_<%= i %>" value="<%= m.label %>">
+                </div>
+              </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- MODULES -->
+      <div class="card" id="sec-modules">
+        <div class="card__header">
+          <span class="card__title">Moduller</span>
+          <span class="card__badge"><%= data.modules.items.length %> modul</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="modules">
+            <div class="field-row" style="margin-bottom:16px">
+              <div class="field">
+                <label>Ust Baslik</label>
+                <input type="text" name="modulesOverline" value="<%= data.modules.overline %>">
+              </div>
+              <div class="field">
+                <label>Alt Baslik</label>
+                <input type="text" name="modulesSubtitle" value="<%= data.modules.subtitle %>">
+              </div>
+            </div>
+            <div class="field-row" style="margin-bottom:20px">
+              <div class="field">
+                <label>Baslik</label>
+                <input type="text" name="modulesTitle" value="<%= data.modules.title %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan Baslik</label>
+                <input type="text" name="modulesTitleHighlight" value="<%= data.modules.titleHighlight %>">
+              </div>
+            </div>
+            <div class="section-divider">Modul Kartlari</div>
+            <% data.modules.items.forEach(function(mod, i) { %>
+              <div class="module-item">
+                <div class="module-item__header"><%= mod.name %> (<%= mod.size %>)</div>
+                <div class="field-row">
+                  <div class="field">
+                    <label>Isim</label>
+                    <input type="text" name="mod_name_<%= i %>" value="<%= mod.name %>">
+                  </div>
+                  <div class="field">
+                    <label>Metrik</label>
+                    <input type="text" name="mod_metric_<%= i %>" value="<%= mod.metric || '' %>">
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Aciklama</label>
+                  <textarea name="mod_desc_<%= i %>" rows="2"><%= mod.desc %></textarea>
+                </div>
+              </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- STEPS -->
+      <div class="card" id="sec-steps">
+        <div class="card__header">
+          <span class="card__title">Nasil Calisir</span>
+          <span class="card__badge">4 Adim</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="steps">
+            <div class="field-row-3" style="margin-bottom:20px">
+              <div class="field">
+                <label>Ust Baslik</label>
+                <input type="text" name="stepsOverline" value="<%= data.steps.overline %>">
+              </div>
+              <div class="field">
+                <label>Baslik</label>
+                <input type="text" name="stepsTitle" value="<%= data.steps.title %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan</label>
+                <input type="text" name="stepsTitleHighlight" value="<%= data.steps.titleHighlight %>">
+              </div>
+            </div>
+            <div class="section-divider">Adimlar</div>
+            <% data.steps.items.forEach(function(s, i) { %>
+              <div class="step-item">
+                <div class="step-item__header"><span class="step-num"><%= s.number %></span> Adim <%= s.number %></div>
+                <div class="field-row">
+                  <div class="field">
+                    <label>Baslik</label>
+                    <input type="text" name="step_title_<%= i %>" value="<%= s.title %>">
+                  </div>
+                  <div class="field">
+                    <label>Aciklama</label>
+                    <textarea name="step_desc_<%= i %>" rows="2"><%= s.desc %></textarea>
+                  </div>
+                </div>
+              </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- METRICS -->
+      <div class="card" id="sec-metrics">
+        <div class="card__header">
+          <span class="card__title">Sonuc Metrikleri</span>
+          <span class="card__badge">KPI</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="metrics">
+            <% data.metrics.forEach(function(m, i) { %>
+              <div class="field-row-3" style="margin-bottom:16px">
+                <div class="field">
+                  <label>Sayi #<%= i+1 %></label>
+                  <input type="number" name="metric_count_<%= i %>" value="<%= m.count %>">
+                </div>
+                <div class="field">
+                  <label>Sonek</label>
+                  <input type="text" name="metric_suffix_<%= i %>" value="<%= m.suffix %>">
+                </div>
+                <div class="field">
+                  <label>Etiket</label>
+                  <input type="text" name="metric_label_<%= i %>" value="<%= m.label %>">
+                </div>
+              </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- TESTIMONIAL -->
+      <div class="card" id="sec-testimonial">
+        <div class="card__header">
+          <span class="card__title">Musteri Yorumu</span>
+          <span class="card__badge">Referans</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="testimonial">
+            <div class="field">
+              <label>Yorum Metni</label>
+              <textarea name="quote" rows="3"><%= data.testimonial.quote %></textarea>
+            </div>
+            <div class="field-row-3">
+              <div class="field">
+                <label>Isim</label>
+                <input type="text" name="name" value="<%= data.testimonial.name %>">
+              </div>
+              <div class="field">
+                <label>Unvan / Sirket</label>
+                <input type="text" name="role" value="<%= data.testimonial.role %>">
+              </div>
+              <div class="field">
+                <label>Kisaltma (Avatar)</label>
+                <input type="text" name="initials" value="<%= data.testimonial.initials %>" maxlength="3">
+              </div>
+            </div>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="card" id="sec-cta">
+        <div class="card__header">
+          <span class="card__title">CTA (Demo Cagri) Bolumu</span>
+          <span class="card__badge">CTA</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="cta">
+            <div class="field-row-3">
+              <div class="field">
+                <label>Baslik Basi</label>
+                <input type="text" name="ctaTitle" value="<%= data.cta.title %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan</label>
+                <input type="text" name="ctaTitleHighlight" value="<%= data.cta.titleHighlight %>">
+              </div>
+              <div class="field">
+                <label>Baslik Sonu</label>
+                <input type="text" name="ctaTitleEnd" value="<%= data.cta.titleEnd %>">
+              </div>
+            </div>
+            <div class="field">
+              <label>Alt Metin</label>
+              <textarea name="ctaSubtitle"><%= data.cta.subtitle %></textarea>
+            </div>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script>
+    // Smooth scroll for sidebar
+    document.querySelectorAll('.sidebar__link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          var target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.querySelectorAll('.sidebar__link').forEach(function(l) { l.classList.remove('sidebar__link--active'); });
+            this.classList.add('sidebar__link--active');
+          }
+        }
+      });
+    });
+    // Auto-hide success message
+    var successEl = document.querySelector('.success');
+    if (successEl) setTimeout(function() { successEl.style.opacity = '0'; successEl.style.transition = 'opacity .5s'; }, 3000);
+  </script>
+</body>
+</html>

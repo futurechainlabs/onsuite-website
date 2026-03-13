@@ -7,6 +7,9 @@ desktop.ini
 .vscode/
 .idea/
 
+# Node
+node_modules/
+
 # Claude Code
 .claude/
 

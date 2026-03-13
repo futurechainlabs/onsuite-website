@@ -1,0 +1,112 @@
+{
+  "site": {
+    "title": "OnSuite | Akilli Uretim Yonetim Platformu",
+    "description": "OnSuite - Fabrikanizi tek bir akilli platformdan yonetin. Makine verilerinizi ve uretim sureclerinizi modern bir dashboard'da birlestirin.",
+    "phone": "+90 (232) 245 00 76",
+    "phoneHref": "tel:+902322450076",
+    "copyright": "2025 Siskon Otomasyon. Tum haklari saklidir."
+  },
+  "hero": {
+    "badge": "Uretim Yonetim Platformu",
+    "titleLine1": "Fabrikanizi",
+    "titleHighlight": "Tek Ekrandan",
+    "titleLine3": "Yonetin",
+    "description": "Makine verilerinizi ve uretim sureclerinizi tek bir modern dashboard'da birlestirin. Duruslari azaltin, verimliligi artirin.",
+    "ctaPrimary": "Demo Talep Et",
+    "ctaSecondary": "Platformu Kesfet",
+    "heroImage": "assets/images/hero/macbook-dashboard.png"
+  },
+  "proofBar": {
+    "metrics": [
+      { "count": 40, "label": "Ulke" },
+      { "count": 100, "label": "Proje" },
+      { "count": 500, "label": "Uretim Hatti" }
+    ]
+  },
+  "modules": {
+    "overline": "Cozumler",
+    "title": "Uretim Surecleriniz Icin",
+    "titleHighlight": "Moduler Cozumler",
+    "subtitle": "Her modulu bagimsiz kullanin veya tam entegre bir platform olarak birlestirin.",
+    "items": [
+      {
+        "name": "OnTrace",
+        "desc": "Uretim hattinizda hammaddeden bitmiis urune kadar tam izlenebilirlik. Geri cagirma sureclerini saniyeye indirin.",
+        "metric": "%99.2 izlenebilirlik",
+        "image": "assets/images/modules/trace-hero.png",
+        "size": "large"
+      },
+      {
+        "name": "OnOptima",
+        "desc": "Uretim sureclerinizi yapay zeka destekli analizlerle optimize edin. Darbogazlari tanimlayip otomatik aksiyonlar alin.",
+        "metric": "%15 verimlilik artisi",
+        "image": "assets/images/modules/optima-hero.png",
+        "size": "large"
+      },
+      {
+        "name": "OnIntegra",
+        "desc": "ERP sistemlerinizle sorunsuz entegrasyon. SAP, Microsoft Dynamics ve daha fazlasi.",
+        "icon": "assets/images/icons/erp-entegrasyon.png",
+        "size": "small"
+      },
+      {
+        "name": "OnOEE",
+        "desc": "Gercek zamanli OEE takibi ve performans analizleri.",
+        "icon": "assets/images/icons/analiz-optimizasyon.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCNC",
+        "desc": "CNC tezgahlarinizdan otomatik veri toplama.",
+        "icon": "assets/images/icons/cnc.png",
+        "size": "small"
+      },
+      {
+        "name": "OnTMC",
+        "desc": "OPC UA TMC uyumlu tutun sektoru cozumleri.",
+        "icon": "assets/images/icons/tmc.png",
+        "size": "small"
+      },
+      {
+        "name": "OnSmartForms",
+        "desc": "Kagitsiz uretime gecin. Dijital formlarla veri toplama, onay surecleri ve raporlamayi otomatiklestirin.",
+        "icon": "assets/images/icons/forms-responsive.png",
+        "size": "wide"
+      },
+      {
+        "name": "OnMonitora",
+        "desc": "Makinelerinizi gercek zamanli izleyin ve analiz edin.",
+        "icon": "assets/images/icons/dashboard.png",
+        "size": "small"
+      }
+    ]
+  },
+  "steps": {
+    "overline": "Nasil Calisir?",
+    "title": "Dort Adimda",
+    "titleHighlight": "Akilli Fabrika",
+    "items": [
+      { "number": 1, "title": "Baglan", "desc": "PLC, SCADA ve makine kontrolculerinizi OnSuite'e baglayin. Mevcut altyapinizi degistirmenize gerek yok.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "number": 2, "title": "Topla", "desc": "Tum uretim verileriniz gercek zamanli olarak merkezi bir veri tabaninda toplanir ve islenir.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "number": 3, "title": "Analiz Et", "desc": "OEE, durus analizi, kalite metrikleri ve trend analizleri otomatik olarak hesaplanir.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "number": 4, "title": "Optimize Et", "desc": "Aksiyon onerileri ve otomatik uyarilarla sureclerinizi surekli iyilestirin.", "icon": "assets/images/icons/analiz-optimizasyon.png" }
+    ]
+  },
+  "metrics": [
+    { "count": 30, "suffix": "%", "label": "Durus Azalmasi", "icon": "assets/images/icons/alarm-yonetimi.png" },
+    { "count": 15, "suffix": "%", "label": "OEE Artisi", "icon": "assets/images/icons/gercek-zamanli.png" },
+    { "count": 2, "suffix": "x", "label": "Raporlama Hizi", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+  ],
+  "testimonial": {
+    "quote": "OnSuite sayesinde uretim hattimizdaki durus surelerini %35 azalttik. Artik tum verimizi tek bir ekrandan takip ediyoruz. Entegrasyon sureci bekledigimizden cok daha hizli tamamlandi.",
+    "name": "Yilmaz Kaya",
+    "role": "Uretim Muduru, Endustriyel Otomasyon A.S.",
+    "initials": "YK"
+  },
+  "cta": {
+    "title": "Sisteminizi Kendi",
+    "titleHighlight": "Verinizle",
+    "titleEnd": "Gorun",
+    "subtitle": "15 dakikalik kisisellestirilmis demo ile OnSuite'in tesisinize nasil deger katacagini gorun."
+  }
+}

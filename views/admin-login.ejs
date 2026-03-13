@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnSuite Admin - Giris</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:linear-gradient(135deg,#000020 0%,#011845 40%,#03285a 100%);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:48px 40px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,20,60,.3)}
+    .login-card h1{font-size:28px;font-weight:700;color:#0f172a;margin-bottom:8px}
+    .login-card p{color:#64748b;font-size:14px;margin-bottom:32px}
+    .logo{display:flex;align-items:center;gap:10px;margin-bottom:32px;font-size:20px;font-weight:700;color:#0089CF}
+    .logo span{background:linear-gradient(135deg,#0089CF,#08DCFF,#04bf8a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    label{display:block;font-size:13px;font-weight:600;color:#334155;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+    input[type="password"]{width:100%;padding:14px 16px;border:1.5px solid #e2e8f0;border-radius:12px;font-size:16px;font-family:inherit;transition:border-color .2s,box-shadow .2s;outline:none;background:#f8fafc}
+    input[type="password"]:focus{border-color:#0089CF;box-shadow:0 0 0 3px rgba(0,137,207,.12);background:#fff}
+    .btn{width:100%;padding:14px;border:none;border-radius:100px;background:linear-gradient(135deg,#ff3b78,#ef4060);color:#fff;font-size:16px;font-weight:600;cursor:pointer;margin-top:20px;transition:transform .2s,box-shadow .2s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,59,120,.3)}
+    .error{background:#fef2f2;border:1px solid #fecaca;color:#dc2626;padding:12px 16px;border-radius:10px;font-size:14px;margin-bottom:20px;text-align:center}
+    .back{display:block;text-align:center;margin-top:20px;color:#64748b;font-size:13px;text-decoration:none;transition:color .2s}
+    .back:hover{color:#0089CF}
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="logo"><span>OnSuite</span> Admin</div>
+    <h1>Yonetim Paneli</h1>
+    <p>Site icerigini duzenlemek icin giris yapin.</p>
+    <% if (error) { %>
+      <div class="error"><%= error %></div>
+    <% } %>
+    <form method="POST" action="/admin/login">
+      <label for="password">Sifre</label>
+      <input type="password" id="password" name="password" placeholder="Admin sifrenizi girin" required autofocus>
+      <button type="submit" class="btn">Giris Yap</button>
+    </form>
+    <a href="/" class="back">&larr; Siteye don</a>
+  </div>
+</body>
+</html>
