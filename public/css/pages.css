@@ -2009,6 +2009,12 @@
   border-radius: var(--r-lg);
   filter: drop-shadow(0 20px 60px rgba(0,20,60,.15));
   transition: transform .6s var(--ease-spring), filter .6s var(--ease);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: bicubic;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hero-image:hover .hero-image__img {
@@ -2045,6 +2051,10 @@
   display: block;
   object-fit: cover;
   transition: transform .6s var(--ease-spring);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .card:hover .card__visual-img {
@@ -2076,6 +2086,8 @@
   object-fit: contain;
   margin-bottom: var(--s4);
   transition: transform .4s var(--ease-spring);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .card:hover .card__icon-img {
@@ -2090,6 +2102,8 @@
   height: 64px;
   object-fit: contain;
   transition: transform .4s var(--ease-spring);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .step:hover .step__icon-img {
@@ -2126,6 +2140,8 @@
   object-fit: contain;
   margin: 0 auto var(--s3);
   transition: transform .3s var(--ease-spring);
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 
 .metric:hover .metric__icon-img {
