@@ -547,7 +547,7 @@ app.post('/api/chat', async (req, res) => {
 
         const chat = geminiModel.startChat({
           history: chatHistory,
-          systemInstruction: CHATBOT_SYSTEM_PROMPT
+          systemInstruction: { parts: [{ text: CHATBOT_SYSTEM_PROMPT }] }
         });
 
         const result = await chat.sendMessage(message);
@@ -555,7 +555,7 @@ app.post('/api/chat', async (req, res) => {
         return res.json({ reply });
       } catch (geminiErr) {
         console.error('Gemini error, falling back to static:', geminiErr.message);
-        return res.json({ reply: '[Gemini Debug] ' + geminiErr.message });
+        // Gemini failed, fall through to static
       }
     }
 
