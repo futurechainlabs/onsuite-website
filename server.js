@@ -538,23 +538,20 @@ app.post('/api/chat', async (req, res) => {
     // Gemini AI → Static fallback
     if (GEMINI_CONFIGURED) {
       try {
-        const chatHistory = [];
-        if (Array.isArray(history)) {
-          history.slice(-6).forEach(h => {
-            if (h.role === 'user') chatHistory.push({ role: 'user', parts: [{ text: h.content.slice(0, 300) }] });
-            if (h.role === 'assistant') chatHistory.push({ role: 'model', parts: [{ text: h.content.slice(0, 300) }] });
+        // Build context with last few messages
+        let context = CHATBOT_SYSTEM_PROMPT + '\n\n';
+        if (Array.isArray(history) && history.length > 0) {
+          context += 'Onceki konusma:\n';
+          history.slice(-4).forEach(h => {
+            if (h.role === 'user') context += 'Kullanici: ' + h.content.slice(0, 200) + '\n';
+            if (h.role === 'assistant') context += 'Sen: ' + h.content.slice(0, 200) + '\n';
           });
+          context += '\n';
         }
+        context += 'Kullanici sorusu: ' + message;
 
-        const chat = geminiModel.startChat({
-          history: chatHistory
-        });
-
-        const fullMessage = chatHistory.length === 0
-          ? CHATBOT_SYSTEM_PROMPT + '\n\nKullanici sorusu: ' + message
-          : message;
-        const result = await chat.sendMessage(fullMessage);
-        const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
+        const result = await geminiModel.generateContent(context);
+        const reply = result.response?.text() || 'Uzgunum, su an yanit uretemiyorum.';
         return res.json({ reply });
       } catch (geminiErr) {
         console.error('Gemini error:', geminiErr.message);
