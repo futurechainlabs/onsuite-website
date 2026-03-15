@@ -62,10 +62,7 @@ const GEMINI_CONFIGURED = !!GEMINI_KEY;
 let geminiModel = null;
 if (GEMINI_CONFIGURED) {
   const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-  geminiModel = genAI.getGenerativeModel({
-    model: 'gemini-2.5-flash',
-    systemInstruction: { parts: [{ text: CHATBOT_SYSTEM_PROMPT }] }
-  });
+  geminiModel = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
   console.log('Google Gemini connected (FREE)');
 }
 
@@ -553,15 +550,23 @@ app.post('/api/chat', async (req, res) => {
           history: chatHistory
         });
 
-        const result = await chat.sendMessage(message);
+        const fullMessage = chatHistory.length === 0
+          ? CHATBOT_SYSTEM_PROMPT + '\n\nKullanici sorusu: ' + message
+          : message;
+        const result = await chat.sendMessage(fullMessage);
         const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
         return res.json({ reply });
       } catch (geminiErr) {
         console.error('Gemini error:', geminiErr.message);
+        // Rate limit or quota exceeded - tell user to wait
+        if (geminiErr.message && (geminiErr.message.includes('429') || geminiErr.message.includes('quota') || geminiErr.message.includes('RESOURCE_EXHAUSTED'))) {
+          return res.json({ reply: 'Suanda cok fazla soru geldi, lutfen birka\u00e7 saniye sonra tekrar deneyin.' });
+        }
       }
     }
 
-    // Static fallback
+    // Static fallback (Gemini not configured or all AI failed)
+    console.log('Using static fallback for:', message.slice(0, 50));
     return res.json({ reply: staticReply(message) });
   } catch (err) {
     console.error('Chat error:', err.message);
