@@ -548,18 +548,34 @@ app.post('/api/chat', async (req, res) => {
 
     messages.push({ role: 'user', content: message });
 
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
-      messages,
-      max_tokens: 200,
-      temperature: 0.7
-    });
+    // Try gpt-4o-mini first (cheaper, newer), fallback to gpt-3.5-turbo
+    let completion;
+    try {
+      completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages,
+        max_tokens: 200,
+        temperature: 0.7
+      });
+    } catch (modelErr) {
+      console.warn('gpt-4o-mini failed, trying gpt-3.5-turbo:', modelErr.message);
+      completion = await openai.chat.completions.create({
+        model: 'gpt-3.5-turbo',
+        messages,
+        max_tokens: 200,
+        temperature: 0.7
+      });
+    }
 
     const reply = completion.choices[0]?.message?.content || 'Uzgunum, simdilik yanit veremiyorum.';
     res.json({ reply });
   } catch (err) {
-    console.error('Chat error:', err.message);
-    res.json({ reply: 'Baglanti hatasi olustu. Bizi +90 (232) 245 00 76 numarasindan arayabilirsiniz.' });
+    console.error('Chat error:', err.message, err.status, err.code);
+    // Return error detail in dev, generic message in prod
+    const errorMsg = process.env.NODE_ENV === 'production'
+      ? 'Bir hata olustu: ' + (err.status || '') + ' ' + (err.code || err.message).slice(0, 100)
+      : 'Hata: ' + err.message;
+    res.json({ reply: errorMsg });
   }
 });
 
