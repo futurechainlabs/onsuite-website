@@ -23,3 +23,6 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_KEY
         sync: false
+      # Google Gemini (AI chatbot) - aistudio.google.com'dan al
+      - key: GEMINI_API_KEY
+        sync: false

@@ -8,6 +8,7 @@ const fs = require('fs');
 const { v2: cloudinary } = require('cloudinary');
 const { createClient } = require('@supabase/supabase-js');
 const OpenAI = require('openai');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,13 +38,23 @@ if (SUPABASE_CONFIGURED) {
   console.log('Supabase connected:', SUPABASE_URL);
 }
 
-// --- OpenAI Config ---
+// --- Google Gemini Config (FREE - primary) ---
+const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_CONFIGURED = !!GEMINI_KEY;
+let geminiModel = null;
+if (GEMINI_CONFIGURED) {
+  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
+  geminiModel = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  console.log('Google Gemini connected (FREE)');
+}
+
+// --- OpenAI Config (fallback) ---
 const OPENAI_KEY = process.env.OPENAI_API_KEY;
 const OPENAI_CONFIGURED = !!OPENAI_KEY;
 let openai = null;
 if (OPENAI_CONFIGURED) {
   openai = new OpenAI({ apiKey: OPENAI_KEY });
-  console.log('OpenAI connected');
+  console.log('OpenAI connected (fallback)');
 }
 
 const CHATBOT_SYSTEM_PROMPT = `Sen OnSuite akilli uretim yonetim platformunun web sitesindeki yardimci asistansin. Adin "OnSuite Asistan".
@@ -516,14 +527,55 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Gecersiz mesaj' });
     }
 
-    if (!OPENAI_CONFIGURED) {
-      // Fallback: static responses when OpenAI not configured
+    // Priority: 1) Gemini (free) → 2) OpenAI → 3) Static fallback
+    if (GEMINI_CONFIGURED) {
+      // --- Google Gemini ---
+      const chatHistory = [];
+      if (Array.isArray(history)) {
+        history.slice(-6).forEach(h => {
+          if (h.role === 'user') chatHistory.push({ role: 'user', parts: [{ text: h.content.slice(0, 300) }] });
+          if (h.role === 'assistant') chatHistory.push({ role: 'model', parts: [{ text: h.content.slice(0, 300) }] });
+        });
+      }
+
+      const chat = geminiModel.startChat({
+        history: chatHistory,
+        systemInstruction: CHATBOT_SYSTEM_PROMPT
+      });
+
+      const result = await chat.sendMessage(message);
+      const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
+      return res.json({ reply });
+
+    } else if (OPENAI_CONFIGURED) {
+      // --- OpenAI (fallback) ---
+      const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
+      if (Array.isArray(history)) {
+        history.slice(-6).forEach(h => {
+          if (h.role === 'user' || h.role === 'assistant') {
+            messages.push({ role: h.role, content: h.content.slice(0, 300) });
+          }
+        });
+      }
+      messages.push({ role: 'user', content: message });
+
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o-mini',
+        messages,
+        max_tokens: 200,
+        temperature: 0.7
+      });
+      const reply = completion.choices[0]?.message?.content || 'Yanit alinamadi.';
+      return res.json({ reply });
+
+    } else {
+      // --- Static fallback ---
       const fallbacks = {
         modul: 'OnSuite 8 modulden olusur: OnTrace, OnOptima, OnOEE, OnIntegra, OnCNC, OnTMC, OnSmartForms ve OnMonitora. Detayli bilgi icin demo talep edebilirsiniz.',
-        demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz. 15 dakikalik kisisellestirilmis demo ile sistemi kendi verilerinizle gorebilirsiniz.',
-        fiyat: 'Fiyatlandirma tesisinizin buyuklugune ve ihtiyaclariniza gore belirlenir. Size ozel teklif icin demo talep etmenizi oneririm.',
-        entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle ve Siemens, Beckhoff, GE gibi otomasyon altyapilariyla sorunsuz entegre olur.',
-        default: 'Bu konuda size yardimci olabilirim. Daha detayli bilgi icin demo talep edebilir veya bizi +90 (232) 245 00 76 numarasindan arayabilirsiniz.'
+        demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz.',
+        fiyat: 'Fiyatlandirma tesisinizin buyuklugune gore belirlenir. Demo talep etmenizi oneririm.',
+        entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle sorunsuz entegre olur.',
+        default: 'Size yardimci olabilirim. Demo talep edebilir veya +90 (232) 245 00 76 numarasindan arayabilirsiniz.'
       };
       const lower = message.toLowerCase();
       let reply = fallbacks.default;
@@ -533,49 +585,9 @@ app.post('/api/chat', async (req, res) => {
       else if (lower.includes('entegrasyon') || lower.includes('erp') || lower.includes('sap')) reply = fallbacks.entegrasyon;
       return res.json({ reply });
     }
-
-    // Build messages array
-    const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
-
-    // Add history (last 6 messages max to save tokens)
-    if (Array.isArray(history)) {
-      history.slice(-6).forEach(h => {
-        if (h.role === 'user' || h.role === 'assistant') {
-          messages.push({ role: h.role, content: h.content.slice(0, 300) });
-        }
-      });
-    }
-
-    messages.push({ role: 'user', content: message });
-
-    // Try gpt-4o-mini first (cheaper, newer), fallback to gpt-3.5-turbo
-    let completion;
-    try {
-      completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages,
-        max_tokens: 200,
-        temperature: 0.7
-      });
-    } catch (modelErr) {
-      console.warn('gpt-4o-mini failed, trying gpt-3.5-turbo:', modelErr.message);
-      completion = await openai.chat.completions.create({
-        model: 'gpt-3.5-turbo',
-        messages,
-        max_tokens: 200,
-        temperature: 0.7
-      });
-    }
-
-    const reply = completion.choices[0]?.message?.content || 'Uzgunum, simdilik yanit veremiyorum.';
-    res.json({ reply });
   } catch (err) {
-    console.error('Chat error:', err.message, err.status, err.code);
-    // Return error detail in dev, generic message in prod
-    const errorMsg = process.env.NODE_ENV === 'production'
-      ? 'Bir hata olustu: ' + (err.status || '') + ' ' + (err.code || err.message).slice(0, 100)
-      : 'Hata: ' + err.message;
-    res.json({ reply: errorMsg });
+    console.error('Chat error:', err.message);
+    res.json({ reply: 'Bir hata olustu: ' + (err.message || '').slice(0, 120) });
   }
 });
 
@@ -586,6 +598,8 @@ app.get('/api/health', (req, res) => {
     cloudinary: CLOUDINARY_CONFIGURED,
     supabase: SUPABASE_CONFIGURED,
     openai: OPENAI_CONFIGURED,
+    gemini: GEMINI_CONFIGURED,
+    chatbot: GEMINI_CONFIGURED ? 'gemini' : OPENAI_CONFIGURED ? 'openai' : 'static',
     storage: CLOUDINARY_CONFIGURED ? 'cloudinary' : 'local'
   });
 });
