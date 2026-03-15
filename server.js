@@ -7,6 +7,7 @@ const path = require('path');
 const fs = require('fs');
 const { v2: cloudinary } = require('cloudinary');
 const { createClient } = require('@supabase/supabase-js');
+const OpenAI = require('openai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +36,33 @@ if (SUPABASE_CONFIGURED) {
   supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   console.log('Supabase connected:', SUPABASE_URL);
 }
+
+// --- OpenAI Config ---
+const OPENAI_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_CONFIGURED = !!OPENAI_KEY;
+let openai = null;
+if (OPENAI_CONFIGURED) {
+  openai = new OpenAI({ apiKey: OPENAI_KEY });
+  console.log('OpenAI connected');
+}
+
+const CHATBOT_SYSTEM_PROMPT = `Sen OnSuite akilli uretim yonetim platformunun web sitesindeki yardimci asistansin. Adin "OnSuite Asistan".
+
+OnSuite Hakkinda:
+- Siskon Otomasyon tarafindan gelistirilen MES (Manufacturing Execution System) platformu
+- 40+ ulke, 100+ proje, 500+ uretim hattinda kullaniliyor
+- 8 modul: OnTrace (Izlenebilirlik), OnOptima (Uretim Optimizasyonu), OnOEE (Performans Analizi), OnIntegra (ERP Entegrasyonu), OnCNC (CNC Veri Toplama), OnTMC (Tutun Sektoru), OnSmartForms (Dijital Formlar), OnMonitora (Makine Izleme)
+- Sektorler: Otomotiv, Gida & Icecek, Ilac, Tutun, Genel Uretim
+- Partnerler: Microsoft, Beckhoff, GE Vernova, Ignition, SICK, Universal Robots
+- Referanslar: Bosch, BSH, Haier, Unilever, Philip Morris, BorgWarner, Diageo, JTI, Maxion
+
+Kurallarin:
+- Turkce konusursun, kisa ve samimi yanit verirsin (2-3 cumle max)
+- Teknik sorulara net cevap ver
+- Uygun olduğunda demo talep etmeye yonlendir
+- Rakip firmalar hakkinda yorum yapma
+- Fiyat bilgisi verme, demo icin yonlendir
+- Telefon: +90 (232) 245 00 76`;
 
 // --- Multer (memory storage) ---
 const upload = multer({
@@ -480,12 +508,68 @@ app.get('/api/data', async (req, res) => {
   res.json(await loadData());
 });
 
+// --- Chatbot API ---
+app.post('/api/chat', async (req, res) => {
+  try {
+    const { message, history } = req.body;
+    if (!message || typeof message !== 'string' || message.length > 500) {
+      return res.status(400).json({ error: 'Gecersiz mesaj' });
+    }
+
+    if (!OPENAI_CONFIGURED) {
+      // Fallback: static responses when OpenAI not configured
+      const fallbacks = {
+        modul: 'OnSuite 8 modulden olusur: OnTrace, OnOptima, OnOEE, OnIntegra, OnCNC, OnTMC, OnSmartForms ve OnMonitora. Detayli bilgi icin demo talep edebilirsiniz.',
+        demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz. 15 dakikalik kisisellestirilmis demo ile sistemi kendi verilerinizle gorebilirsiniz.',
+        fiyat: 'Fiyatlandirma tesisinizin buyuklugune ve ihtiyaclariniza gore belirlenir. Size ozel teklif icin demo talep etmenizi oneririm.',
+        entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle ve Siemens, Beckhoff, GE gibi otomasyon altyapilariyla sorunsuz entegre olur.',
+        default: 'Bu konuda size yardimci olabilirim. Daha detayli bilgi icin demo talep edebilir veya bizi +90 (232) 245 00 76 numarasindan arayabilirsiniz.'
+      };
+      const lower = message.toLowerCase();
+      let reply = fallbacks.default;
+      if (lower.includes('modul') || lower.includes('ontrace') || lower.includes('oee')) reply = fallbacks.modul;
+      else if (lower.includes('demo') || lower.includes('goster')) reply = fallbacks.demo;
+      else if (lower.includes('fiyat') || lower.includes('ucret') || lower.includes('maliyet')) reply = fallbacks.fiyat;
+      else if (lower.includes('entegrasyon') || lower.includes('erp') || lower.includes('sap')) reply = fallbacks.entegrasyon;
+      return res.json({ reply });
+    }
+
+    // Build messages array
+    const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
+
+    // Add history (last 6 messages max to save tokens)
+    if (Array.isArray(history)) {
+      history.slice(-6).forEach(h => {
+        if (h.role === 'user' || h.role === 'assistant') {
+          messages.push({ role: h.role, content: h.content.slice(0, 300) });
+        }
+      });
+    }
+
+    messages.push({ role: 'user', content: message });
+
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages,
+      max_tokens: 200,
+      temperature: 0.7
+    });
+
+    const reply = completion.choices[0]?.message?.content || 'Uzgunum, simdilik yanit veremiyorum.';
+    res.json({ reply });
+  } catch (err) {
+    console.error('Chat error:', err.message);
+    res.json({ reply: 'Baglanti hatasi olustu. Bizi +90 (232) 245 00 76 numarasindan arayabilirsiniz.' });
+  }
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     cloudinary: CLOUDINARY_CONFIGURED,
     supabase: SUPABASE_CONFIGURED,
+    openai: OPENAI_CONFIGURED,
     storage: CLOUDINARY_CONFIGURED ? 'cloudinary' : 'local'
   });
 });
