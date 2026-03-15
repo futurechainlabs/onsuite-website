@@ -46,8 +46,8 @@
 }
 
 .header__cta {
-  min-width: 170px;
-  text-align: center;
+  min-width: 180px;
+  justify-content: center;
 }
 
 .header__cta--pulse {
