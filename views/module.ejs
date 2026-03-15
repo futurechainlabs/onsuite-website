@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= mod.name %> - OnSuite | <%= data.site.title %></title>
+  <meta name="description" content="<%= mod.description %>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/module.css">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<!-- ============================================================
+     SECTION 1: MODULE HERO
+     ============================================================ -->
+<section class="mod-hero" style="--mod-color: <%= mod.color %>">
+  <div class="container">
+    <div class="mod-hero__grid">
+      <div class="mod-hero__content">
+        <nav class="mod-hero__breadcrumb" aria-label="Breadcrumb">
+          <a href="/">Ana Sayfa</a>
+          <span aria-hidden="true">/</span>
+          <a href="/#modules">Moduller</a>
+          <span aria-hidden="true">/</span>
+          <span><%= mod.name %></span>
+        </nav>
+        <h1 class="mod-hero__title"><%= mod.tagline %></h1>
+        <p class="mod-hero__desc"><%= mod.description %></p>
+        <div class="mod-hero__actions">
+          <a href="/demo" class="btn btn--primary"><%= mod.name %> Demo Talep Et <span aria-hidden="true">&rarr;</span></a>
+          <a href="#features" class="btn btn--tertiary">Teknik Detaylar <span aria-hidden="true">&darr;</span></a>
+        </div>
+      </div>
+      <div class="mod-hero__visual">
+        <div class="mod-hero__mockup">
+          <img src="/<%= mod.heroImage %>" alt="<%= mod.name %> Dashboard" width="560" height="380" loading="eager">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2: PROBLEM -> SOLUTION
+     ============================================================ -->
+<section class="mod-problem">
+  <div class="container">
+    <div class="mod-problem__card">
+      <div class="mod-problem__header">
+        <span class="mod-problem__icon" aria-hidden="true">?</span>
+        <h2 class="mod-problem__title"><%= mod.problem.title %></h2>
+      </div>
+      <div class="mod-problem__columns">
+        <div class="mod-problem__col mod-problem__col--problem">
+          <h3 class="mod-problem__label">Sorun</h3>
+          <ul class="mod-problem__list">
+            <% mod.problem.items.forEach(function(item) { %>
+              <li>
+                <svg class="mod-problem__x" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M13.5 4.5L4.5 13.5M4.5 4.5l9 9" stroke="#ff3b78" stroke-width="2" stroke-linecap="round"/></svg>
+                <%= item %>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+        <div class="mod-problem__arrow" aria-hidden="true">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><path d="M6 16h20M20 10l6 6-6 6" stroke="<%= mod.color %>" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="mod-problem__col mod-problem__col--solution">
+          <h3 class="mod-problem__label">Cozum</h3>
+          <ul class="mod-problem__list">
+            <% mod.solution.items.forEach(function(item) { %>
+              <li>
+                <svg class="mod-problem__check" width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 5" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <%= item %>
+              </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3: TECHNICAL FEATURES (Bento Grid)
+     ============================================================ -->
+<section class="mod-features" id="features">
+  <div class="container">
+    <h2 class="mod-features__title"><%= mod.name %> Teknik Yetkinlikleri</h2>
+    <div class="mod-features__grid">
+      <% mod.features.forEach(function(feat) { %>
+        <div class="mod-features__card">
+          <div class="mod-features__icon-wrap" style="--mod-color: <%= mod.color %>">
+            <img src="/<%= feat.icon %>" alt="" width="48" height="48" loading="lazy">
+          </div>
+          <h3 class="mod-features__card-title"><%= feat.title %></h3>
+          <p class="mod-features__card-desc"><%= feat.desc %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4: INTEGRATION SCHEMA
+     ============================================================ -->
+<section class="mod-integrations">
+  <div class="container">
+    <h2 class="mod-integrations__title">Entegrasyon Ekosistemi</h2>
+    <div class="mod-integrations__hub">
+      <div class="mod-integrations__items mod-integrations__items--left">
+        <% var half = Math.ceil(mod.integrations.length / 2); %>
+        <% mod.integrations.slice(0, half).forEach(function(item) { %>
+          <div class="mod-integrations__node"><%= item %></div>
+        <% }); %>
+      </div>
+      <div class="mod-integrations__center">
+        <div class="mod-integrations__logo" style="--mod-color: <%= mod.color %>">
+          <span><%= mod.name %></span>
+        </div>
+      </div>
+      <div class="mod-integrations__items mod-integrations__items--right">
+        <% mod.integrations.slice(half).forEach(function(item) { %>
+          <div class="mod-integrations__node"><%= item %></div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5: SECTORAL USAGE
+     ============================================================ -->
+<% if (mod.sectors && mod.sectors.length > 0) { %>
+<section class="mod-sectors">
+  <div class="container">
+    <h2 class="mod-sectors__title">Sektorel Kullanim Alanlari</h2>
+    <div class="mod-sectors__grid">
+      <% mod.sectors.forEach(function(sector) { %>
+        <div class="mod-sectors__card">
+          <div class="mod-sectors__icon" style="--mod-color: <%= mod.color %>">
+            <% if (sector.includes('Otomotiv')) { %>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 17h14M6.5 17l1-4h9l1 4M8.5 13l.5-2h6l.5 2M7 17v2h2v-2M15 17v2h2v-2"/></svg>
+            <% } else if (sector.includes('Gida')) { %>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+            <% } else if (sector.includes('Ilac')) { %>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v4h8V2M6 6h12v4a8 8 0 01-12 0V6z"/></svg>
+            <% } else if (sector.includes('Tutun')) { %>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="8" width="18" height="8" rx="2"/><path d="M7 8V6a4 4 0 018 0v2"/></svg>
+            <% } else { %>
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 6V4h4v2M14 6V4h4v2M2 10h20"/></svg>
+            <% } %>
+          </div>
+          <span class="mod-sectors__name"><%= sector %></span>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ============================================================
+     SECTION 6: MODULE-SPECIFIC CTA
+     ============================================================ -->
+<section class="mod-cta">
+  <div class="container">
+    <div class="mod-cta__inner">
+      <h2 class="mod-cta__title"><%= mod.ctaTitle %></h2>
+      <p class="mod-cta__desc"><%= mod.ctaDesc %></p>
+      <div class="mod-cta__actions">
+        <a href="/demo" class="btn btn--primary btn--lg">Demo Talep Et <span aria-hidden="true">&rarr;</span></a>
+        <a href="tel:+902322450076" class="btn btn--ghost">+90 (232) 245 00 76</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+
+<script src="/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+{
+  "ontrace": {
+    "slug": "ontrace",
+    "name": "OnTrace",
+    "tagline": "Uretim Hattinda %99.2 Izlenebilirlik",
+    "description": "Hammaddeden bitmiis urune kadar tam izlenebilirlik. Lot takibi, geri cagirma yonetimi ve kalite kontrolunu tek platformda birlestirin.",
+    "heroImage": "assets/images/modules/trace-hero.png",
+    "color": "#0089CF",
+    "problem": {
+      "title": "Uretim hatlarinizda izlenebilirlik kaybi mi yasiyorsunuz?",
+      "items": [
+        "Lot takibi yapilamiyor",
+        "Geri cagirma maliyeti yuksek",
+        "Manuel kayit hatalari",
+        "Kalite sorunlarinin kaynagi bulunamiyor"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Anlik lot takibi tek ekrandan",
+        "10 saniyede geri cagirma kapsami",
+        "Tam otomatik dijital kayit",
+        "Kok neden analizi ve izlenebilirlik"
+      ]
+    },
+    "features": [
+      { "title": "Lot & Parti Takibi", "desc": "Her urunu hammaddeden bitmiis urune kadar izleyin. Lot bazli tam gecmis kaydi.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Geri Cagirma Yonetimi", "desc": "Etkilenen urunleri saniyeler icinde tespit edin. Kapsam analizi otomatik olusturulur.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Kalite Kontrol", "desc": "Kalite parametrelerini gercek zamanli izleyin. Sapmalarda otomatik uyari.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Barkod & QR Entegrasyonu", "desc": "Mevcut barkod ve QR sistemlerinizle sorunsuz calisin.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Regulasyon Uyumu", "desc": "IATF 16949, FDA 21 CFR Part 11, BRC ve IFS standartlarina hazir.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Raporlama & Analiz", "desc": "Izlenebilirlik raporlari, trend analizleri ve KPI dashboardlari.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "ERP (SAP, Dynamics)", "Barkod Yazicilar", "MES Sistemleri"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Ilac", "Genel Uretim"],
+    "ctaTitle": "OnTrace'i Kendi Uretim Hattinizda Gorun",
+    "ctaDesc": "15 dakikalik demo ile izlenebilirlik sisteminizi nasil donusturecegimizi gorun."
+  },
+  "onoptima": {
+    "slug": "onoptima",
+    "name": "OnOptima",
+    "tagline": "Yapay Zeka ile %15 Verimlilik Artisi",
+    "description": "Uretim sureclerinizi yapay zeka destekli analizlerle optimize edin. Darbogazlari tanimlayip otomatik aksiyonlar alin.",
+    "heroImage": "assets/images/modules/optima-hero.png",
+    "color": "#04bf8a",
+    "problem": {
+      "title": "Uretim sureclerinizdeki verimsizlikleri tespit edemiyor musunuz?",
+      "items": [
+        "Darbogazlar tanimlanamiyor",
+        "Manuel optimizasyon yetersiz",
+        "Verimlilik kayiplari gorulmuyor",
+        "Reaktif yaklasim hakim"
+      ]
+    },
+    "solution": {
+      "items": [
+        "AI destekli darbogaz tespiti",
+        "Otomatik optimizasyon onerileri",
+        "Gercek zamanli verimlilik takibi",
+        "Proaktif aksiyon planlari"
+      ]
+    },
+    "features": [
+      { "title": "AI Optimizasyon Motoru", "desc": "Yapay zeka ile uretim sureclerinizdeki iyilestirme firsatlarini otomatik tespit edin.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Darbogaz Analizi", "desc": "Uretim hattindaki darbogazlari gercek zamanli tanimlayip cozum onerileri alin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Kapasite Planlama", "desc": "Talebe gore uretim kapasitesini optimize edin. Kaynak kullanimini maksimize edin.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Enerji Verimliligi", "desc": "Enerji tuketimini izleyin ve azaltma firsatlarini belirleyin.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Tahminsel Analiz", "desc": "Gecmis verilerden ogrenip gelecekteki uretim performansini tahmin edin.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Aksiyon Yonetimi", "desc": "Tespit edilen firsatlar icin otomatik aksiyon planlari olusturun ve takip edin.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "ERP Sistemleri", "IoT Sensorler", "MES"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Genel Uretim"],
+    "ctaTitle": "OnOptima ile Verimlilik Devriminizi Baslayin",
+    "ctaDesc": "15 dakikalik demo ile AI destekli optimizasyonu kendi verinizle gorun."
+  },
+  "onoee": {
+    "slug": "onoee",
+    "name": "OnOEE",
+    "tagline": "Gercek Zamanli OEE Takibi ve Performans Analizi",
+    "description": "Kullanilabilirlik, performans ve kalite metriklerinizi gercek zamanli izleyin. OEE kayiplarini aninda tespit edin.",
+    "heroImage": "assets/images/modules/optima-hero.png",
+    "color": "#ff3b78",
+    "problem": {
+      "title": "OEE degerlerinizi dogru olcemiyor musunuz?",
+      "items": [
+        "Manuel OEE hesaplama hatalari",
+        "Kayip nedenleri tanimlanamiyor",
+        "Gecmise donuk raporlama",
+        "Hat bazli karsilastirma yapilemiyor"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Otomatik ve gercek zamanli OEE hesaplama",
+        "Detayli kayip kategorizasyonu",
+        "Canli dashboard ve trend analizi",
+        "Hat ve vardiya bazli kiyaslama"
+      ]
+    },
+    "features": [
+      { "title": "Canli OEE Dashboard", "desc": "Kullanilabilirlik, performans ve kalite metriklerini anlik takip edin.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Kayip Analizi", "desc": "Planlanan ve plansiz duruslari kategorize edin. En buyuk kayip kaynaklarini belirleyin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Vardiya Raporlari", "desc": "Vardiya bazli performans karsilastirmalari ve trend analizleri.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Hedef Takibi", "desc": "OEE hedeflerinizi belirleyin ve gerceklesen performansi izleyin.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Benchmark", "desc": "Hatlar, tesisler ve sektorel ortalamalar arasinda benchmark yapin.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Otomatik Raporlama", "desc": "Gunluk, haftalik ve aylik OEE raporlari otomatik olusturulur.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "MES", "ERP", "Makine Kontrolculeri"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Ilac", "Tutun", "Genel Uretim"],
+    "ctaTitle": "OnOEE ile Performansinizi Gorun",
+    "ctaDesc": "Gercek zamanli OEE takibini 15 dakikalik demo ile deneyimleyin."
+  },
+  "onintegra": {
+    "slug": "onintegra",
+    "name": "OnIntegra",
+    "tagline": "ERP Sistemlerinizle Sorunsuz Entegrasyon",
+    "description": "SAP, Microsoft Dynamics, Oracle ve diger ERP sistemlerinizle cift yonlu veri akisi saglayin.",
+    "heroImage": "assets/images/modules/connect-hero.png",
+    "color": "#034082",
+    "problem": {
+      "title": "ERP ve uretim verileri arasinda kopukluk mu var?",
+      "items": [
+        "Manuel veri aktarimi zaman kaybi",
+        "ERP ve saha verisi uyumsuz",
+        "Cift veri girisi hatalari",
+        "Gercek zamanli gorunum yok"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Otomatik cift yonlu veri senkronizasyonu",
+        "ERP ile saha verisi tam uyum",
+        "Tek kaynak, sifir hata",
+        "Anlik ERP guncellemeleri"
+      ]
+    },
+    "features": [
+      { "title": "SAP Entegrasyonu", "desc": "SAP S/4HANA ve ECC ile hazir konektorler. RFC, BAPI ve IDoc destegi.", "icon": "assets/images/icons/erp-entegrasyon.png" },
+      { "title": "Microsoft Dynamics", "desc": "Dynamics 365 ile cift yonlu veri akisi. Is emirleri ve stok senkronizasyonu.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "REST & OPC UA", "desc": "Acik API'ler ile herhangi bir sisteme baglanin. OPC UA ve MQTT destegi.", "icon": "assets/images/icons/entegrasyon-raporlama.png" },
+      { "title": "Veri Haritalama", "desc": "Drag & drop arayuzle veri eslemesi yapin. Donusum kurallari tanimlayin.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Hata Yonetimi", "desc": "Baglanti kesintilerinde otomatik tekrar deneme ve bildirim.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Veri Dogrulama", "desc": "Transfer oncesi otomatik veri dogrulama ve kalite kontrol.", "icon": "assets/images/icons/forms-responsive.png" }
+    ],
+    "integrations": ["SAP S/4HANA", "Microsoft Dynamics", "Oracle", "REST API", "OPC UA"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Ilac", "Genel Uretim"],
+    "ctaTitle": "OnIntegra ile Sistemlerinizi Birlestirin",
+    "ctaDesc": "ERP entegrasyonunuzun nasil calisacagini 15 dakikalik demo ile gorun."
+  },
+  "oncnc": {
+    "slug": "oncnc",
+    "name": "OnCNC",
+    "tagline": "CNC Tezgahlarinizdan Otomatik Veri Toplama",
+    "description": "Fanuc, Siemens, Heidenhain ve diger CNC kontrolculerinizden otomatik veri toplayin. Tezgah kullanim oranlarini ve uretim verilerini gercek zamanli izleyin.",
+    "heroImage": "assets/images/modules/monitora-hero.png",
+    "color": "#f48b68",
+    "problem": {
+      "title": "CNC tezgahlarinizin gercek performansini biliyor musunuz?",
+      "items": [
+        "Tezgah kullanim orani bilinmiyor",
+        "Program suresi ile gercek sure farki olculmuyor",
+        "Takim omru takip edilmiyor",
+        "Tezgah bazli maliyet hesaplanamıyor"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Otomatik kullanim orani hesaplama",
+        "Gercek zamanli cevrim suresi takibi",
+        "Takim omru ve bakim planlama",
+        "Tezgah bazli maliyet analizi"
+      ]
+    },
+    "features": [
+      { "title": "Multi-Brand Destek", "desc": "Fanuc, Siemens, Heidenhain, Mazak ve daha fazlasi. Tek platformda tum CNC'leriniz.", "icon": "assets/images/icons/cnc.png" },
+      { "title": "Cevrim Suresi Analizi", "desc": "Program suresi, kesme suresi ve bekleme surelerini ayri ayri olcun.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Takim Yonetimi", "desc": "Takim omrunu izleyin, degisim zamanlarini optimize edin.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Alarm Yonetimi", "desc": "CNC alarm ve hatalarini anlik yakalayip kategorize edin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Program Takibi", "desc": "Hangi programin ne zaman calistigini, kac parca urettigini izleyin.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Kapasite Planlama", "desc": "Tezgah doluluk oranlarini analiz edip kapasite planlamasi yapin.", "icon": "assets/images/icons/planlama.png" }
+    ],
+    "integrations": ["Fanuc FOCAS", "Siemens Sinumerik", "Heidenhain", "OPC UA", "MTConnect"],
+    "sectors": ["Otomotiv", "Havacilik", "Kalip & Makine", "Genel Uretim"],
+    "ctaTitle": "OnCNC ile Tezgahlarinizi Izleyin",
+    "ctaDesc": "CNC veri toplama sisteminizi 15 dakikalik demo ile deneyimleyin."
+  },
+  "ontmc": {
+    "slug": "ontmc",
+    "name": "OnTMC",
+    "tagline": "OPC UA TMC Uyumlu Tutun Sektoru Cozumu",
+    "description": "Tobacco Machine Communication (TMC) standardina tam uyumlu veri toplama. Sigara makineleri ile dogrudan iletisim.",
+    "heroImage": "assets/images/modules/monitora-hero.png",
+    "color": "#034082",
+    "problem": {
+      "title": "TMC standartlarina uyum sorunu mu yasiyorsunuz?",
+      "items": [
+        "TMC protokol uyumsuzlugu",
+        "Farkli makine markalari arasi veri birlestirememe",
+        "Regulasyon raporlama zorlugu",
+        "Track & Trace eksikligi"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Tam TMC 1.0/2.0 uyumu",
+        "Multi-brand makine entegrasyonu",
+        "Otomatik regulasyon raporlari",
+        "Urunten-urune tam izlenebilirlik"
+      ]
+    },
+    "features": [
+      { "title": "TMC Protokol Destegi", "desc": "OPC UA TMC 1.0 ve 2.0 tam uyumluluk. Hauni, GD, Focke gibi makinelerle direkt iletisim.", "icon": "assets/images/icons/tmc.png" },
+      { "title": "Multi-Brand Makine", "desc": "Farkli marka sigara makinelerinden veri toplayin ve birlestirin.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Track & Trace", "desc": "Tutun yapraklarin son urune kadar tam izlenebilirlik.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Regulasyon Raporlari", "desc": "TAPDK ve diger duzenleyici kurumlara uyumlu otomatik raporlama.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Uretim Verimlilik", "desc": "Makine bazli OEE, hurda ve fire analizleri.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Paketleme Takibi", "desc": "Paketleme hattindan sevkiyata kadar her adimi izleyin.", "icon": "assets/images/icons/forms-responsive.png" }
+    ],
+    "integrations": ["OPC UA TMC", "Hauni", "GD", "Focke", "SICK"],
+    "sectors": ["Tutun"],
+    "ctaTitle": "OnTMC ile Tutun Uretimini Dijitallestirin",
+    "ctaDesc": "TMC uyumlu cozumumuzu 15 dakikalik demo ile deneyimleyin."
+  },
+  "onsmartforms": {
+    "slug": "onsmartforms",
+    "name": "OnSmartForms",
+    "tagline": "Kagitsiz Uretime Gecis",
+    "description": "Dijital formlarla veri toplama, onay surecleri ve raporlamayi otomatiklestirin. Kagit bazli surecleri tamamen ortadan kaldirin.",
+    "heroImage": "assets/images/modules/connect-hero.png",
+    "color": "#04bf8a",
+    "problem": {
+      "title": "Hala kagit formlarla mi calisiyorsunuz?",
+      "items": [
+        "Kagit formlar kaybolabiliyor",
+        "Veri girisi gecikiyor",
+        "Raporlama icin saatlerce sure",
+        "Uyumsuzluk ve hata riski"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Dijital formlar hicbir zaman kaybolmaz",
+        "Anlik veri girisi ve dogrulama",
+        "Otomatik raporlama ve analiz",
+        "Tam uyumluluk ve denetim izi"
+      ]
+    },
+    "features": [
+      { "title": "Form Tasarlayici", "desc": "Surukle-birak arayuzle kendi formlarinizi tasarlayin. Kodlama gerekmez.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Mobil Veri Toplama", "desc": "Tablet ve telefonlardan saha verisi toplayin. Cevrimdisi da calisir.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Onay Is Akislari", "desc": "Cok adimli onay surecleri tanimlayip otomatik bildirimler gonderin.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Dogrulama Kurallari", "desc": "Veri giris kurallari ile hatalari onleyin. Zorunlu alanlar ve aralik kontrolleri.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Denetim Izi", "desc": "Kim, ne zaman, ne degistirdi? Tam audit trail ile regulasyona hazir.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Entegrasyon", "desc": "Toplanan verileri ERP ve MES sistemlerine otomatik aktarin.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["ERP", "MES", "Kalite Yonetim Sistemleri", "E-Posta"],
+    "sectors": ["Ilac", "Gida & Icecek", "Otomotiv", "Genel Uretim"],
+    "ctaTitle": "OnSmartForms ile Kagitsiz Fabrikaya Gecin",
+    "ctaDesc": "Dijital form sisteminizi 15 dakikalik demo ile deneyimleyin."
+  },
+  "onmonitora": {
+    "slug": "onmonitora",
+    "name": "OnMonitora",
+    "tagline": "Makinelerinizi Gercek Zamanli Izleyin",
+    "description": "Tum uretim ekipmanlarinizi tek bir ekrandan izleyin. Alarm yonetimi, durum takibi ve bakim planlama.",
+    "heroImage": "assets/images/modules/monitora-hero.png",
+    "color": "#00B9F2",
+    "problem": {
+      "title": "Makinelerinizin durumunu anlik biliyor musunuz?",
+      "items": [
+        "Makine duruslari gec fark ediliyor",
+        "Bakim plansiz yapiliyor",
+        "Alarm yonetimi kaotik",
+        "Makine bazli maliyet bilinmiyor"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Anlik makine durum gorunumu",
+        "Kestirimci bakim planlama",
+        "Merkezi alarm yonetimi",
+        "Detayli maliyet analizi"
+      ]
+    },
+    "features": [
+      { "title": "Canli Izleme Paneli", "desc": "Tum makinelerinizin durumunu tek ekrandan gorun. Renk kodlu gorunum.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Alarm Yonetimi", "desc": "Makine alarmlarini anlik yakalayip ilgili kisilere bildirin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Kestirimci Bakim", "desc": "Makine verilerinden ogrenerek arizalari onceden tahmin edin.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Enerji Izleme", "desc": "Makine bazli enerji tuketimini izleyin ve optimize edin.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Bakim Planlama", "desc": "Koruyucu bakim takvimlerini olusturun ve takip edin.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Performans Kiyaslama", "desc": "Makineler arasi performans karsilastirmasi ve trend analizi.", "icon": "assets/images/icons/analiz-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "OPC UA", "MQTT", "Modbus", "IoT Gateway"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Tutun", "Genel Uretim"],
+    "ctaTitle": "OnMonitora ile Makinelerinizi Kontrol Altina Alin",
+    "ctaDesc": "Makine izleme sisteminizi 15 dakikalik demo ile deneyimleyin."
+  }
+}

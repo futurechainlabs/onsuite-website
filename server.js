@@ -197,6 +197,16 @@ function scanLocalImages(dir, base) {
   return results;
 }
 
+// --- Module Data ---
+const MODULES_FILE = path.join(__dirname, 'data', 'modules.json');
+let modulesData = {};
+try {
+  modulesData = JSON.parse(fs.readFileSync(MODULES_FILE, 'utf8'));
+  console.log('Modules loaded:', Object.keys(modulesData).length);
+} catch (e) {
+  console.warn('modules.json not found or invalid');
+}
+
 // --- Public Routes ---
 app.get('/', async (req, res) => {
   try {
@@ -206,6 +216,19 @@ app.get('/', async (req, res) => {
     console.error('Homepage error:', err);
     const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
     res.render('index', { data });
+  }
+});
+
+// Module detail pages
+app.get('/moduller/:slug', async (req, res) => {
+  try {
+    const mod = modulesData[req.params.slug];
+    if (!mod) return res.status(404).send('Modul bulunamadi');
+    const data = await loadData();
+    res.render('module', { data, mod });
+  } catch (err) {
+    console.error('Module page error:', err);
+    res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
