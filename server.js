@@ -63,7 +63,7 @@ let geminiModel = null;
 if (GEMINI_CONFIGURED) {
   const genAI = new GoogleGenerativeAI(GEMINI_KEY);
   geminiModel = genAI.getGenerativeModel({
-    model: 'gemini-1.5-flash',
+    model: 'gemini-2.5-flash',
     systemInstruction: { parts: [{ text: CHATBOT_SYSTEM_PROMPT }] }
   });
   console.log('Google Gemini connected (FREE)');
@@ -557,8 +557,7 @@ app.post('/api/chat', async (req, res) => {
         const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
         return res.json({ reply });
       } catch (geminiErr) {
-        console.error('Gemini error:', geminiErr);
-        return res.json({ reply: '[DEBUG] ' + (geminiErr.message || String(geminiErr)).slice(0, 500) });
+        console.error('Gemini error:', geminiErr.message);
       }
     }
 
