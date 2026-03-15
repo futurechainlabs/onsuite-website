@@ -1,7 +1,8 @@
 const express = require('express');
 const session = require('express-session');
 const multer = require('multer');
-const sharp = require('sharp');
+let sharp = null;
+try { sharp = require('sharp'); } catch (e) { console.warn('Sharp not available, using Cloudinary for image processing'); }
 const path = require('path');
 const fs = require('fs');
 const { v2: cloudinary } = require('cloudinary');
@@ -233,58 +234,91 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
     if (!req.file) return res.status(400).send('Dosya secilmedi');
 
     const { folder, quality, scale, format } = req.body;
-    const isSvg = req.file.mimetype === 'image/svg+xml';
     const originalName = path.parse(req.file.originalname).name
       .replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
-
-    let processedBuffer = req.file.buffer;
-    let ext = path.extname(req.file.originalname).slice(1).toLowerCase();
+    const scaleFactor = parseFloat(scale) || 1;
+    const qualityLevel = parseInt(quality) || 95;
+    const outputFormat = format || 'png';
     let fileName = originalName;
+    if (scaleFactor > 1) fileName += `@${scaleFactor}x`;
 
-    // Process raster images with Sharp
-    if (!isSvg) {
-      let pipeline = sharp(req.file.buffer);
-      const metadata = await pipeline.metadata();
-
-      // Scale
-      const scaleFactor = parseFloat(scale) || 1;
-      if (scaleFactor > 1 && metadata.width) {
-        pipeline = pipeline.resize(Math.round(metadata.width * scaleFactor), null, {
-          kernel: sharp.kernel.lanczos3,
-          fastShrinkOnLoad: false
-        });
-        fileName += `@${scaleFactor}x`;
-      }
-
-      // Format + quality
-      const qualityLevel = parseInt(quality) || 95;
-      const outputFormat = format || 'png';
-      if (outputFormat === 'webp') {
-        pipeline = pipeline.webp({ quality: qualityLevel, effort: 6, lossless: qualityLevel >= 100 });
-        ext = 'webp';
-      } else if (outputFormat === 'png') {
-        pipeline = pipeline.png({ quality: qualityLevel, compressionLevel: 6 });
-        ext = 'png';
-      } else if (outputFormat === 'jpeg') {
-        pipeline = pipeline.jpeg({ quality: qualityLevel, mozjpeg: true, chromaSubsampling: '4:4:4' });
-        ext = 'jpg';
-      }
-
-      processedBuffer = await pipeline.toBuffer();
-    }
-
-    // Upload to Cloudinary or save locally
     let resultUrl = '';
     const cloudFolder = 'onsuite/' + (folder || 'hero');
 
     if (CLOUDINARY_CONFIGURED) {
-      const result = await uploadToCloudinary(processedBuffer, {
+      // Upload raw file to Cloudinary — let Cloudinary handle transformations
+      const transforms = {};
+
+      // Cloudinary eager transformations for quality/scale/format
+      const eager = [];
+      const t = {};
+      if (qualityLevel < 100) t.quality = qualityLevel;
+      if (scaleFactor > 1) t.width = 'iw_mul_' + scaleFactor; // scale width
+      if (outputFormat === 'webp') t.format = 'webp';
+      else if (outputFormat === 'jpeg') t.format = 'jpg';
+      // else keep original format
+
+      const result = await uploadToCloudinary(req.file.buffer, {
         folder: cloudFolder,
-        publicId: fileName
+        publicId: fileName,
+        transforms
       });
-      resultUrl = result.secure_url;
+
+      // Build optimized URL with Cloudinary transformations
+      let url = result.secure_url;
+      if (outputFormat === 'webp') {
+        url = url.replace(/\.\w+$/, '.webp');
+      } else if (outputFormat === 'jpeg') {
+        url = url.replace(/\.\w+$/, '.jpg');
+      }
+      // Add quality param via URL
+      const parts = url.split('/upload/');
+      if (parts.length === 2) {
+        const transforms = [];
+        if (qualityLevel < 100) transforms.push(`q_${qualityLevel}`);
+        if (scaleFactor > 1) transforms.push(`w_${scaleFactor}.0,c_scale`);
+        if (transforms.length > 0) {
+          url = parts[0] + '/upload/' + transforms.join(',') + '/' + parts[1];
+        }
+      }
+
+      resultUrl = url;
     } else {
-      // Local fallback
+      // Local fallback with Sharp (only when running locally)
+      let processedBuffer = req.file.buffer;
+      let ext = path.extname(req.file.originalname).slice(1).toLowerCase();
+      const isSvg = req.file.mimetype === 'image/svg+xml';
+
+      if (!isSvg && sharp) {
+        try {
+          let pipeline = sharp(req.file.buffer);
+          const metadata = await pipeline.metadata();
+
+          if (scaleFactor > 1 && metadata.width) {
+            pipeline = pipeline.resize(Math.round(metadata.width * scaleFactor), null, {
+              kernel: sharp.kernel.lanczos3,
+              fastShrinkOnLoad: false
+            });
+          }
+
+          if (outputFormat === 'webp') {
+            pipeline = pipeline.webp({ quality: qualityLevel, effort: 6 });
+            ext = 'webp';
+          } else if (outputFormat === 'png') {
+            pipeline = pipeline.png({ quality: qualityLevel, compressionLevel: 6 });
+            ext = 'png';
+          } else if (outputFormat === 'jpeg') {
+            pipeline = pipeline.jpeg({ quality: qualityLevel, mozjpeg: true });
+            ext = 'jpg';
+          }
+
+          processedBuffer = await pipeline.toBuffer();
+        } catch (sharpErr) {
+          console.warn('Sharp processing failed, saving original:', sharpErr.message);
+          // Save original if Sharp fails
+        }
+      }
+
       const targetFolder = path.join(UPLOAD_DIR, folder || 'hero');
       fs.mkdirSync(targetFolder, { recursive: true });
       const outputPath = path.join(targetFolder, `${fileName}.${ext}`);
@@ -296,6 +330,39 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
   } catch (err) {
     console.error('Upload error:', err);
     res.status(500).send('Yukleme hatasi: ' + err.message);
+  }
+});
+
+// Assign image to a site section
+app.post('/admin/media/assign', requireAuth, async (req, res) => {
+  try {
+    const { url, target } = req.body;
+    if (!url || !target) return res.json({ ok: false, error: 'Eksik parametre' });
+
+    const data = await loadData();
+    const parts = target.split('.');
+
+    // Navigate to target: e.g. "hero.heroImage", "modules.0.image", "steps.2.icon"
+    if (parts[0] === 'hero') {
+      data.hero[parts[1]] = url;
+    } else if (parts[0] === 'modules') {
+      const idx = parseInt(parts[1]);
+      if (data.modules.items[idx]) data.modules.items[idx][parts[2]] = url;
+    } else if (parts[0] === 'steps') {
+      const idx = parseInt(parts[1]);
+      if (data.steps.items[idx]) data.steps.items[idx][parts[2]] = url;
+    } else if (parts[0] === 'metrics') {
+      const idx = parseInt(parts[1]);
+      if (data.metrics[idx]) data.metrics[idx][parts[2]] = url;
+    } else {
+      return res.json({ ok: false, error: 'Bilinmeyen hedef: ' + target });
+    }
+
+    await saveData(data);
+    res.json({ ok: true, target, url });
+  } catch (err) {
+    console.error('Assign error:', err);
+    res.json({ ok: false, error: err.message });
   }
 });
 

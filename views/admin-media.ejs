@@ -276,7 +276,8 @@
                 <span><%= img.url ? 'CDN' : img.folder %></span>
               </div>
               <div class="gallery-item__actions">
-                <button class="gallery-item__btn gallery-item__btn--copy" onclick="copyPath('<%= img.url || img.path %>')">Yolu Kopyala</button>
+                <button class="gallery-item__btn gallery-item__btn--copy" onclick="copyPath('<%= img.url || img.path %>')">Kopyala</button>
+                <button class="gallery-item__btn" onclick="openAssign('<%= img.url || img.path %>')" style="background:#f0fdf4;color:#16a34a;border-color:#bbf7d0">Ata</button>
                 <form method="POST" action="/admin/media/delete" style="flex:1;display:contents" onsubmit="return confirm('Bu gorseli silmek istediginizden emin misiniz?')">
                   <% if (img.cloudinaryId) { %><input type="hidden" name="cloudinaryId" value="<%= img.cloudinaryId %>"><% } %>
                   <% if (!img.url) { %><input type="hidden" name="localPath" value="<%= img.path %>"><% } %>
@@ -289,6 +290,64 @@
       <% } %>
     </div>
   </div>
+
+  <!-- Assign Modal -->
+  <div class="modal-overlay" id="assignModal" style="display:none">
+    <div class="modal">
+      <div class="modal__header">
+        <h3>Gorseli Nereye Ata?</h3>
+        <button onclick="closeAssign()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8">&times;</button>
+      </div>
+      <div class="modal__body">
+        <div class="modal__preview">
+          <img id="assignPreview" src="" alt="Onizleme" style="max-height:120px;border-radius:8px;object-fit:contain">
+        </div>
+        <div class="field" style="margin-top:16px">
+          <label>Hedef Bolum</label>
+          <select id="assignTarget" style="padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;width:100%;background:#f8fafc">
+            <option value="hero.heroImage">Hero Gorseli (Ana Gorsel)</option>
+            <optgroup label="Moduller">
+              <option value="modules.0.image">OnTrace - Hero Gorsel</option>
+              <option value="modules.1.image">OnOptima - Hero Gorsel</option>
+              <option value="modules.0.icon">OnTrace - Ikon</option>
+              <option value="modules.1.icon">OnOptima - Ikon</option>
+              <option value="modules.2.icon">OnIntegra - Ikon</option>
+              <option value="modules.3.icon">OnOEE - Ikon</option>
+              <option value="modules.4.icon">OnCNC - Ikon</option>
+              <option value="modules.5.icon">OnTMC - Ikon</option>
+              <option value="modules.6.icon">OnSmartForms - Ikon</option>
+              <option value="modules.7.icon">OnMonitora - Ikon</option>
+            </optgroup>
+            <optgroup label="Adimlar">
+              <option value="steps.0.icon">Adim 1 - Baglan Ikonu</option>
+              <option value="steps.1.icon">Adim 2 - Topla Ikonu</option>
+              <option value="steps.2.icon">Adim 3 - Analiz Ikonu</option>
+              <option value="steps.3.icon">Adim 4 - Optimize Ikonu</option>
+            </optgroup>
+            <optgroup label="Metrikler">
+              <option value="metrics.0.icon">Metrik 1 - Ikon</option>
+              <option value="metrics.1.icon">Metrik 2 - Ikon</option>
+              <option value="metrics.2.icon">Metrik 3 - Ikon</option>
+            </optgroup>
+          </select>
+        </div>
+        <input type="hidden" id="assignUrl" value="">
+        <button onclick="doAssign()" class="btn-upload" style="margin-top:16px;width:100%">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/></svg>
+          Gorseli Bu Bolume Ata
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+    .modal{background:#fff;border-radius:16px;width:90%;max-width:480px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.2)}
+    .modal__header{padding:20px 24px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
+    .modal__header h3{font-size:16px;font-weight:700}
+    .modal__body{padding:24px}
+    .modal__preview{text-align:center;background:#f8fafc;border-radius:12px;padding:16px}
+  </style>
 
   <div class="toast" id="toast"></div>
 
@@ -394,6 +453,39 @@
       toast.textContent = msg;
       toast.classList.add('toast--show');
       setTimeout(function() { toast.classList.remove('toast--show'); }, 3000);
+    }
+
+    // --- Assign Modal ---
+    function openAssign(url) {
+      document.getElementById('assignUrl').value = url;
+      document.getElementById('assignPreview').src = url.startsWith('http') ? url : '/' + url;
+      document.getElementById('assignModal').style.display = 'flex';
+    }
+    function closeAssign() {
+      document.getElementById('assignModal').style.display = 'none';
+    }
+    document.getElementById('assignModal').addEventListener('click', function(e) {
+      if (e.target === this) closeAssign();
+    });
+
+    function doAssign() {
+      var url = document.getElementById('assignUrl').value;
+      var target = document.getElementById('assignTarget').value;
+      fetch('/admin/media/assign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: url, target: target })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.ok) {
+          closeAssign();
+          showToast('Gorsel basariyla atandi: ' + target);
+        } else {
+          showToast('Hata: ' + (data.error || 'Bilinmeyen hata'));
+        }
+      })
+      .catch(function(err) { showToast('Baglanti hatasi: ' + err.message); });
     }
 
     // Auto-hide success
