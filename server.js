@@ -7,7 +7,6 @@ const path = require('path');
 const fs = require('fs');
 const { v2: cloudinary } = require('cloudinary');
 const { createClient } = require('@supabase/supabase-js');
-const OpenAI = require('openai');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const app = express();
@@ -46,15 +45,6 @@ if (GEMINI_CONFIGURED) {
   const genAI = new GoogleGenerativeAI(GEMINI_KEY);
   geminiModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   console.log('Google Gemini connected (FREE)');
-}
-
-// --- OpenAI Config (fallback) ---
-const OPENAI_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_CONFIGURED = !!OPENAI_KEY;
-let openai = null;
-if (OPENAI_CONFIGURED) {
-  openai = new OpenAI({ apiKey: OPENAI_KEY });
-  console.log('OpenAI connected (fallback)');
 }
 
 const CHATBOT_SYSTEM_PROMPT = `Sen OnSuite akilli uretim yonetim platformunun web sitesindeki yardimci asistansin. Adin "OnSuite Asistan".
@@ -544,7 +534,7 @@ app.post('/api/chat', async (req, res) => {
       return fallbacks.default;
     };
 
-    // Priority: 1) Gemini (free) → 2) OpenAI → 3) Static fallback
+    // Gemini AI → Static fallback
     if (GEMINI_CONFIGURED) {
       try {
         const chatHistory = [];
@@ -564,34 +554,11 @@ app.post('/api/chat', async (req, res) => {
         const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
         return res.json({ reply });
       } catch (geminiErr) {
-        console.error('Gemini error, falling back:', geminiErr.message);
-        // Fall through to OpenAI or static
+        console.error('Gemini error, falling back to static:', geminiErr.message);
       }
     }
 
-    if (OPENAI_CONFIGURED) {
-      // --- OpenAI (fallback) ---
-      const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
-      if (Array.isArray(history)) {
-        history.slice(-6).forEach(h => {
-          if (h.role === 'user' || h.role === 'assistant') {
-            messages.push({ role: h.role, content: h.content.slice(0, 300) });
-          }
-        });
-      }
-      messages.push({ role: 'user', content: message });
-
-      const completion = await openai.chat.completions.create({
-        model: 'gpt-4o-mini',
-        messages,
-        max_tokens: 200,
-        temperature: 0.7
-      });
-      const reply = completion.choices[0]?.message?.content || 'Yanit alinamadi.';
-      return res.json({ reply });
-    }
-
-    // --- Static fallback (no AI available) ---
+    // Static fallback
     return res.json({ reply: staticReply(message) });
   } catch (err) {
     console.error('Chat error:', err.message);
@@ -605,9 +572,8 @@ app.get('/api/health', (req, res) => {
     status: 'ok',
     cloudinary: CLOUDINARY_CONFIGURED,
     supabase: SUPABASE_CONFIGURED,
-    openai: OPENAI_CONFIGURED,
     gemini: GEMINI_CONFIGURED,
-    chatbot: GEMINI_CONFIGURED ? 'gemini' : OPENAI_CONFIGURED ? 'openai' : 'static',
+    chatbot: GEMINI_CONFIGURED ? 'gemini' : 'static',
     storage: CLOUDINARY_CONFIGURED ? 'cloudinary' : 'local'
   });
 });
