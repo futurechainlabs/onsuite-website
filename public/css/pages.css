@@ -45,6 +45,11 @@
   height: 36px;
 }
 
+.header__cta {
+  min-width: 170px;
+  text-align: center;
+}
+
 .header__cta--pulse {
   animation: ctaPulse .6s ease-out;
 }

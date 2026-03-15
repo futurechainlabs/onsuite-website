@@ -1,0 +1,33 @@
+<!-- ============================================================
+     CHATBOT WIDGET
+     ============================================================ -->
+<div class="chatbot" id="chatbot">
+  <button class="chatbot__trigger" id="chatbotTrigger" aria-label="<%= t.home.chatbotName %>">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="chatbot__teaser" id="chatbotTeaser" hidden>
+    <p><%= t.home.chatbotTeaser %></p>
+    <button class="chatbot__teaser-close" aria-label="Close">&times;</button>
+  </div>
+  <div class="chatbot__panel" id="chatbotPanel" hidden>
+    <div class="chatbot__header">
+      <div class="chatbot__header-info">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="1.5"/></svg>
+        <span><%= t.home.chatbotName %></span>
+      </div>
+      <button class="chatbot__minimize" id="chatbotMinimize" aria-label="Minimize"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="chatbot__messages" id="chatbotMessages">
+      <div class="chatbot__msg chatbot__msg--bot"><p><%= t.home.chatbotGreeting %></p></div>
+      <div class="chatbot__quick-replies">
+        <button class="chatbot__chip" data-reply="modules"><%= t.home.chatbotChipModules %></button>
+        <button class="chatbot__chip" data-reply="demo"><%= t.home.chatbotChipDemo %></button>
+        <button class="chatbot__chip" data-reply="tech"><%= t.home.chatbotChipTech %></button>
+      </div>
+    </div>
+    <div class="chatbot__input-bar">
+      <input type="text" class="chatbot__input" placeholder="<%= t.home.chatbotPlaceholder %>" aria-label="Message">
+      <button class="chatbot__send" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    </div>
+  </div>
+</div>
