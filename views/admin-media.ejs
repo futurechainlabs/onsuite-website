@@ -153,8 +153,13 @@
         <h1>Gorsel Yonetimi</h1>
         <p>Sitedeki tum gorselleri yonet, yukle ve optimize et</p>
       </div>
-      <div style="font-size:13px;color:#64748b">
-        Toplam: <strong><%= images.length %></strong> gorsel
+      <div style="font-size:13px;color:#64748b;display:flex;align-items:center;gap:12px">
+        <span>Toplam: <strong><%= images.length %></strong> gorsel</span>
+        <% if (cloudinaryConfigured) { %>
+          <span style="background:#d1fae5;color:#059669;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Cloudinary CDN</span>
+        <% } else { %>
+          <span style="background:#fef3c7;color:#d97706;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:600">Lokal Depolama</span>
+        <% } %>
       </div>
     </div>
 
@@ -262,18 +267,19 @@
           <div class="gallery-item" data-folder="<%= img.folder %>">
             <span class="gallery-item__badge gallery-item__badge--<%= img.ext %>"><%= img.ext %></span>
             <div class="gallery-item__img-wrap">
-              <img src="/<%= img.path %>" alt="<%= img.name %>" class="gallery-item__img" loading="lazy">
+              <img src="<%= img.url || ('/' + img.path) %>" alt="<%= img.name %>" class="gallery-item__img" loading="lazy">
             </div>
             <div class="gallery-item__info">
               <div class="gallery-item__name" title="<%= img.name %>"><%= img.name %></div>
               <div class="gallery-item__meta">
                 <span><%= img.sizeStr %></span>
-                <span><%= img.folder %></span>
+                <span><%= img.url ? 'CDN' : img.folder %></span>
               </div>
               <div class="gallery-item__actions">
-                <button class="gallery-item__btn gallery-item__btn--copy" onclick="copyPath('<%= img.path %>')">Yolu Kopyala</button>
+                <button class="gallery-item__btn gallery-item__btn--copy" onclick="copyPath('<%= img.url || img.path %>')">Yolu Kopyala</button>
                 <form method="POST" action="/admin/media/delete" style="flex:1;display:contents" onsubmit="return confirm('Bu gorseli silmek istediginizden emin misiniz?')">
-                  <input type="hidden" name="path" value="<%= img.path %>">
+                  <% if (img.cloudinaryId) { %><input type="hidden" name="cloudinaryId" value="<%= img.cloudinaryId %>"><% } %>
+                  <% if (!img.url) { %><input type="hidden" name="localPath" value="<%= img.path %>"><% } %>
                   <button type="submit" class="gallery-item__btn gallery-item__btn--delete">Sil</button>
                 </form>
               </div>

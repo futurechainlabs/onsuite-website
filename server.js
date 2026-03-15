@@ -4,6 +4,8 @@ const multer = require('multer');
 const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
+const { v2: cloudinary } = require('cloudinary');
+const { createClient } = require('@supabase/supabase-js');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,17 +13,36 @@ const DATA_FILE = path.join(__dirname, 'data.json');
 const ADMIN_PASS = process.env.ADMIN_PASS || 'OnSuite2025!';
 const UPLOAD_DIR = path.join(__dirname, 'public', 'assets', 'images');
 
-// --- Multer Setup (temp upload) ---
+// --- Cloudinary Config ---
+const CLOUDINARY_CONFIGURED = !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY);
+if (CLOUDINARY_CONFIGURED) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+    secure: true
+  });
+  console.log('Cloudinary connected:', process.env.CLOUDINARY_CLOUD_NAME);
+}
+
+// --- Supabase Config ---
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+const SUPABASE_CONFIGURED = !!(SUPABASE_URL && SUPABASE_KEY);
+let supabase = null;
+if (SUPABASE_CONFIGURED) {
+  supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+  console.log('Supabase connected:', SUPABASE_URL);
+}
+
+// --- Multer (memory storage) ---
 const upload = multer({
   storage: multer.memoryStorage(),
-  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB max
+  limits: { fileSize: 20 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
     const allowed = /\.(jpg|jpeg|png|svg|webp|gif)$/i;
-    if (allowed.test(path.extname(file.originalname))) {
-      cb(null, true);
-    } else {
-      cb(new Error('Desteklenmeyen dosya formati'));
-    }
+    if (allowed.test(path.extname(file.originalname))) cb(null, true);
+    else cb(new Error('Desteklenmeyen dosya formati'));
   }
 });
 
@@ -38,13 +59,29 @@ app.use(session({
   cookie: { maxAge: 3600000 }
 }));
 
-// --- Helpers ---
-function loadData() {
+// --- Data Helpers (Supabase or JSON file) ---
+async function loadData() {
+  if (SUPABASE_CONFIGURED) {
+    const { data, error } = await supabase
+      .from('site_content')
+      .select('content')
+      .eq('id', 1)
+      .single();
+    if (data && data.content) return data.content;
+    // Fallback: if no row exists, seed from file
+    const fileData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    await supabase.from('site_content').upsert({ id: 1, content: fileData });
+    return fileData;
+  }
   return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 }
 
-function saveData(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2), 'utf8');
+async function saveData(content) {
+  // Always save to file as backup
+  fs.writeFileSync(DATA_FILE, JSON.stringify(content, null, 2), 'utf8');
+  if (SUPABASE_CONFIGURED) {
+    await supabase.from('site_content').upsert({ id: 1, content });
+  }
 }
 
 function requireAuth(req, res, next) {
@@ -52,8 +89,56 @@ function requireAuth(req, res, next) {
   res.redirect('/admin/login');
 }
 
-// Scan all images in public/assets/images recursively
-function scanImages(dir, base) {
+// --- Cloudinary Helpers ---
+async function uploadToCloudinary(buffer, options = {}) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: options.folder || 'onsuite',
+        public_id: options.publicId,
+        resource_type: 'image',
+        overwrite: true,
+        ...options.transforms
+      },
+      (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
+
+async function getCloudinaryImages() {
+  try {
+    const result = await cloudinary.api.resources({
+      type: 'upload',
+      prefix: 'onsuite',
+      max_results: 200,
+      resource_type: 'image'
+    });
+    return (result.resources || []).map(r => ({
+      name: r.public_id.split('/').pop(),
+      path: r.secure_url,
+      folder: r.public_id.split('/').slice(0, -1).join('/').replace('onsuite/', '') || 'root',
+      size: r.bytes,
+      sizeStr: r.bytes > 1024 * 1024
+        ? (r.bytes / (1024 * 1024)).toFixed(1) + ' MB'
+        : (r.bytes / 1024).toFixed(0) + ' KB',
+      ext: r.format,
+      width: r.width,
+      height: r.height,
+      cloudinaryId: r.public_id,
+      url: r.secure_url
+    }));
+  } catch (e) {
+    console.error('Cloudinary fetch error:', e.message);
+    return [];
+  }
+}
+
+// Scan local images (fallback when Cloudinary not configured)
+function scanLocalImages(dir, base) {
   const results = [];
   if (!fs.existsSync(dir)) return results;
   const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -61,7 +146,7 @@ function scanImages(dir, base) {
     const fullPath = path.join(dir, entry.name);
     const relPath = path.join(base, entry.name).replace(/\\/g, '/');
     if (entry.isDirectory()) {
-      results.push(...scanImages(fullPath, relPath));
+      results.push(...scanLocalImages(fullPath, relPath));
     } else if (/\.(png|jpg|jpeg|svg|webp|gif)$/i.test(entry.name)) {
       const stat = fs.statSync(fullPath);
       results.push({
@@ -73,7 +158,8 @@ function scanImages(dir, base) {
           ? (stat.size / (1024 * 1024)).toFixed(1) + ' MB'
           : (stat.size / 1024).toFixed(0) + ' KB',
         ext: path.extname(entry.name).toLowerCase().slice(1),
-        modified: stat.mtime.toISOString()
+        url: null,
+        cloudinaryId: null
       });
     }
   }
@@ -81,9 +167,15 @@ function scanImages(dir, base) {
 }
 
 // --- Public Routes ---
-app.get('/', (req, res) => {
-  const data = loadData();
-  res.render('index', { data });
+app.get('/', async (req, res) => {
+  try {
+    const data = await loadData();
+    res.render('index', { data });
+  } catch (err) {
+    console.error('Homepage error:', err);
+    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    res.render('index', { data });
+  }
 });
 
 // --- Admin Routes ---
@@ -104,85 +196,103 @@ app.get('/admin/logout', (req, res) => {
   res.redirect('/admin/login');
 });
 
-app.get('/admin', requireAuth, (req, res) => {
-  const data = loadData();
+app.get('/admin', requireAuth, async (req, res) => {
+  const data = await loadData();
   res.render('admin', { data, success: req.query.success || null });
 });
 
 // --- Media Library ---
-app.get('/admin/media', requireAuth, (req, res) => {
-  const images = scanImages(UPLOAD_DIR, '');
-  const folders = [...new Set(images.map(i => i.folder))].sort();
-  res.render('admin-media', { images, folders, success: req.query.success || null });
+app.get('/admin/media', requireAuth, async (req, res) => {
+  let images = [];
+  let storageMode = 'local';
+
+  if (CLOUDINARY_CONFIGURED) {
+    images = await getCloudinaryImages();
+    storageMode = 'cloudinary';
+  }
+
+  // Also include local images
+  const localImages = scanLocalImages(UPLOAD_DIR, '');
+  // Merge: cloudinary images first, then locals not in cloud
+  const cloudPaths = new Set(images.map(i => i.name));
+  const allImages = [...images, ...localImages.filter(l => !cloudPaths.has(l.name))];
+
+  const folders = [...new Set(allImages.map(i => i.folder))].sort();
+  res.render('admin-media', {
+    images: allImages,
+    folders,
+    success: req.query.success || null,
+    storageMode,
+    cloudinaryConfigured: CLOUDINARY_CONFIGURED
+  });
 });
 
 // Upload + process image
 app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req, res) => {
   try {
-    if (!req.file) {
-      return res.status(400).json({ error: 'Dosya secilmedi' });
-    }
+    if (!req.file) return res.status(400).send('Dosya secilmedi');
 
     const { folder, quality, scale, format } = req.body;
-    const targetFolder = path.join(UPLOAD_DIR, folder || 'hero');
-
-    // Ensure folder exists
-    fs.mkdirSync(targetFolder, { recursive: true });
-
+    const isSvg = req.file.mimetype === 'image/svg+xml';
     const originalName = path.parse(req.file.originalname).name
       .replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
-    const isSvg = req.file.mimetype === 'image/svg+xml';
 
-    // SVG: save directly (no sharp processing)
-    if (isSvg) {
-      const svgPath = path.join(targetFolder, originalName + '.svg');
-      fs.writeFileSync(svgPath, req.file.buffer);
-      return res.redirect('/admin/media?success=svg');
-    }
-
-    // Raster image processing with Sharp
-    let pipeline = sharp(req.file.buffer);
-    const metadata = await pipeline.metadata();
-
-    // Scale factor
-    const scaleFactor = parseFloat(scale) || 1;
-    if (scaleFactor !== 1 && metadata.width) {
-      const newWidth = Math.round(metadata.width * scaleFactor);
-      pipeline = pipeline.resize(newWidth, null, {
-        kernel: sharp.kernel.lanczos3,
-        fastShrinkOnLoad: false
-      });
-    }
-
-    // Output format + quality
-    const outputFormat = format || 'png';
-    const qualityLevel = parseInt(quality) || 95;
-    let ext = outputFormat;
+    let processedBuffer = req.file.buffer;
+    let ext = path.extname(req.file.originalname).slice(1).toLowerCase();
     let fileName = originalName;
 
-    if (scaleFactor > 1) {
-      fileName += `@${scaleFactor}x`;
+    // Process raster images with Sharp
+    if (!isSvg) {
+      let pipeline = sharp(req.file.buffer);
+      const metadata = await pipeline.metadata();
+
+      // Scale
+      const scaleFactor = parseFloat(scale) || 1;
+      if (scaleFactor > 1 && metadata.width) {
+        pipeline = pipeline.resize(Math.round(metadata.width * scaleFactor), null, {
+          kernel: sharp.kernel.lanczos3,
+          fastShrinkOnLoad: false
+        });
+        fileName += `@${scaleFactor}x`;
+      }
+
+      // Format + quality
+      const qualityLevel = parseInt(quality) || 95;
+      const outputFormat = format || 'png';
+      if (outputFormat === 'webp') {
+        pipeline = pipeline.webp({ quality: qualityLevel, effort: 6, lossless: qualityLevel >= 100 });
+        ext = 'webp';
+      } else if (outputFormat === 'png') {
+        pipeline = pipeline.png({ quality: qualityLevel, compressionLevel: 6 });
+        ext = 'png';
+      } else if (outputFormat === 'jpeg') {
+        pipeline = pipeline.jpeg({ quality: qualityLevel, mozjpeg: true, chromaSubsampling: '4:4:4' });
+        ext = 'jpg';
+      }
+
+      processedBuffer = await pipeline.toBuffer();
     }
 
-    if (outputFormat === 'webp') {
-      pipeline = pipeline.webp({ quality: qualityLevel, effort: 6, lossless: qualityLevel >= 100 });
-      ext = 'webp';
-    } else if (outputFormat === 'png') {
-      pipeline = pipeline.png({ quality: qualityLevel, compressionLevel: 6, effort: 10 });
-      ext = 'png';
-    } else if (outputFormat === 'jpeg') {
-      pipeline = pipeline.jpeg({ quality: qualityLevel, mozjpeg: true, chromaSubsampling: '4:4:4' });
-      ext = 'jpg';
+    // Upload to Cloudinary or save locally
+    let resultUrl = '';
+    const cloudFolder = 'onsuite/' + (folder || 'hero');
+
+    if (CLOUDINARY_CONFIGURED) {
+      const result = await uploadToCloudinary(processedBuffer, {
+        folder: cloudFolder,
+        publicId: fileName
+      });
+      resultUrl = result.secure_url;
+    } else {
+      // Local fallback
+      const targetFolder = path.join(UPLOAD_DIR, folder || 'hero');
+      fs.mkdirSync(targetFolder, { recursive: true });
+      const outputPath = path.join(targetFolder, `${fileName}.${ext}`);
+      fs.writeFileSync(outputPath, processedBuffer);
+      resultUrl = `assets/images/${folder || 'hero'}/${fileName}.${ext}`;
     }
 
-    const outputPath = path.join(targetFolder, `${fileName}.${ext}`);
-    await pipeline.toFile(outputPath);
-
-    // Get output info
-    const outStat = fs.statSync(outputPath);
-    const outMeta = await sharp(outputPath).metadata();
-
-    res.redirect(`/admin/media?success=upload&file=${fileName}.${ext}&w=${outMeta.width}&h=${outMeta.height}&size=${(outStat.size/1024).toFixed(0)}KB`);
+    res.redirect(`/admin/media?success=upload&url=${encodeURIComponent(resultUrl)}`);
   } catch (err) {
     console.error('Upload error:', err);
     res.status(500).send('Yukleme hatasi: ' + err.message);
@@ -190,52 +300,31 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
 });
 
 // Delete image
-app.post('/admin/media/delete', requireAuth, (req, res) => {
+app.post('/admin/media/delete', requireAuth, async (req, res) => {
   try {
-    const imgPath = path.join(__dirname, 'public', req.body.path);
-    // Prevent directory traversal
-    if (!imgPath.startsWith(UPLOAD_DIR)) {
-      return res.status(403).send('Yetkisiz');
+    const { cloudinaryId, localPath } = req.body;
+
+    if (cloudinaryId && CLOUDINARY_CONFIGURED) {
+      await cloudinary.uploader.destroy(cloudinaryId);
     }
-    if (fs.existsSync(imgPath)) {
-      fs.unlinkSync(imgPath);
+
+    if (localPath) {
+      const imgPath = path.join(__dirname, 'public', localPath);
+      if (imgPath.startsWith(UPLOAD_DIR) && fs.existsSync(imgPath)) {
+        fs.unlinkSync(imgPath);
+      }
     }
+
     res.redirect('/admin/media?success=delete');
   } catch (err) {
     res.status(500).send('Silme hatasi: ' + err.message);
   }
 });
 
-// Image info API (for preview)
-app.get('/admin/api/image-info', requireAuth, async (req, res) => {
+// --- Content Save ---
+app.post('/admin/save', requireAuth, async (req, res) => {
   try {
-    const imgPath = path.join(__dirname, 'public', req.query.path);
-    if (!imgPath.startsWith(path.join(__dirname, 'public'))) {
-      return res.status(403).json({ error: 'Yetkisiz' });
-    }
-    if (!fs.existsSync(imgPath)) {
-      return res.status(404).json({ error: 'Dosya bulunamadi' });
-    }
-    const stat = fs.statSync(imgPath);
-    const ext = path.extname(imgPath).toLowerCase();
-    let info = { size: stat.size, ext };
-    if (ext !== '.svg') {
-      const meta = await sharp(imgPath).metadata();
-      info.width = meta.width;
-      info.height = meta.height;
-      info.format = meta.format;
-      info.density = meta.density;
-    }
-    res.json(info);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// --- Content Save Routes (existing) ---
-app.post('/admin/save', requireAuth, (req, res) => {
-  try {
-    const data = loadData();
+    const data = await loadData();
     const { section } = req.body;
 
     if (section === 'hero') {
@@ -311,7 +400,7 @@ app.post('/admin/save', requireAuth, (req, res) => {
       }));
     }
 
-    saveData(data);
+    await saveData(data);
     res.redirect('/admin?success=1');
   } catch (err) {
     console.error('Save error:', err);
@@ -319,13 +408,25 @@ app.post('/admin/save', requireAuth, (req, res) => {
   }
 });
 
-// API endpoint
-app.get('/api/data', (req, res) => {
-  res.json(loadData());
+// API
+app.get('/api/data', async (req, res) => {
+  res.json(await loadData());
+});
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    cloudinary: CLOUDINARY_CONFIGURED,
+    supabase: SUPABASE_CONFIGURED,
+    storage: CLOUDINARY_CONFIGURED ? 'cloudinary' : 'local'
+  });
 });
 
 app.listen(PORT, () => {
   console.log(`OnSuite server running at http://localhost:${PORT}`);
   console.log(`Admin panel: http://localhost:${PORT}/admin`);
   console.log(`Media library: http://localhost:${PORT}/admin/media`);
+  console.log(`Storage: ${CLOUDINARY_CONFIGURED ? 'Cloudinary CDN' : 'Local filesystem'}`);
+  console.log(`Database: ${SUPABASE_CONFIGURED ? 'Supabase PostgreSQL' : 'Local JSON file'}`);
 });

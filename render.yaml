@@ -11,3 +11,15 @@ services:
         value: OnSuite2025!
       - key: SESSION_SECRET
         value: onsuite-render-prod-secret-2025
+      # Cloudinary (gorsel depolama) - cloudinary.com dashboard'dan al
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: false
+      - key: CLOUDINARY_API_KEY
+        sync: false
+      - key: CLOUDINARY_API_SECRET
+        sync: false
+      # Supabase (veri tabani) - supabase.com dashboard'dan al
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
