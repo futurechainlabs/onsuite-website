@@ -557,8 +557,8 @@ app.post('/api/chat', async (req, res) => {
         const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
         return res.json({ reply });
       } catch (geminiErr) {
-        console.error('Gemini error, falling back to static:', geminiErr.message);
-        // Gemini failed, fall through to static
+        console.error('Gemini error:', geminiErr);
+        return res.json({ reply: '[DEBUG] ' + (geminiErr.message || String(geminiErr)).slice(0, 500) });
       }
     }
 
