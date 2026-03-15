@@ -207,6 +207,26 @@ try {
   console.warn('modules.json not found or invalid');
 }
 
+// --- Sector Data ---
+const SECTORS_FILE = path.join(__dirname, 'data', 'sectors.json');
+let sectorsData = {};
+try {
+  sectorsData = JSON.parse(fs.readFileSync(SECTORS_FILE, 'utf8'));
+  console.log('Sectors loaded:', Object.keys(sectorsData).length);
+} catch (e) {
+  console.warn('sectors.json not found or invalid');
+}
+
+// --- References Data ---
+const REFS_FILE = path.join(__dirname, 'data', 'references.json');
+let refsData = {};
+try {
+  refsData = JSON.parse(fs.readFileSync(REFS_FILE, 'utf8'));
+  console.log('References loaded');
+} catch (e) {
+  console.warn('references.json not found or invalid');
+}
+
 // --- Public Routes ---
 app.get('/', async (req, res) => {
   try {
@@ -243,11 +263,44 @@ app.get('/demo', async (req, res) => {
   }
 });
 
-// Hakkimizda page (placeholder)
+// Hakkimizda page
 app.get('/hakkimizda', async (req, res) => {
   try {
     const data = await loadData();
     res.render('hakkimizda', { data });
+  } catch (err) {
+    res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// Sectors index page
+app.get('/sektorler', async (req, res) => {
+  try {
+    const data = await loadData();
+    res.render('sectors', { data, sectorsData });
+  } catch (err) {
+    res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// Sector detail page
+app.get('/sektorler/:slug', async (req, res) => {
+  try {
+    const sector = sectorsData[req.params.slug];
+    if (!sector) return res.status(404).send('Sektor bulunamadi');
+    const data = await loadData();
+    res.render('sector', { data, sector, modulesData });
+  } catch (err) {
+    console.error('Sector page error:', err);
+    res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// Referanslar page
+app.get('/referanslar', async (req, res) => {
+  try {
+    const data = await loadData();
+    res.render('referanslar', { data, refs: refsData });
   } catch (err) {
     res.status(500).send('Sayfa yuklenemedi');
   }

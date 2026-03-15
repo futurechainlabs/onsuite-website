@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Referanslar & Partnerler - OnSuite | <%= data.site.title %></title>
+  <meta name="description" content="OnSuite - 40+ ulkede, 500+ uretim hattinda guvenilen cozum ortagi. Referanslarimiz ve is ortaklarimiz.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/inner.css">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<section class="inner-hero">
+  <div class="container">
+    <h1 class="inner-hero__title"><%= refs.title %></h1>
+    <p class="inner-hero__desc"><%= refs.subtitle %></p>
+  </div>
+</section>
+
+<!-- CLIENT LOGOS -->
+<section class="ref-clients">
+  <div class="container">
+    <h2 class="inner-section-title">Musterilerimiz</h2>
+    <div class="ref-clients__grid">
+      <% refs.clients.forEach(function(c) { %>
+        <div class="ref-clients__item">
+          <span class="ref-clients__name"><%= c.name %></span>
+          <span class="ref-clients__sector"><%= c.sector %></span>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="ref-partners">
+  <div class="container">
+    <h2 class="inner-section-title">Teknoloji Ortaklarimiz</h2>
+    <div class="ref-partners__grid">
+      <% refs.partners.forEach(function(p) { %>
+        <div class="ref-partners__card">
+          <h3 class="ref-partners__name"><%= p.name %></h3>
+          <p class="ref-partners__desc"><%= p.desc %></p>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<% if (refs.caseStudies && refs.caseStudies.length > 0) { %>
+<section class="ref-cases">
+  <div class="container">
+    <h2 class="inner-section-title">Basari Hikayeleri</h2>
+    <div class="ref-cases__grid">
+      <% refs.caseStudies.forEach(function(cs) { %>
+        <div class="ref-cases__card">
+          <span class="ref-cases__badge"><%= cs.sector %></span>
+          <h3 class="ref-cases__title"><%= cs.title %></h3>
+          <p class="ref-cases__summary"><%= cs.summary %></p>
+          <div class="ref-cases__results">
+            <% cs.results.forEach(function(r) { %>
+              <span class="ref-cases__result">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.5 8l3 3L12.5 5" stroke="#04bf8a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <%= r %>
+              </span>
+            <% }); %>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<section class="inner-cta">
+  <div class="container">
+    <div class="inner-cta__inner">
+      <h2 class="inner-cta__title">Siz de Referanslarimiz Arasinda Yerinizi Alin</h2>
+      <p class="inner-cta__desc">40+ ulkede guvenilen cozum ortaginizla tanisin.</p>
+      <a href="/demo" class="btn btn--primary btn--lg">Demo Talep Et <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js"></script>
+</body>
+</html>

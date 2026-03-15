@@ -1,0 +1,40 @@
+{
+  "title": "Referanslarimiz",
+  "subtitle": "Dunya genelinde 40+ ulkede, 500+ uretim hattinda guvenilen cozum ortagi.",
+  "clients": [
+    { "name": "Bosch", "sector": "Otomotiv", "logo": "assets/images/logos/bosch.png" },
+    { "name": "BSH", "sector": "Beyaz Esya", "logo": "assets/images/logos/bsh.png" },
+    { "name": "Haier", "sector": "Beyaz Esya", "logo": "assets/images/logos/haier.png" },
+    { "name": "Unilever", "sector": "FMCG", "logo": "assets/images/logos/unilever.png" },
+    { "name": "Philip Morris", "sector": "Tutun", "logo": "assets/images/logos/philip-morris.png" },
+    { "name": "BorgWarner", "sector": "Otomotiv", "logo": "assets/images/logos/borgwarner.png" },
+    { "name": "Diageo", "sector": "Icecek", "logo": "assets/images/logos/diageo.png" },
+    { "name": "JTI", "sector": "Tutun", "logo": "assets/images/logos/jti.png" },
+    { "name": "Maxion", "sector": "Otomotiv", "logo": "assets/images/logos/maxion.png" },
+    { "name": "GE Vernova", "sector": "Enerji", "logo": "assets/images/logos/ge-vernova.png" }
+  ],
+  "partners": [
+    { "name": "Microsoft", "desc": "Microsoft Dynamics ve Azure IoT entegrasyonu ile bulut tabanli uretim cozumleri.", "logo": "assets/images/logos/microsoft.png" },
+    { "name": "Beckhoff", "desc": "TwinCAT ve EtherCAT tabanli yuksek performansli otomasyon entegrasyonu.", "logo": "assets/images/logos/beckhoff.png" },
+    { "name": "GE Vernova", "desc": "Proficy ve iFIX SCADA entegrasyonu ile endustriyel veri toplama.", "logo": "assets/images/logos/ge-vernova.png" },
+    { "name": "Ignition", "desc": "Inductive Automation Ignition SCADA platformu ile sorunsuz entegrasyon.", "logo": "assets/images/logos/ignition.png" },
+    { "name": "SICK", "desc": "Endustriyel sensor ve barkod okuyucu entegrasyonu.", "logo": "assets/images/logos/sick.png" },
+    { "name": "Universal Robots", "desc": "Kolaboratif robot (cobot) entegrasyonu ile esnek uretim.", "logo": "assets/images/logos/universal-robots.png" }
+  ],
+  "caseStudies": [
+    {
+      "title": "Bosch: %23 OEE Artisi",
+      "client": "Bosch",
+      "sector": "Otomotiv",
+      "summary": "OnOEE ve OnTrace modulleri ile Bosch uretim hattinda %23 OEE artisi ve sifira yakin geri cagirma suresi saglandi.",
+      "results": ["%23 OEE artisi", "%99.2 izlenebilirlik", "10 saniye geri cagirma"]
+    },
+    {
+      "title": "Philip Morris: TMC Uyum Projesi",
+      "client": "Philip Morris",
+      "sector": "Tutun",
+      "summary": "OnTMC modulu ile Philip Morris uretim hattinda tam TMC uyumu saglandi. Tum makine markalari tek platformda birlesti.",
+      "results": ["Tam TMC uyumu", "%99.9 veri yakalama", "Otomatik TAPDK raporlama"]
+    }
+  ]
+}

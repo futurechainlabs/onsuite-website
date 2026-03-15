@@ -1,0 +1,110 @@
+{
+  "otomotiv": {
+    "slug": "otomotiv",
+    "name": "Otomotiv",
+    "title": "Otomotiv Sektorunde Dijital Donusum",
+    "description": "IATF 16949 uyumlu izlenebilirlik, OEE takibi ve ERP entegrasyonu ile otomotiv uretim hattinizi dijitallestirin.",
+    "heroImage": "assets/images/sectors/otomotiv-hero.png",
+    "color": "#0089CF",
+    "challenges": [
+      "IATF 16949 ve musteriye ozel kalite gereksinimleri",
+      "Cok katmanli tedarik zinciri izlenebilirlik ihtiyaci",
+      "Yuksek hacimli uretimde sifir hata hedefi",
+      "JIT/JIS teslimat baskisi"
+    ],
+    "solutions": [
+      "Lot bazli tam izlenebilirlik (hammaddeden sevkiyata)",
+      "Gercek zamanli OEE ve kayip analizi",
+      "Otomatik kalite kontrol ve SPC",
+      "ERP & MES entegrasyonu ile kesintisiz veri akisi"
+    ],
+    "modules": ["ontrace", "onoee", "onoptima", "onintegra", "onmonitora"],
+    "references": ["Bosch", "BSH", "BorgWarner", "Maxion"],
+    "stats": [
+      { "value": "%99.2", "label": "Izlenebilirlik Orani" },
+      { "value": "%23", "label": "OEE Artisi" },
+      { "value": "10sn", "label": "Geri Cagirma Suresi" }
+    ]
+  },
+  "gida": {
+    "slug": "gida",
+    "name": "Gida & Icecek",
+    "title": "Gida & Icecek Sektorunde Uretim Yonetimi",
+    "description": "BRC, IFS ve FDA uyumlu izlenebilirlik, uretim optimizasyonu ve kalite yonetimi ile gida guvenligi standartlarinizi koruyun.",
+    "heroImage": "assets/images/sectors/gida-hero.png",
+    "color": "#04bf8a",
+    "challenges": [
+      "BRC, IFS, FSSC 22000 uyumluluk gereksinimleri",
+      "Son kullanim tarihi ve lot yonetimi karmasikligi",
+      "Soguk zincir ve sicaklik izleme zorunlulugu",
+      "Hizli geri cagirma kapasitesi beklentisi"
+    ],
+    "solutions": [
+      "Urunten urune tam izlenebilirlik ve lot takibi",
+      "Sicaklik, nem ve ortam kosulu izleme",
+      "Otomatik geri cagirma kapsam analizi",
+      "Dijital formlarla kagitsiz kalite kontrol"
+    ],
+    "modules": ["ontrace", "onoee", "onsmartforms", "onintegra", "onmonitora"],
+    "references": ["Unilever", "Diageo", "Haier"],
+    "stats": [
+      { "value": "%100", "label": "Lot Izlenebilirlik" },
+      { "value": "<%15", "label": "Fire Azalmasi" },
+      { "value": "0", "label": "Kagit Bazli Form" }
+    ]
+  },
+  "ilac": {
+    "slug": "ilac",
+    "name": "Ilac & Saglik",
+    "title": "Ilac Sektorunde Uyumlu Uretim Yonetimi",
+    "description": "FDA 21 CFR Part 11, GMP ve GDP uyumlu dijital uretim yonetimi. Validasyon, denetim izi ve tam izlenebilirlik.",
+    "heroImage": "assets/images/sectors/ilac-hero.png",
+    "color": "#034082",
+    "challenges": [
+      "FDA 21 CFR Part 11 ve EU GMP Annex 11 uyumu",
+      "Elektronik imza ve denetim izi zorunlulugu",
+      "Validasyon (IQ/OQ/PQ) surecleri",
+      "Seri numarasi bazli izlenebilirlik"
+    ],
+    "solutions": [
+      "Tam denetim izi ve elektronik imza destegi",
+      "Validasyona hazir sistem altyapisi",
+      "Seri numarasi bazli urunten urune izlenebilirlik",
+      "Otomatik sapma ve CAPA yonetimi"
+    ],
+    "modules": ["ontrace", "onsmartforms", "onoee", "onintegra"],
+    "references": ["Philip Morris"],
+    "stats": [
+      { "value": "%100", "label": "Denetim Izi" },
+      { "value": "21CFR", "label": "FDA Uyumu" },
+      { "value": "GMP", "label": "Standart Uyum" }
+    ]
+  },
+  "tutun": {
+    "slug": "tutun",
+    "name": "Tutun",
+    "title": "Tutun Sektorunde TMC Uyumlu Cozumler",
+    "description": "OPC UA TMC standartina tam uyumlu veri toplama, sigara makineleri ile dogrudan iletisim ve TAPDK raporlamasi.",
+    "heroImage": "assets/images/sectors/tutun-hero.png",
+    "color": "#f48b68",
+    "challenges": [
+      "TMC protokol uyumluluk gereksinimleri",
+      "Farkli makine markalari arasi veri birlestirme",
+      "TAPDK ve regulasyon raporlama zorlugu",
+      "Yuksek hizli uretim hattinda veri kaybı"
+    ],
+    "solutions": [
+      "Tam OPC UA TMC 1.0/2.0 uyumu",
+      "Hauni, GD, Focke gibi tum markalarla entegrasyon",
+      "Otomatik TAPDK ve regulasyon raporlari",
+      "Milisaniye hassasiyetinde veri toplama"
+    ],
+    "modules": ["ontmc", "ontrace", "onoee", "onmonitora"],
+    "references": ["Philip Morris", "JTI"],
+    "stats": [
+      { "value": "TMC", "label": "Tam Uyum" },
+      { "value": "%99.9", "label": "Veri Yakalama" },
+      { "value": "ms", "label": "Hassasiyet" }
+    ]
+  }
+}

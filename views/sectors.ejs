@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sektorler - OnSuite | <%= data.site.title %></title>
+  <meta name="description" content="OnSuite akilli uretim platformu - Otomotiv, Gida, Ilac ve Tutun sektorlerinde dijital donusum cozumleri.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="/css/inner.css">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+</head>
+<body>
+
+<%- include('partials/header') %>
+
+<section class="inner-hero">
+  <div class="container">
+    <h1 class="inner-hero__title">Sektorel Cozumler</h1>
+    <p class="inner-hero__desc">Her sektorun kendine ozgu ihtiyaclari var. OnSuite, sektorunuze ozel yapilandirmalar ve hazir sablonlarla hizli devreye alim sunar.</p>
+  </div>
+</section>
+
+<section class="inner-listing">
+  <div class="container">
+    <div class="inner-listing__grid">
+      <% Object.keys(sectorsData).forEach(function(slug) { var s = sectorsData[slug]; %>
+        <a href="/sektorler/<%= slug %>" class="inner-listing__card">
+          <div class="inner-listing__accent" style="background: <%= s.color %>"></div>
+          <h2 class="inner-listing__name"><%= s.name %></h2>
+          <p class="inner-listing__desc"><%= s.description %></p>
+          <div class="inner-listing__stats">
+            <% s.stats.forEach(function(st) { %>
+              <div class="inner-listing__stat">
+                <span class="inner-listing__stat-val"><%= st.value %></span>
+                <span class="inner-listing__stat-lbl"><%= st.label %></span>
+              </div>
+            <% }); %>
+          </div>
+          <span class="inner-listing__link">Detayli Bilgi <span>&rarr;</span></span>
+        </a>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<section class="inner-cta">
+  <div class="container">
+    <div class="inner-cta__inner">
+      <h2 class="inner-cta__title">Sektorunuze Ozel Demo Alin</h2>
+      <p class="inner-cta__desc">15 dakikalik kisisellestirilmis demo ile tesisinize deger katacagimizi gorun.</p>
+      <a href="/demo" class="btn btn--primary btn--lg">Demo Talep Et <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
+<script src="/js/main.js"></script>
+</body>
+</html>
