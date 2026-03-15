@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hakkimizda - OnSuite | <%= data.site.title %></title>
-  <meta name="description" content="Siskon Otomasyon - 20+ yillik endustriyel otomasyon deneyimi ile akilli uretim cozumleri.">
+  <title><%= t.nav.about %> - OnSuite | <%= data.site.title %></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,122 +13,93 @@
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
-
 <%- include('partials/header') %>
 
-<!-- ABOUT HERO -->
 <section class="inner-hero">
   <div class="container">
-    <h1 class="inner-hero__title">Fabrikalar Icin Yazilim Yapiyoruz</h1>
-    <p class="inner-hero__desc">Siskon Otomasyon olarak 20+ yildir endustriyel otomasyon alaninda calisiyoruz. OnSuite, bu deneyimin yazilim urunune donusmesi.</p>
+    <h1 class="inner-hero__title"><%= t.about.heroTitle %></h1>
+    <p class="inner-hero__desc"><%= t.about.heroDesc %></p>
   </div>
 </section>
 
-<!-- TIMELINE / STORY -->
 <section class="about-story">
   <div class="container">
     <div class="about-story__grid">
-      <div class="about-story__item">
-        <span class="about-story__year">2003</span>
-        <h3 class="about-story__heading">Siskon Otomasyon Kurulusu</h3>
-        <p class="about-story__text">Izmir'de endustriyel otomasyon alaninda faaliyete basladik. PLC programlama, SCADA sistemleri ve saha otomasyonu ile uretim tesislerini dijitallestirmeye basladik.</p>
-      </div>
-      <div class="about-story__item">
-        <span class="about-story__year">2010</span>
-        <h3 class="about-story__heading">MES Vizyonu</h3>
-        <p class="about-story__text">Sahada edindigimiz tecrube ile uretim yonetim sistemi (MES) gelistirmeye basladik. Fabrika verisini anlam ifade eden bilgiye donusturme hedefiyle yola ciktik.</p>
-      </div>
-      <div class="about-story__item">
-        <span class="about-story__year">2018</span>
-        <h3 class="about-story__heading">OnSuite Platformu</h3>
-        <p class="about-story__text">Moduler, olceklenebilir ve bulut destekli OnSuite platformunu piyasaya sunduk. 8 modul ile uretimin her asamasini tek ekrandan yonetilebilir hale getirdik.</p>
-      </div>
-      <div class="about-story__item">
-        <span class="about-story__year">2024</span>
-        <h3 class="about-story__heading">Global Buyume</h3>
-        <p class="about-story__text">40+ ulkede, 100+ projede, 500+ uretim hattinda aktif kullanim. Bosch, BSH, Unilever, Philip Morris gibi global markalarla calisiyoruz.</p>
-      </div>
+      <% t.about.timeline.forEach(function(item) { %>
+        <div class="about-story__item">
+          <span class="about-story__year"><%= item.year %></span>
+          <h3 class="about-story__heading"><%= item.title %></h3>
+          <p class="about-story__text"><%= item.text %></p>
+        </div>
+      <% }); %>
     </div>
   </div>
 </section>
 
-<!-- KEY NUMBERS -->
 <section class="inner-stats" style="background:#FAFBFC">
   <div class="container">
     <div class="inner-stats__grid">
-      <div class="inner-stats__item">
-        <span class="inner-stats__value" style="color:#0089CF">40+</span>
-        <span class="inner-stats__label">Ulke</span>
-      </div>
-      <div class="inner-stats__item">
-        <span class="inner-stats__value" style="color:#04bf8a">100+</span>
-        <span class="inner-stats__label">Proje</span>
-      </div>
-      <div class="inner-stats__item">
-        <span class="inner-stats__value" style="color:#ff3b78">500+</span>
-        <span class="inner-stats__label">Uretim Hatti</span>
-      </div>
-      <div class="inner-stats__item">
-        <span class="inner-stats__value" style="color:#034082">20+</span>
-        <span class="inner-stats__label">Yillik Deneyim</span>
-      </div>
+      <% t.about.stats.forEach(function(s) { %>
+        <div class="inner-stats__item">
+          <span class="inner-stats__value" style="color:<%= s.color %>"><%= s.value %></span>
+          <span class="inner-stats__label"><%= s.label %></span>
+        </div>
+      <% }); %>
     </div>
   </div>
 </section>
 
-<!-- VALUES -->
 <section class="about-values">
   <div class="container">
-    <h2 class="inner-section-title">Degerlerimiz</h2>
+    <h2 class="inner-section-title"><%= t.about.values %></h2>
     <div class="about-values__grid">
       <div class="about-values__card">
         <div class="about-values__icon" style="color:#0089CF">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
         </div>
-        <h3 class="about-values__name">Saha Deneyimi</h3>
-        <p class="about-values__desc">Yazilimi ofiste degil, fabrika sahasinda gelistiriyoruz. Gercek problemleri gercek cozumlerle karsiliyor.</p>
+        <h3 class="about-values__name"><%= t.about.fieldExp %></h3>
+        <p class="about-values__desc"><%= t.about.fieldExpDesc %></p>
       </div>
       <div class="about-values__card">
         <div class="about-values__icon" style="color:#04bf8a">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <h3 class="about-values__name">Sonuc Odakli</h3>
-        <p class="about-values__desc">Teknoloji satmiyoruz, sonuc satiyoruz. OEE artisi, fire azalma, izlenebilirlik — olculebilir degerler.</p>
+        <h3 class="about-values__name"><%= t.about.resultOriented %></h3>
+        <p class="about-values__desc"><%= t.about.resultOrientedDesc %></p>
       </div>
       <div class="about-values__card">
         <div class="about-values__icon" style="color:#ff3b78">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
         </div>
-        <h3 class="about-values__name">Uzun Vadeli Ortaklik</h3>
-        <p class="about-values__desc">Musterilerimizle proje degil, ortaklik kuruyoruz. Devreye alimdan sonra da yaniinizdayiz.</p>
+        <h3 class="about-values__name"><%= t.about.longTermPartner %></h3>
+        <p class="about-values__desc"><%= t.about.longTermPartnerDesc %></p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT INFO -->
 <section class="about-contact">
   <div class="container">
     <div class="about-contact__grid">
       <div class="about-contact__info">
-        <h2 class="inner-section-title" style="text-align:left">Iletisim</h2>
+        <h2 class="inner-section-title" style="text-align:left"><%= t.about.contact %></h2>
         <div class="about-contact__item">
-          <strong>Adres</strong>
-          <p>Siskon Otomasyon, Izmir, Turkiye</p>
+          <strong><%= t.about.address %></strong>
+          <p><%= t.about.addressVal %></p>
         </div>
         <div class="about-contact__item">
-          <strong>Telefon</strong>
-          <p><a href="tel:+902322450076">+90 (232) 245 00 76</a></p>
+          <strong><%= t.about.phoneLabel %></strong>
+          <p><a href="tel:+902322450076"><%= t.common.phone %></a></p>
         </div>
         <div class="about-contact__item">
-          <strong>E-posta</strong>
+          <strong><%= t.about.emailLabel %></strong>
           <p><a href="mailto:info@siskon.com.tr">info@siskon.com.tr</a></p>
         </div>
       </div>
       <div class="about-contact__cta">
-        <h3>Projelerinizi Konusalim</h3>
-        <p>Uretim hattinizi dijitallestirmek icin ilk adimi atin.</p>
-        <a href="/demo" class="btn btn--primary">Demo Talep Et <span>&rarr;</span></a>
+        <h3><%= t.about.talkProjects %></h3>
+        <p><%= t.about.talkDesc %></p>
+        <a href="<%= prefix %>/demo" class="btn btn--primary"><%= t.common.demoRequestBtn %> <span>&rarr;</span></a>
       </div>
     </div>
   </div>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr" data-theme="light">
+<html lang="<%= lang %>" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +12,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- Styles -->
-  <link rel="stylesheet" href="css/design-system.css">
-  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
 
@@ -47,7 +48,7 @@
             <%= data.hero.description %>
           </p>
           <div class="hero__actions reveal reveal-d3">
-            <a href="#demo" class="btn btn--primary">
+            <a href="<%= prefix %>/demo" class="btn btn--primary">
               <%= data.hero.ctaPrimary %>
               <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
@@ -57,7 +58,7 @@
         <div class="hero__visual reveal reveal-d2">
           <div class="hero-image">
             <img src="<%= data.hero.heroImage %>"
-                 alt="OnSuite Akilli Uretim Platformu - Dashboard Macbook Gorunumu"
+                 alt="OnSuite Smart Manufacturing Platform - Dashboard"
                  class="hero-image__img"
                  loading="eager">
             <div class="hero-image__glow" aria-hidden="true"></div>
@@ -69,7 +70,7 @@
     <!-- ============================================================
          SECTION 2: SOCIAL PROOF BAR
          ============================================================ -->
-    <section class="proof-bar" aria-label="Referanslar">
+    <section class="proof-bar" aria-label="<%= t.home.references %>">
       <div class="container">
         <div class="proof-bar__logos reveal">
           <img src="assets/images/logos/references/bosch.png" alt="Bosch" class="proof-bar__logo" loading="lazy">
@@ -120,7 +121,7 @@
             <% if (mod.metric) { %>
             <span class="card__metric"><%= mod.metric %></span>
             <% } %>
-            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="#" class="card__link"><%= t.common.learnMore %> <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
           </div>
           <% } else if (mod.size === 'wide') { %>
           <!-- Wide Card: <%= mod.name %> -->
@@ -128,7 +129,7 @@
             <img src="<%= mod.icon %>" alt="<%= mod.name %>" class="card__icon-img" loading="lazy">
             <h4 class="card__title"><%= mod.name %></h4>
             <p class="card__desc"><%= mod.desc %></p>
-            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="#" class="card__link"><%= t.common.learnMore %> <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
           </div>
           <% } else { %>
           <!-- Small Card: <%= mod.name %> -->
@@ -136,7 +137,7 @@
             <img src="<%= mod.icon %>" alt="<%= mod.name %>" class="card__icon-img" loading="lazy">
             <h4 class="card__title"><%= mod.name %></h4>
             <p class="card__desc"><%= mod.desc %></p>
-            <a href="#" class="card__link">Daha fazla <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+            <a href="#" class="card__link"><%= t.common.learnMore %> <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
           </div>
           <% } %>
           <% }) %>
@@ -199,116 +200,116 @@
     <section class="section section--alt" id="sectors">
       <div class="container">
         <div class="section__header">
-          <p class="section__overline reveal">Sektorler</p>
-          <h2 class="section__title reveal reveal-d1">Sektorunuze Ozel <span class="text-gradient">Cozumler</span></h2>
+          <p class="section__overline reveal"><%= t.home.sectorsOverline %></p>
+          <h2 class="section__title reveal reveal-d1"><%= t.home.sectorsTitle %> <span class="text-gradient"><%= t.home.sectorsHighlight %></span></h2>
         </div>
 
         <div class="tabs reveal">
           <div class="tabs__nav" role="tablist">
-            <button class="tabs__tab tabs__tab--active" role="tab" aria-selected="true" data-tab="automotive">Otomotiv</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="food">Gida & Icecek</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="pharma">Ilac</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="tobacco">Tutun</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="general">Genel Uretim</button>
+            <button class="tabs__tab tabs__tab--active" role="tab" aria-selected="true" data-tab="automotive"><%= t.home.tabAutomotive %></button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="food"><%= t.home.tabFood %></button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="pharma"><%= t.home.tabPharma %></button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="tobacco"><%= t.home.tabTobacco %></button>
+            <button class="tabs__tab" role="tab" aria-selected="false" data-tab="general"><%= t.home.tabGeneral %></button>
           </div>
 
           <div class="tabs__content">
-            <!-- Otomotiv -->
+            <!-- Automotive -->
             <div class="tabs__panel tabs__panel--active" role="tabpanel" data-panel="automotive">
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/otomotiv.png" alt="Otomotiv sektorunde izlenebilirlik" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/trace-hero.png" alt="OnTrace Izlenebilirlik" class="tabs__visual-img" loading="lazy">
+                  <img src="assets/images/sectors/otomotiv.png" alt="<%= t.home.tabAutomotive %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/trace-hero.png" alt="OnTrace" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
-                  <h3>Otomotiv Sektorunde Tam Izlenebilirlik</h3>
-                  <p>Otomotiv tedarik zincirinde her parcayi hammaddeden montaja kadar takip edin. IATF 16949 uyumlulugu ve tam lot izlenebilirlik ile geri cagirma sureclerinizi dakikalardan saniyelere indirin.</p>
+                  <h3><%= t.home.automotiveTitle %></h3>
+                  <p><%= t.home.automotiveDesc %></p>
                   <div class="tabs__modules">
                     <span class="tabs__module-tag">OnTrace</span>
                     <span class="tabs__module-tag">OnOEE</span>
                     <span class="tabs__module-tag">OnIntegra</span>
                   </div>
-                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                  <a href="<%= prefix %>/demo" class="btn--link"><%= t.home.sectorDemoLink %> <span class="btn__arrow">&rarr;</span></a>
                 </div>
               </div>
             </div>
 
-            <!-- Gida -->
+            <!-- Food -->
             <div class="tabs__panel" role="tabpanel" data-panel="food" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/gida.png" alt="Gida sektorunde kalite guvencesi" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/sectors/gida.png" alt="<%= t.home.tabFood %>" class="tabs__sector-icon" loading="lazy">
                   <img src="assets/images/modules/connect-hero.png" alt="OnSuite Connect" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
-                  <h3>Gida & Icecek Sektorunde Kalite Guvencesi</h3>
-                  <p>FDA, BRC ve IFS standartlarina uyumlu uretim izleme. Sicaklik, nem ve proses parametrelerini gercek zamanli takip edin.</p>
+                  <h3><%= t.home.foodTitle %></h3>
+                  <p><%= t.home.foodDesc %></p>
                   <div class="tabs__modules">
                     <span class="tabs__module-tag">OnTrace</span>
                     <span class="tabs__module-tag">OnOptima</span>
                     <span class="tabs__module-tag">OnSmartForms</span>
                   </div>
-                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                  <a href="<%= prefix %>/demo" class="btn--link"><%= t.home.sectorDemoLink %> <span class="btn__arrow">&rarr;</span></a>
                 </div>
               </div>
             </div>
 
-            <!-- Ilac -->
+            <!-- Pharma -->
             <div class="tabs__panel" role="tabpanel" data-panel="pharma" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/ilac.png" alt="Ilac sektorunde regulator uyumluluk" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/hero/factory-isometric.png" alt="Akilli Fabrika" class="tabs__visual-img" loading="lazy">
+                  <img src="assets/images/sectors/ilac.png" alt="<%= t.home.tabPharma %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/hero/factory-isometric.png" alt="OnSuite" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
-                  <h3>Ilac Sektorunde Regulator Uyumluluk</h3>
-                  <p>GMP ve FDA 21 CFR Part 11 uyumlu dijital kayit sistemi. Her urunu seri numarasindan gecmisine kadar tam izlenebilirlik.</p>
+                  <h3><%= t.home.pharmaTitle %></h3>
+                  <p><%= t.home.pharmaDesc %></p>
                   <div class="tabs__modules">
                     <span class="tabs__module-tag">OnTrace</span>
                     <span class="tabs__module-tag">OnSmartForms</span>
                     <span class="tabs__module-tag">OnIntegra</span>
                   </div>
-                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                  <a href="<%= prefix %>/demo" class="btn--link"><%= t.home.sectorDemoLink %> <span class="btn__arrow">&rarr;</span></a>
                 </div>
               </div>
             </div>
 
-            <!-- Tutun -->
+            <!-- Tobacco -->
             <div class="tabs__panel" role="tabpanel" data-panel="tobacco" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/icons/tmc.png" alt="Tutun sektorunde TMC uyumluluk" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/monitora-hero.png" alt="OnMonitora Makine Izleme" class="tabs__visual-img" loading="lazy">
+                  <img src="assets/images/icons/tmc.png" alt="<%= t.home.tabTobacco %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/monitora-hero.png" alt="OnMonitora" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
-                  <h3>Tutun Sektorunde OPC UA TMC Uyumluluk</h3>
-                  <p>TMC (Tobacco Machine Communication) standardina tam uyumlu veri toplama. Sigara makineleri ile dogrudan iletisim.</p>
+                  <h3><%= t.home.tobaccoTitle %></h3>
+                  <p><%= t.home.tobaccoDesc %></p>
                   <div class="tabs__modules">
                     <span class="tabs__module-tag">OnTMC</span>
                     <span class="tabs__module-tag">OnTrace</span>
                     <span class="tabs__module-tag">OnOEE</span>
                   </div>
-                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                  <a href="<%= prefix %>/demo" class="btn--link"><%= t.home.sectorDemoLink %> <span class="btn__arrow">&rarr;</span></a>
                 </div>
               </div>
             </div>
 
-            <!-- Genel -->
+            <!-- General -->
             <div class="tabs__panel" role="tabpanel" data-panel="general" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/genel-uretim.png" alt="Genel uretimde verimlilik" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/optima-hero.png" alt="OnOptima Dashboard" class="tabs__visual-img" loading="lazy">
+                  <img src="assets/images/sectors/genel-uretim.png" alt="<%= t.home.tabGeneral %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="assets/images/modules/optima-hero.png" alt="OnOptima" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
-                  <h3>Genel Uretimde Verimlilik Devrimi</h3>
-                  <p>Sektorunuz ne olursa olsun, OnSuite modulerligiyle ihtiyaciniza ozel cozum sunulur. OEE, kalite, bakim ve raporlama tek platformda.</p>
+                  <h3><%= t.home.generalTitle %></h3>
+                  <p><%= t.home.generalDesc %></p>
                   <div class="tabs__modules">
                     <span class="tabs__module-tag">OnOEE</span>
                     <span class="tabs__module-tag">OnOptima</span>
                     <span class="tabs__module-tag">OnMonitora</span>
                   </div>
-                  <a href="#demo" class="btn--link">Bu sektor icin demo <span class="btn__arrow">&rarr;</span></a>
+                  <a href="<%= prefix %>/demo" class="btn--link"><%= t.home.sectorDemoLink %> <span class="btn__arrow">&rarr;</span></a>
                 </div>
               </div>
             </div>
@@ -323,9 +324,9 @@
     <section class="section" id="integrations">
       <div class="container">
         <div class="section__header">
-          <p class="section__overline reveal">Entegrasyon</p>
-          <h2 class="section__title reveal reveal-d1">Mevcut Altyapinizla <span class="text-gradient">Uyumlu</span></h2>
-          <p class="section__sub reveal reveal-d2">OnSuite, kullandiginiz ERP ve otomasyon sistemleriyle sorunsuz entegre olur.</p>
+          <p class="section__overline reveal"><%= t.home.integrationOverline %></p>
+          <h2 class="section__title reveal reveal-d1"><%= t.home.integrationTitle %> <span class="text-gradient"><%= t.home.integrationHighlight %></span></h2>
+          <p class="section__sub reveal reveal-d2"><%= t.home.integrationDesc %></p>
         </div>
 
         <div class="partner-grid reveal">
@@ -348,8 +349,8 @@
     <section class="section section--alt" id="testimonial">
       <div class="container">
         <div class="section__header">
-          <p class="section__overline reveal">Basari Hikayeleri</p>
-          <h2 class="section__title reveal reveal-d1">Musterilerimizin <span class="text-gradient">Deneyimi</span></h2>
+          <p class="section__overline reveal"><%= t.home.testimonialOverline %></p>
+          <h2 class="section__title reveal reveal-d1"><%= t.home.testimonialTitle %> <span class="text-gradient"><%= t.home.testimonialHighlight %></span></h2>
         </div>
 
         <div class="testimonial-card reveal">
@@ -374,60 +375,60 @@
     <section class="section" id="roi">
       <div class="container">
         <div class="section__header">
-          <p class="section__overline reveal">Yatirim Getirisi</p>
-          <h2 class="section__title reveal reveal-d1">OnSuite'in Tesisinize <span class="text-gradient">Kazandiracaklarini</span> Hesaplayin</h2>
-          <p class="section__sub reveal reveal-d2">Sadece birkac parametre girin, tahmini kazaniminizi aninda gorun.</p>
+          <p class="section__overline reveal"><%= t.home.roiOverline %></p>
+          <h2 class="section__title reveal reveal-d1"><%= t.home.roiTitle %> <span class="text-gradient"><%= t.home.roiHighlight %></span> <%= t.home.roiTitleEnd %></h2>
+          <p class="section__sub reveal reveal-d2"><%= t.home.roiDesc %></p>
         </div>
 
         <div class="roi-calc reveal">
           <div class="roi-calc__inputs">
             <div class="roi-calc__field">
-              <label class="roi-calc__label">Uretim Hatti Sayisi</label>
+              <label class="roi-calc__label"><%= t.home.roiLines %></label>
               <input type="range" class="roi-calc__slider" id="roiLines" min="1" max="50" value="8">
               <div class="roi-calc__value"><span id="roiLinesVal">8</span></div>
             </div>
             <div class="roi-calc__field">
-              <label class="roi-calc__label">Mevcut OEE (%)</label>
+              <label class="roi-calc__label"><%= t.home.roiOee %></label>
               <input type="range" class="roi-calc__slider" id="roiOee" min="30" max="90" value="65">
               <div class="roi-calc__value"><span id="roiOeeVal">65%</span></div>
             </div>
             <div class="roi-calc__field">
-              <label class="roi-calc__label">Aylik Plansiz Durus (saat)</label>
+              <label class="roi-calc__label"><%= t.home.roiDowntime %></label>
               <input type="range" class="roi-calc__slider" id="roiDowntime" min="10" max="500" value="80" step="10">
               <div class="roi-calc__value"><span id="roiDowntimeVal">80</span></div>
             </div>
             <div class="roi-calc__field">
-              <label class="roi-calc__label">Sektor</label>
+              <label class="roi-calc__label"><%= t.home.roiSector %></label>
               <select class="roi-calc__select" id="roiSector">
-                <option value="general">Genel Uretim</option>
-                <option value="automotive">Otomotiv</option>
-                <option value="food">Gida & Icecek</option>
-                <option value="pharma">Ilac</option>
-                <option value="tobacco">Tutun</option>
+                <option value="general"><%= t.home.roiSectorGeneral %></option>
+                <option value="automotive"><%= t.home.roiSectorAuto %></option>
+                <option value="food"><%= t.home.roiSectorFood %></option>
+                <option value="pharma"><%= t.home.roiSectorPharma %></option>
+                <option value="tobacco"><%= t.home.roiSectorTobacco %></option>
               </select>
             </div>
             <div class="roi-calc__field">
-              <label class="roi-calc__label">Yillik Uretim Hacmi (adet)</label>
+              <label class="roi-calc__label"><%= t.home.roiVolume %></label>
               <input type="range" class="roi-calc__slider" id="roiVolume" min="10000" max="10000000" value="500000" step="10000">
               <div class="roi-calc__value"><span id="roiVolumeVal">500K</span></div>
             </div>
           </div>
 
           <div class="roi-calc__results">
-            <span class="roi-calc__results-label">Tahmini Yillik Kazanim</span>
+            <span class="roi-calc__results-label"><%= t.home.roiResultLabel %></span>
             <div class="roi-calc__big-number">
               <span class="roi-calc__currency">&#8378;</span>
               <span class="roi-calc__amount" id="roiAmount">1.2M</span>
             </div>
             <div class="roi-calc__breakdown">
-              <div class="roi-calc__row"><span>OEE Artisi</span><span class="roi-calc__row-value" id="roiOeeGain" style="color:var(--success-light)">+12%</span></div>
-              <div class="roi-calc__row"><span>Durus Azalmasi</span><span class="roi-calc__row-value" id="roiDowntimeGain" style="color:var(--success-light)">-30%</span></div>
-              <div class="roi-calc__row"><span>Hurda Azalmasi</span><span class="roi-calc__row-value" id="roiScrapGain" style="color:var(--success-light)">-18%</span></div>
-              <div class="roi-calc__row"><span>ROI Suresi</span><span class="roi-calc__row-value" id="roiPayback" style="color:var(--cyan-200)">9 ay</span></div>
+              <div class="roi-calc__row"><span><%= t.home.roiOeeGain %></span><span class="roi-calc__row-value" id="roiOeeGain" style="color:var(--success-light)">+12%</span></div>
+              <div class="roi-calc__row"><span><%= t.home.roiDowntimeGain %></span><span class="roi-calc__row-value" id="roiDowntimeGain" style="color:var(--success-light)">-30%</span></div>
+              <div class="roi-calc__row"><span><%= t.home.roiScrapGain %></span><span class="roi-calc__row-value" id="roiScrapGain" style="color:var(--success-light)">-18%</span></div>
+              <div class="roi-calc__row"><span><%= t.home.roiPayback %></span><span class="roi-calc__row-value" id="roiPayback" style="color:var(--cyan-200)">9 <%= t.home.roiPaybackUnit %></span></div>
             </div>
             <div class="roi-calc__actions">
-              <a href="#demo" class="btn btn--primary" style="width:100%">
-                Demo'da Dogrulayin
+              <a href="<%= prefix %>/demo" class="btn btn--primary" style="width:100%">
+                <%= t.home.roiCta %>
                 <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
@@ -444,13 +445,13 @@
         <h2 class="section__title reveal" style="color:#fff"><%= data.cta.title %> <span style="color:var(--cyan-200)"><%= data.cta.titleHighlight %></span> <%= data.cta.titleEnd %></h2>
         <p class="section__sub reveal reveal-d1" style="color:rgba(255,255,255,.55)"><%= data.cta.subtitle %></p>
         <div class="cta-block__actions reveal reveal-d2">
-          <a href="#" class="btn btn--primary">
-            Demo Talep Et
+          <a href="<%= prefix %>/demo" class="btn btn--primary">
+            <%= t.home.ctaDemoBtn %>
             <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
-          <a href="<%= data.site.phoneHref %>" class="btn btn--ghost">Bizi Arayin</a>
+          <a href="<%= data.site.phoneHref %>" class="btn btn--ghost"><%= t.home.ctaCallBtn %></a>
         </div>
-        <p class="cta-block__phone reveal reveal-d3">Veya direkt arayin: <a href="<%= data.site.phoneHref %>"><%= data.site.phone %></a></p>
+        <p class="cta-block__phone reveal reveal-d3"><%= t.home.ctaPhoneText %> <a href="<%= data.site.phoneHref %>"><%= data.site.phone %></a></p>
       </div>
       <div class="cta-block__pattern" aria-hidden="true"></div>
     </section>
@@ -463,36 +464,36 @@
        CHATBOT WIDGET
        ============================================================ -->
   <div class="chatbot" id="chatbot">
-    <button class="chatbot__trigger" id="chatbotTrigger" aria-label="OnSuite Asistan">
+    <button class="chatbot__trigger" id="chatbotTrigger" aria-label="<%= t.home.chatbotName %>">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="chatbot__teaser" id="chatbotTeaser" hidden>
-      <p>Size nasil yardimci olabilirim?</p>
-      <button class="chatbot__teaser-close" aria-label="Kapat">&times;</button>
+      <p><%= t.home.chatbotTeaser %></p>
+      <button class="chatbot__teaser-close" aria-label="Close">&times;</button>
     </div>
     <div class="chatbot__panel" id="chatbotPanel" hidden>
       <div class="chatbot__header">
         <div class="chatbot__header-info">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="1.5"/></svg>
-          <span>OnSuite Asistan</span>
+          <span><%= t.home.chatbotName %></span>
         </div>
-        <button class="chatbot__minimize" id="chatbotMinimize" aria-label="Kucult"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+        <button class="chatbot__minimize" id="chatbotMinimize" aria-label="Minimize"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></button>
       </div>
       <div class="chatbot__messages" id="chatbotMessages">
-        <div class="chatbot__msg chatbot__msg--bot"><p>Merhaba! OnSuite hakkinda ne ogrenmek istersiniz?</p></div>
+        <div class="chatbot__msg chatbot__msg--bot"><p><%= t.home.chatbotGreeting %></p></div>
         <div class="chatbot__quick-replies">
-          <button class="chatbot__chip" data-reply="modules">Moduller</button>
-          <button class="chatbot__chip" data-reply="demo">Demo</button>
-          <button class="chatbot__chip" data-reply="tech">Teknik Destek</button>
+          <button class="chatbot__chip" data-reply="modules"><%= t.home.chatbotChipModules %></button>
+          <button class="chatbot__chip" data-reply="demo"><%= t.home.chatbotChipDemo %></button>
+          <button class="chatbot__chip" data-reply="tech"><%= t.home.chatbotChipTech %></button>
         </div>
       </div>
       <div class="chatbot__input-bar">
-        <input type="text" class="chatbot__input" placeholder="Mesajinizi yazin..." aria-label="Mesaj">
-        <button class="chatbot__send" aria-label="Gonder"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <input type="text" class="chatbot__input" placeholder="<%= t.home.chatbotPlaceholder %>" aria-label="Message">
+        <button class="chatbot__send" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="var(--blue-500)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
       </div>
     </div>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="/js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+{
+  "title": "Our References",
+  "subtitle": "Trusted solution partner in 40+ countries, on 500+ production lines worldwide.",
+  "clients": [
+    { "name": "Bosch", "sector": "Automotive", "logo": "assets/images/logos/bosch.png" },
+    { "name": "BSH", "sector": "Home Appliances", "logo": "assets/images/logos/bsh.png" },
+    { "name": "Haier", "sector": "Home Appliances", "logo": "assets/images/logos/haier.png" },
+    { "name": "Unilever", "sector": "FMCG", "logo": "assets/images/logos/unilever.png" },
+    { "name": "Philip Morris", "sector": "Tobacco", "logo": "assets/images/logos/philip-morris.png" },
+    { "name": "BorgWarner", "sector": "Automotive", "logo": "assets/images/logos/borgwarner.png" },
+    { "name": "Diageo", "sector": "Beverage", "logo": "assets/images/logos/diageo.png" },
+    { "name": "JTI", "sector": "Tobacco", "logo": "assets/images/logos/jti.png" },
+    { "name": "Maxion", "sector": "Automotive", "logo": "assets/images/logos/maxion.png" },
+    { "name": "GE Vernova", "sector": "Energy", "logo": "assets/images/logos/ge-vernova.png" }
+  ],
+  "partners": [
+    { "name": "Microsoft", "desc": "Cloud-based production solutions with Microsoft Dynamics and Azure IoT integration.", "logo": "assets/images/logos/microsoft.png" },
+    { "name": "Beckhoff", "desc": "High-performance automation integration based on TwinCAT and EtherCAT.", "logo": "assets/images/logos/beckhoff.png" },
+    { "name": "GE Vernova", "desc": "Industrial data collection with Proficy and iFIX SCADA integration.", "logo": "assets/images/logos/ge-vernova.png" },
+    { "name": "Ignition", "desc": "Seamless integration with Inductive Automation's Ignition SCADA platform.", "logo": "assets/images/logos/ignition.png" },
+    { "name": "SICK", "desc": "Industrial sensor and barcode reader integration.", "logo": "assets/images/logos/sick.png" },
+    { "name": "Universal Robots", "desc": "Flexible production with collaborative robot (cobot) integration.", "logo": "assets/images/logos/universal-robots.png" }
+  ],
+  "caseStudies": [
+    {
+      "title": "Bosch: 23% OEE Increase",
+      "client": "Bosch", "sector": "Automotive",
+      "summary": "With OnOEE and OnTrace modules, Bosch achieved a 23% OEE increase and near-zero recall time on their production line.",
+      "results": ["23% OEE increase", "99.2% traceability", "10-second recall"]
+    },
+    {
+      "title": "Philip Morris: TMC Compliance Project",
+      "client": "Philip Morris", "sector": "Tobacco",
+      "summary": "Full TMC compliance achieved on Philip Morris production line with the OnTMC module. All machine brands unified on a single platform.",
+      "results": ["Full TMC compliance", "99.9% data capture", "Automatic regulatory reporting"]
+    }
+  ]
+}

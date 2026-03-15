@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Demo Talep Et - OnSuite | <%= data.site.title %></title>
-  <meta name="description" content="OnSuite akilli uretim yonetim platformunu 15 dakikalik kisisellestirilmis demo ile deneyimleyin.">
+  <title><%= t.demo.pageTitle %> - OnSuite | <%= data.site.title %></title>
+  <meta name="description" content="<%= t.demo.desc %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,52 +14,53 @@
 </head>
 <body>
 
-<!-- Simplified Header -->
 <header class="demo-header">
   <div class="container">
     <div class="demo-header__inner">
-      <a href="/" class="demo-header__logo">
+      <a href="<%= prefix %>/" class="demo-header__logo">
         <img src="/assets/images/logo.png" alt="OnSuite" width="120" height="28">
       </a>
-      <a href="/" class="demo-header__back">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Ana Sayfaya Don
-      </a>
+      <div style="display:flex;align-items:center;gap:16px">
+        <div class="lang-switch" style="display:flex;align-items:center;gap:6px">
+          <a href="/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'tr' ? '#0089CF' : '#9ca3af' %>">TR</a>
+          <span style="color:#e5e7eb">|</span>
+          <a href="/en/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'en' ? '#0089CF' : '#9ca3af' %>">EN</a>
+        </div>
+        <a href="<%= prefix %>/" class="demo-header__back">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <%= t.nav.backToHome %>
+        </a>
+      </div>
     </div>
   </div>
 </header>
 
-<!-- Demo Page Content -->
 <main class="demo-page">
   <div class="container">
     <div class="demo-grid">
-
-      <!-- Left: Info Column -->
       <div class="demo-info">
-        <h1 class="demo-info__title">OnSuite'i Kendi Verinizle Deneyimleyin</h1>
-        <p class="demo-info__desc">15 dakikalik kisisellestirilmis demo ile tesisinize deger katacagimizi gorun.</p>
-
+        <h1 class="demo-info__title"><%= t.demo.title %></h1>
+        <p class="demo-info__desc"><%= t.demo.desc %></p>
         <div class="demo-info__checklist">
           <div class="demo-info__check">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Canli dashboard demo</span>
+            <span><%= t.demo.check1 %></span>
           </div>
           <div class="demo-info__check">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Sektorunuze ozel senaryo</span>
+            <span><%= t.demo.check2 %></span>
           </div>
           <div class="demo-info__check">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>ROI analizi</span>
+            <span><%= t.demo.check3 %></span>
           </div>
           <div class="demo-info__check">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            <span>Entegrasyon yol haritasi</span>
+            <span><%= t.demo.check4 %></span>
           </div>
         </div>
-
         <div class="demo-info__social">
-          <p class="demo-info__social-text">Bu firmalar da OnSuite ile calisiyor</p>
+          <p class="demo-info__social-text"><%= t.demo.socialProof %></p>
           <div class="demo-info__logos">
             <span class="demo-info__logo-tag">Bosch</span>
             <span class="demo-info__logo-tag">BSH</span>
@@ -70,87 +71,69 @@
         </div>
       </div>
 
-      <!-- Right: Form Column -->
       <div class="demo-form-wrap">
-        <!-- Form State -->
         <div class="demo-form-card" id="demoFormCard">
-          <h2 class="demo-form__heading">Demo Talep Formu</h2>
-
+          <h2 class="demo-form__heading"><%= t.demo.formTitle %></h2>
           <form id="demoForm" class="demo-form" novalidate>
             <div class="demo-field">
-              <label for="df-name">Isim Soyisim <span class="req">*</span></label>
-              <input type="text" id="df-name" name="name" required placeholder="Adiniz Soyadiniz">
+              <label for="df-name"><%= t.demo.name %> <span class="req">*</span></label>
+              <input type="text" id="df-name" name="name" required placeholder="<%= t.demo.namePlaceholder %>">
             </div>
-
             <div class="demo-field">
-              <label for="df-email">Is E-postasi <span class="req">*</span></label>
-              <input type="email" id="df-email" name="email" required placeholder="ornek@firma.com">
+              <label for="df-email"><%= t.demo.email %> <span class="req">*</span></label>
+              <input type="email" id="df-email" name="email" required placeholder="<%= t.demo.emailPlaceholder %>">
             </div>
-
             <div class="demo-field">
-              <label for="df-phone">Telefon <span class="req">*</span></label>
-              <input type="tel" id="df-phone" name="phone" required placeholder="+90 (5XX) XXX XX XX">
+              <label for="df-phone"><%= t.demo.phoneLbl %> <span class="req">*</span></label>
+              <input type="tel" id="df-phone" name="phone" required placeholder="<%= t.demo.phonePlaceholder %>">
             </div>
-
             <div class="demo-field">
-              <label for="df-company">Firma Adi <span class="req">*</span></label>
-              <input type="text" id="df-company" name="company" required placeholder="Firma adiniz">
+              <label for="df-company"><%= t.demo.company %> <span class="req">*</span></label>
+              <input type="text" id="df-company" name="company" required placeholder="<%= t.demo.companyPlaceholder %>">
             </div>
-
             <div class="demo-field-row">
               <div class="demo-field">
-                <label for="df-sector">Sektor <span class="req">*</span></label>
+                <label for="df-sector"><%= t.demo.sector %> <span class="req">*</span></label>
                 <select id="df-sector" name="sector" required>
-                  <option value="">Seciniz</option>
-                  <option value="otomotiv">Otomotiv</option>
-                  <option value="gida">Gida & Icecek</option>
-                  <option value="ilac">Ilac & Saglik</option>
-                  <option value="tutun">Tutun</option>
-                  <option value="havacilik">Havacilik</option>
-                  <option value="genel">Genel Uretim</option>
-                  <option value="diger">Diger</option>
+                  <option value=""><%= t.demo.selectSector %></option>
+                  <% Object.keys(t.demo.sectorOptions).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= t.demo.sectorOptions[key] %></option>
+                  <% }); %>
                 </select>
               </div>
               <div class="demo-field">
-                <label for="df-lines">Uretim Hatti Sayisi</label>
+                <label for="df-lines"><%= t.demo.lines %></label>
                 <select id="df-lines" name="productionLines">
-                  <option value="">Seciniz</option>
-                  <option value="1-5">1 - 5</option>
-                  <option value="6-10">6 - 10</option>
-                  <option value="11-25">11 - 25</option>
-                  <option value="26-50">26 - 50</option>
-                  <option value="50+">50+</option>
+                  <option value=""><%= t.demo.selectLines %></option>
+                  <% Object.keys(t.demo.lineOptions).forEach(function(key) { %>
+                    <option value="<%= key %>"><%= t.demo.lineOptions[key] %></option>
+                  <% }); %>
                 </select>
               </div>
             </div>
-
             <div class="demo-field">
-              <label for="df-message">Mesajiniz <span class="opt">(Opsiyonel)</span></label>
-              <textarea id="df-message" name="message" rows="3" placeholder="Ozel gereksinimlerinizi yazabilirsiniz..."></textarea>
+              <label for="df-message"><%= t.demo.message %> <span class="opt">(<%= t.demo.optional %>)</span></label>
+              <textarea id="df-message" name="message" rows="3" placeholder="<%= t.demo.messagePlaceholder %>"></textarea>
             </div>
-
             <button type="submit" class="demo-form__submit" id="demoSubmitBtn">
-              Demo Talep Et <span aria-hidden="true">&rarr;</span>
+              <%= t.demo.submit %> <span aria-hidden="true">&rarr;</span>
             </button>
-
             <p class="demo-form__privacy">
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.75a2.625 2.625 0 00-2.625 2.625V5.25h5.25V4.375A2.625 2.625 0 007 1.75z" stroke="#9ca3af" stroke-width="1.2"/><rect x="2.625" y="5.25" width="8.75" height="6.125" rx="1.5" stroke="#9ca3af" stroke-width="1.2"/></svg>
-              Bilgileriniz gizli ve guvende tutulur.
+              <%= t.demo.privacy %>
             </p>
           </form>
         </div>
 
-        <!-- Success State -->
         <div class="demo-success" id="demoSuccess" style="display:none">
           <div class="demo-success__icon">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#04bf8a" stroke-width="2.5"/><path d="M15 24l6.5 6.5L33 17" stroke="#04bf8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
-          <h2 class="demo-success__title">Talebiniz Alindi!</h2>
-          <p class="demo-success__desc">Ekibimiz 24 saat icinde sizinle iletisime gececek.</p>
-          <a href="/" class="demo-success__link">Bu surede platformumuzu kesfedin <span aria-hidden="true">&rarr;</span></a>
+          <h2 class="demo-success__title"><%= t.demo.successTitle %></h2>
+          <p class="demo-success__desc"><%= t.demo.successDesc %></p>
+          <a href="<%= prefix %>/" class="demo-success__link"><%= t.demo.successLink %> <span aria-hidden="true">&rarr;</span></a>
         </div>
       </div>
-
     </div>
   </div>
 </main>
@@ -161,73 +144,44 @@
   var card = document.getElementById('demoFormCard');
   var success = document.getElementById('demoSuccess');
   var submitBtn = document.getElementById('demoSubmitBtn');
+  var submitText = '<%= t.demo.submit %>';
+  var sendingText = '<%= t.demo.sending %>';
+  var errorReq = '<%= t.demo.errorRequired %>';
+  var errorGen = '<%= t.demo.errorGeneral %>';
+  var errorConn = '<%= t.demo.errorConnection %>';
 
-  // Pre-fill from URL params
   var params = new URLSearchParams(window.location.search);
-  if (params.get('sector')) {
-    var sel = document.getElementById('df-sector');
-    if (sel) sel.value = params.get('sector');
-  }
-  if (params.get('lines')) {
-    var sel2 = document.getElementById('df-lines');
-    if (sel2) sel2.value = params.get('lines');
-  }
+  if (params.get('sector')) { var sel = document.getElementById('df-sector'); if (sel) sel.value = params.get('sector'); }
+  if (params.get('lines')) { var sel2 = document.getElementById('df-lines'); if (sel2) sel2.value = params.get('lines'); }
 
   form.addEventListener('submit', function(e) {
     e.preventDefault();
-
-    // Basic validation
     var fields = form.querySelectorAll('[required]');
     var valid = true;
-    fields.forEach(function(f) {
-      f.classList.remove('demo-field--error');
-      if (!f.value.trim()) {
-        f.classList.add('demo-field--error');
-        valid = false;
-      }
-    });
-    // Email validation
+    fields.forEach(function(f) { f.classList.remove('demo-field--error'); if (!f.value.trim()) { f.classList.add('demo-field--error'); valid = false; } });
     var email = document.getElementById('df-email');
-    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
-      email.classList.add('demo-field--error');
-      valid = false;
-    }
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email.classList.add('demo-field--error'); valid = false; }
     if (!valid) return;
 
     submitBtn.disabled = true;
-    submitBtn.textContent = 'Gonderiliyor...';
-
-    var formData = {
-      name: form.name.value.trim(),
-      email: form.email.value.trim(),
-      phone: form.phone.value.trim(),
-      company: form.company.value.trim(),
-      sector: form.sector.value,
-      productionLines: form.productionLines.value,
-      message: form.message.value.trim()
-    };
+    submitBtn.textContent = sendingText;
 
     fetch('/api/demo', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
+      body: JSON.stringify({
+        name: form.name.value.trim(), email: form.email.value.trim(), phone: form.phone.value.trim(),
+        company: form.company.value.trim(), sector: form.sector.value,
+        productionLines: form.productionLines.value, message: form.message.value.trim(),
+        lang: '<%= lang %>'
+      })
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
-      if (data.ok) {
-        card.style.display = 'none';
-        success.style.display = 'block';
-      } else {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Demo Talep Et <span aria-hidden="true">&rarr;</span>';
-        alert(data.error || 'Bir hata olustu. Lutfen tekrar deneyin.');
-      }
+      if (data.ok) { card.style.display = 'none'; success.style.display = 'block'; }
+      else { submitBtn.disabled = false; submitBtn.innerHTML = submitText + ' <span>&rarr;</span>'; alert(data.error || errorGen); }
     })
-    .catch(function() {
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = 'Demo Talep Et <span aria-hidden="true">&rarr;</span>';
-      alert('Baglanti hatasi. Lutfen tekrar deneyin.');
-    });
+    .catch(function() { submitBtn.disabled = false; submitBtn.innerHTML = submitText + ' <span>&rarr;</span>'; alert(errorConn); });
   });
 })();
 </script>

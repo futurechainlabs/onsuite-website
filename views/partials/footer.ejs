@@ -5,42 +5,43 @@
   <div class="container">
     <div class="footer__grid">
       <div class="footer__brand">
-        <img src="assets/images/logo.png" alt="OnSuite" class="footer__logo" style="filter:brightness(0) invert(1)" width="140" height="32">
-        <p class="footer__desc">Fabrikanizi tek bir akilli platformdan yonetin. Siskon Otomasyon'un uretim yonetim cozumu.</p>
+        <img src="/assets/images/logo.png" alt="OnSuite" class="footer__logo" style="filter:brightness(0) invert(1)" width="140" height="32">
+        <p class="footer__desc"><%= lang === 'en' ? 'Manage your factory from a single smart platform. Siskon Automation\'s production management solution.' : 'Fabrikanizi tek bir akilli platformdan yonetin. Siskon Otomasyon\'un uretim yonetim cozumu.' %></p>
       </div>
+      <% var modPath = lang === 'en' ? 'modules' : 'moduller'; %>
       <div class="footer__col">
-        <h6 class="footer__heading" data-accordion>Platform</h6>
+        <h6 class="footer__heading" data-accordion><%= t.footer.platform %></h6>
         <ul class="footer__links">
-          <li><a href="/sektorler">Sektorler</a></li>
-          <li><a href="/moduller/onoee">OEE & Performans</a></li>
-          <li><a href="/moduller/onmonitora">Makine Izleme</a></li>
-          <li><a href="/moduller/onintegra">Entegrasyon</a></li>
+          <li><a href="<%= prefix %>/<%= lang === 'en' ? 'industries' : 'sektorler' %>"><%= t.nav.sectors %></a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onoee"><%= t.nav.oeePerf %></a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onmonitora"><%= lang === 'en' ? 'Machine Monitoring' : 'Makine Izleme' %></a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onintegra"><%= t.nav.integration %></a></li>
         </ul>
       </div>
       <div class="footer__col">
-        <h6 class="footer__heading" data-accordion>Moduller</h6>
+        <h6 class="footer__heading" data-accordion><%= t.footer.modules %></h6>
         <ul class="footer__links">
-          <li><a href="/moduller/ontrace">OnTrace</a></li>
-          <li><a href="/moduller/onoptima">OnOptima</a></li>
-          <li><a href="/moduller/onoee">OnOEE</a></li>
-          <li><a href="/moduller/onintegra">OnIntegra</a></li>
-          <li><a href="/moduller/oncnc">OnCNC</a></li>
-          <li><a href="/moduller/ontmc">OnTMC</a></li>
-          <li><a href="/moduller/onsmartforms">OnSmartForms</a></li>
-          <li><a href="/moduller/onmonitora">OnMonitora</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/ontrace">OnTrace</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onoptima">OnOptima</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onoee">OnOEE</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onintegra">OnIntegra</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/oncnc">OnCNC</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/ontmc">OnTMC</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onsmartforms">OnSmartForms</a></li>
+          <li><a href="<%= prefix %>/<%= modPath %>/onmonitora">OnMonitora</a></li>
         </ul>
       </div>
       <div class="footer__col">
-        <h6 class="footer__heading" data-accordion>Sirket</h6>
+        <h6 class="footer__heading" data-accordion><%= t.footer.company %></h6>
         <ul class="footer__links">
-          <li><a href="/hakkimizda">Hakkimizda</a></li>
-          <li><a href="/hakkimizda">Iletisim</a></li>
-          <li><a href="/demo">Demo Talep</a></li>
+          <li><a href="<%= prefix %>/<%= lang === 'en' ? 'about' : 'hakkimizda' %>"><%= t.nav.about %></a></li>
+          <li><a href="<%= prefix %>/<%= lang === 'en' ? 'about' : 'hakkimizda' %>"><%= t.footer.contact %></a></li>
+          <li><a href="<%= prefix %>/demo"><%= t.footer.demoRequest %></a></li>
         </ul>
-        <h6 class="footer__heading footer__heading--sub" data-accordion>Kaynaklar</h6>
+        <h6 class="footer__heading footer__heading--sub" data-accordion><%= t.footer.resources %></h6>
         <ul class="footer__links">
-          <li><a href="/referanslar">Referanslar</a></li>
-          <li><a href="/referanslar">Partnerler</a></li>
+          <li><a href="<%= prefix %>/<%= lang === 'en' ? 'references' : 'referanslar' %>"><%= t.footer.references %></a></li>
+          <li><a href="<%= prefix %>/<%= lang === 'en' ? 'references' : 'referanslar' %>"><%= t.footer.partners %></a></li>
         </ul>
       </div>
     </div>
@@ -48,16 +49,16 @@
       <div class="footer__bottom-left">
         <p class="footer__copy">&copy; <%= data.site.copyright %></p>
         <div class="footer__legal">
-          <a href="#">Gizlilik Politikasi</a>
+          <a href="#"><%= t.footer.privacy %></a>
           <span aria-hidden="true">&middot;</span>
-          <a href="#">Cerez Politikasi</a>
+          <a href="#"><%= t.footer.cookies %></a>
         </div>
       </div>
       <div class="footer__bottom-right">
         <div class="lang-switch">
-          <button class="lang-switch__btn lang-switch__btn--active" style="color:#fff">TR</button>
+          <a href="/" class="lang-switch__btn<%= lang === 'tr' ? ' lang-switch__btn--active' : '' %>" style="color:<%= lang === 'tr' ? '#fff' : 'rgba(255,255,255,.4)' %>;text-decoration:none">TR</a>
           <span class="lang-switch__sep" style="color:rgba(255,255,255,.3)">|</span>
-          <button class="lang-switch__btn" style="color:rgba(255,255,255,.4)">EN</button>
+          <a href="/en" class="lang-switch__btn<%= lang === 'en' ? ' lang-switch__btn--active' : '' %>" style="color:<%= lang === 'en' ? '#fff' : 'rgba(255,255,255,.4)' %>;text-decoration:none">EN</a>
         </div>
         <div class="footer__social">
           <a href="#" aria-label="LinkedIn" class="footer__social-link"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>

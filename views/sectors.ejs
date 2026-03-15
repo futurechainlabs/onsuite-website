@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sektorler - OnSuite | <%= data.site.title %></title>
-  <meta name="description" content="OnSuite akilli uretim platformu - Otomotiv, Gida, Ilac ve Tutun sektorlerinde dijital donusum cozumleri.">
+  <title><%= t.nav.sectors %> - OnSuite | <%= data.site.title %></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,13 +13,12 @@
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
-
 <%- include('partials/header') %>
 
 <section class="inner-hero">
   <div class="container">
-    <h1 class="inner-hero__title">Sektorel Cozumler</h1>
-    <p class="inner-hero__desc">Her sektorun kendine ozgu ihtiyaclari var. OnSuite, sektorunuze ozel yapilandirmalar ve hazir sablonlarla hizli devreye alim sunar.</p>
+    <h1 class="inner-hero__title"><%= t.sector.indexTitle %></h1>
+    <p class="inner-hero__desc"><%= t.sector.indexDesc %></p>
   </div>
 </section>
 
@@ -28,7 +26,7 @@
   <div class="container">
     <div class="inner-listing__grid">
       <% Object.keys(sectorsData).forEach(function(slug) { var s = sectorsData[slug]; %>
-        <a href="/sektorler/<%= slug %>" class="inner-listing__card">
+        <a href="<%= prefix %>/<%= lang === 'en' ? 'industries' : 'sektorler' %>/<%= slug %>" class="inner-listing__card">
           <div class="inner-listing__accent" style="background: <%= s.color %>"></div>
           <h2 class="inner-listing__name"><%= s.name %></h2>
           <p class="inner-listing__desc"><%= s.description %></p>
@@ -40,7 +38,7 @@
               </div>
             <% }); %>
           </div>
-          <span class="inner-listing__link">Detayli Bilgi <span>&rarr;</span></span>
+          <span class="inner-listing__link"><%= t.common.learnMore %> <span>&rarr;</span></span>
         </a>
       <% }); %>
     </div>
@@ -50,9 +48,9 @@
 <section class="inner-cta">
   <div class="container">
     <div class="inner-cta__inner">
-      <h2 class="inner-cta__title">Sektorunuze Ozel Demo Alin</h2>
-      <p class="inner-cta__desc">15 dakikalik kisisellestirilmis demo ile tesisinize deger katacagimizi gorun.</p>
-      <a href="/demo" class="btn btn--primary btn--lg">Demo Talep Et <span>&rarr;</span></a>
+      <h2 class="inner-cta__title"><%= t.sector.indexCta %></h2>
+      <p class="inner-cta__desc"><%= t.sector.indexCtaDesc %></p>
+      <a href="<%= prefix %>/demo" class="btn btn--primary btn--lg"><%= t.common.demoRequestBtn %> <span>&rarr;</span></a>
     </div>
   </div>
 </section>

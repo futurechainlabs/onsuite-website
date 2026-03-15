@@ -1,0 +1,46 @@
+{
+  "otomotiv": {
+    "slug": "otomotiv", "name": "Automotive",
+    "title": "Digital Transformation in Automotive",
+    "description": "Digitalize your automotive production line with IATF 16949 compliant traceability, OEE tracking, and ERP integration.",
+    "heroImage": "assets/images/sectors/otomotiv-hero.png", "color": "#0089CF",
+    "challenges": ["IATF 16949 and customer-specific quality requirements", "Multi-layer supply chain traceability needs", "Zero-defect target in high-volume production", "JIT/JIS delivery pressure"],
+    "solutions": ["Lot-based full traceability (raw material to shipment)", "Real-time OEE and loss analysis", "Automatic quality control and SPC", "ERP & MES integration with seamless data flow"],
+    "modules": ["ontrace", "onoee", "onoptima", "onintegra", "onmonitora"],
+    "references": ["Bosch", "BSH", "BorgWarner", "Maxion"],
+    "stats": [{ "value": "99.2%", "label": "Traceability Rate" }, { "value": "23%", "label": "OEE Increase" }, { "value": "10sec", "label": "Recall Time" }]
+  },
+  "gida": {
+    "slug": "gida", "name": "Food & Beverage",
+    "title": "Production Management in Food & Beverage",
+    "description": "Maintain your food safety standards with BRC, IFS, and FDA compliant traceability, production optimization, and quality management.",
+    "heroImage": "assets/images/sectors/gida-hero.png", "color": "#04bf8a",
+    "challenges": ["BRC, IFS, FSSC 22000 compliance requirements", "Expiration date and lot management complexity", "Cold chain and temperature monitoring requirements", "Fast recall capacity expectations"],
+    "solutions": ["Product-to-product full traceability and lot tracking", "Temperature, humidity, and environmental condition monitoring", "Automatic recall scope analysis", "Paperless quality control with digital forms"],
+    "modules": ["ontrace", "onoee", "onsmartforms", "onintegra", "onmonitora"],
+    "references": ["Unilever", "Diageo", "Haier"],
+    "stats": [{ "value": "100%", "label": "Lot Traceability" }, { "value": "<15%", "label": "Waste Reduction" }, { "value": "0", "label": "Paper Forms" }]
+  },
+  "ilac": {
+    "slug": "ilac", "name": "Pharma & Healthcare",
+    "title": "Compliant Production Management in Pharma",
+    "description": "FDA 21 CFR Part 11, GMP, and GDP compliant digital production management. Validation, audit trail, and full traceability.",
+    "heroImage": "assets/images/sectors/ilac-hero.png", "color": "#034082",
+    "challenges": ["FDA 21 CFR Part 11 and EU GMP Annex 11 compliance", "Electronic signature and audit trail requirements", "Validation (IQ/OQ/PQ) processes", "Serial number-based traceability"],
+    "solutions": ["Full audit trail and electronic signature support", "Validation-ready system infrastructure", "Serial number-based product-to-product traceability", "Automatic deviation and CAPA management"],
+    "modules": ["ontrace", "onsmartforms", "onoee", "onintegra"],
+    "references": ["Philip Morris"],
+    "stats": [{ "value": "100%", "label": "Audit Trail" }, { "value": "21CFR", "label": "FDA Compliant" }, { "value": "GMP", "label": "Standard Compliance" }]
+  },
+  "tutun": {
+    "slug": "tutun", "name": "Tobacco",
+    "title": "TMC Compliant Solutions for Tobacco",
+    "description": "Fully compliant data collection with OPC UA TMC standard, direct communication with cigarette machines, and regulatory reporting.",
+    "heroImage": "assets/images/sectors/tutun-hero.png", "color": "#f48b68",
+    "challenges": ["TMC protocol compliance requirements", "Data consolidation across different machine brands", "Regulatory reporting difficulty", "Data loss on high-speed production lines"],
+    "solutions": ["Full OPC UA TMC 1.0/2.0 compliance", "Integration with all brands: Hauni, GD, Focke", "Automatic regulatory reports", "Millisecond-precision data collection"],
+    "modules": ["ontmc", "ontrace", "onoee", "onmonitora"],
+    "references": ["Philip Morris", "JTI"],
+    "stats": [{ "value": "TMC", "label": "Full Compliance" }, { "value": "99.9%", "label": "Data Capture" }, { "value": "ms", "label": "Precision" }]
+  }
+}

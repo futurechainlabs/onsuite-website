@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= sector.name %> Sektoru - OnSuite | <%= data.site.title %></title>
+  <title><%= sector.name %> - OnSuite | <%= data.site.title %></title>
   <meta name="description" content="<%= sector.description %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,24 +14,23 @@
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
-
 <%- include('partials/header') %>
 
-<!-- SECTOR HERO -->
 <section class="inner-hero" style="--accent: <%= sector.color %>">
   <div class="container">
     <nav class="inner-hero__breadcrumb" aria-label="Breadcrumb">
-      <a href="/">Ana Sayfa</a><span>/</span><a href="/sektorler">Sektorler</a><span>/</span><span><%= sector.name %></span>
+      <a href="<%= prefix %>/"><%= t.common.home %></a><span>/</span>
+      <a href="<%= prefix %>/<%= lang === 'en' ? 'industries' : 'sektorler' %>"><%= t.common.sectors %></a><span>/</span>
+      <span><%= sector.name %></span>
     </nav>
     <h1 class="inner-hero__title"><%= sector.title %></h1>
     <p class="inner-hero__desc"><%= sector.description %></p>
     <div class="inner-hero__actions">
-      <a href="/demo?sector=<%= sector.slug %>" class="btn btn--primary">Demo Talep Et <span>&rarr;</span></a>
+      <a href="<%= prefix %>/demo?sector=<%= sector.slug %>" class="btn btn--primary"><%= t.common.demoRequestBtn %> <span>&rarr;</span></a>
     </div>
   </div>
 </section>
 
-<!-- STATS -->
 <section class="inner-stats">
   <div class="container">
     <div class="inner-stats__grid">
@@ -45,29 +44,22 @@
   </div>
 </section>
 
-<!-- CHALLENGES & SOLUTIONS -->
 <section class="inner-split">
   <div class="container">
     <div class="inner-split__grid">
       <div class="inner-split__col inner-split__col--problem">
-        <h2 class="inner-split__heading">Sektor Zorluklari</h2>
+        <h2 class="inner-split__heading"><%= t.sector.challenges %></h2>
         <ul class="inner-split__list">
           <% sector.challenges.forEach(function(c) { %>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M13.5 4.5L4.5 13.5M4.5 4.5l9 9" stroke="#ff3b78" stroke-width="2" stroke-linecap="round"/></svg>
-              <%= c %>
-            </li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M13.5 4.5L4.5 13.5M4.5 4.5l9 9" stroke="#ff3b78" stroke-width="2" stroke-linecap="round"/></svg><%= c %></li>
           <% }); %>
         </ul>
       </div>
       <div class="inner-split__col inner-split__col--solution">
-        <h2 class="inner-split__heading">OnSuite Cozumleri</h2>
+        <h2 class="inner-split__heading"><%= t.sector.solutions %></h2>
         <ul class="inner-split__list">
           <% sector.solutions.forEach(function(s) { %>
-            <li>
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 5" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <%= s %>
-            </li>
+            <li><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M4 9l3.5 3.5L14 5" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><%= s %></li>
           <% }); %>
         </ul>
       </div>
@@ -75,28 +67,27 @@
   </div>
 </section>
 
-<!-- RECOMMENDED MODULES -->
 <section class="inner-modules">
   <div class="container">
-    <h2 class="inner-section-title"><%= sector.name %> Sektoru Icin Onerilen Moduller</h2>
+    <h2 class="inner-section-title"><%= sector.name %> <%= t.sector.recommendedModules %></h2>
     <div class="inner-modules__grid">
+      <% var modPath = lang === 'en' ? 'modules' : 'moduller'; %>
       <% sector.modules.forEach(function(slug) { if (modulesData[slug]) { var m = modulesData[slug]; %>
-        <a href="/moduller/<%= slug %>" class="inner-modules__card">
+        <a href="<%= prefix %>/<%= modPath %>/<%= slug %>" class="inner-modules__card">
           <div class="inner-modules__color" style="background: <%= m.color %>"></div>
           <h3 class="inner-modules__name"><%= m.name %></h3>
           <p class="inner-modules__desc"><%= m.tagline %></p>
-          <span class="inner-modules__link">Detayli Bilgi <span>&rarr;</span></span>
+          <span class="inner-modules__link"><%= t.common.learnMore %> <span>&rarr;</span></span>
         </a>
       <% } }); %>
     </div>
   </div>
 </section>
 
-<!-- REFERENCES -->
 <% if (sector.references && sector.references.length > 0) { %>
 <section class="inner-refs">
   <div class="container">
-    <h2 class="inner-section-title">Bu Sektordeki Referanslarimiz</h2>
+    <h2 class="inner-section-title"><%= t.sector.referencesInSector %></h2>
     <div class="inner-refs__grid">
       <% sector.references.forEach(function(ref) { %>
         <div class="inner-refs__item"><%= ref %></div>
@@ -106,15 +97,14 @@
 </section>
 <% } %>
 
-<!-- CTA -->
 <section class="inner-cta">
   <div class="container">
     <div class="inner-cta__inner">
-      <h2 class="inner-cta__title"><%= sector.name %> Sektorunde Dijital Donusumu Baslayin</h2>
-      <p class="inner-cta__desc">Sektorunuze ozel 15 dakikalik demo ile OnSuite'in farkinizi gorun.</p>
+      <h2 class="inner-cta__title"><%= sector.name %> <%= t.sector.startDigital %></h2>
+      <p class="inner-cta__desc"><%= t.sector.ctaDesc %></p>
       <div class="inner-cta__actions">
-        <a href="/demo?sector=<%= sector.slug %>" class="btn btn--primary btn--lg">Demo Talep Et <span>&rarr;</span></a>
-        <a href="tel:+902322450076" class="btn btn--ghost">+90 (232) 245 00 76</a>
+        <a href="<%= prefix %>/demo?sector=<%= sector.slug %>" class="btn btn--primary btn--lg"><%= t.common.demoRequestBtn %> <span>&rarr;</span></a>
+        <a href="tel:+902322450076" class="btn btn--ghost"><%= t.common.phone %></a>
       </div>
     </div>
   </div>

@@ -227,82 +227,184 @@ try {
   console.warn('references.json not found or invalid');
 }
 
-// --- Public Routes ---
+// --- i18n & Multi-language Data ---
+const i18nData = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'i18n.json'), 'utf8'));
+const dataEN = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'data-en.json'), 'utf8'));
+const modulesEN = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'modules-en.json'), 'utf8'));
+const sectorsEN = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'sectors-en.json'), 'utf8'));
+const refsEN = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'references-en.json'), 'utf8'));
+console.log('i18n loaded: TR + EN');
+
+// Helper: get lang-specific data
+function getLangData(lang) {
+  const isEN = lang === 'en';
+  return {
+    t: i18nData[lang] || i18nData.tr,
+    modules: isEN ? modulesEN : modulesData,
+    sectors: isEN ? sectorsEN : sectorsData,
+    refs: isEN ? refsEN : refsData,
+    prefix: isEN ? '/en' : '',
+    lang: lang
+  };
+}
+
+async function loadDataForLang(lang) {
+  if (lang === 'en') return dataEN;
+  return await loadData();
+}
+
+// --- Public Routes (TR - default) ---
 app.get('/', async (req, res) => {
   try {
     const data = await loadData();
-    res.render('index', { data });
+    const ld = getLangData('tr');
+    res.render('index', { data, ...ld });
   } catch (err) {
     console.error('Homepage error:', err);
     const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    res.render('index', { data });
+    const ld = getLangData('tr');
+    res.render('index', { data, ...ld });
   }
 });
 
-// Module detail pages
 app.get('/moduller/:slug', async (req, res) => {
   try {
-    const mod = modulesData[req.params.slug];
+    const ld = getLangData('tr');
+    const mod = ld.modules[req.params.slug];
     if (!mod) return res.status(404).send('Modul bulunamadi');
-    const data = await loadData();
-    res.render('module', { data, mod });
+    const data = await loadDataForLang('tr');
+    res.render('module', { data, mod, ...ld });
   } catch (err) {
     console.error('Module page error:', err);
     res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
-// Demo page
 app.get('/demo', async (req, res) => {
   try {
-    const data = await loadData();
-    res.render('demo', { data });
+    const data = await loadDataForLang('tr');
+    const ld = getLangData('tr');
+    res.render('demo', { data, ...ld });
   } catch (err) {
-    console.error('Demo page error:', err);
     res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
-// Hakkimizda page
 app.get('/hakkimizda', async (req, res) => {
   try {
-    const data = await loadData();
-    res.render('hakkimizda', { data });
+    const data = await loadDataForLang('tr');
+    const ld = getLangData('tr');
+    res.render('hakkimizda', { data, ...ld });
   } catch (err) {
     res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
-// Sectors index page
 app.get('/sektorler', async (req, res) => {
   try {
-    const data = await loadData();
-    res.render('sectors', { data, sectorsData });
+    const data = await loadDataForLang('tr');
+    const ld = getLangData('tr');
+    res.render('sectors', { data, sectorsData: ld.sectors, ...ld });
   } catch (err) {
     res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
-// Sector detail page
 app.get('/sektorler/:slug', async (req, res) => {
   try {
-    const sector = sectorsData[req.params.slug];
+    const ld = getLangData('tr');
+    const sector = ld.sectors[req.params.slug];
     if (!sector) return res.status(404).send('Sektor bulunamadi');
-    const data = await loadData();
-    res.render('sector', { data, sector, modulesData });
+    const data = await loadDataForLang('tr');
+    res.render('sector', { data, sector, modulesData: ld.modules, ...ld });
   } catch (err) {
-    console.error('Sector page error:', err);
     res.status(500).send('Sayfa yuklenemedi');
   }
 });
 
-// Referanslar page
 app.get('/referanslar', async (req, res) => {
   try {
-    const data = await loadData();
-    res.render('referanslar', { data, refs: refsData });
+    const data = await loadDataForLang('tr');
+    const ld = getLangData('tr');
+    res.render('referanslar', { data, refs: ld.refs, ...ld });
   } catch (err) {
     res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// --- English Routes (/en/*) ---
+app.get('/en', async (req, res) => {
+  try {
+    const data = await loadDataForLang('en');
+    const ld = getLangData('en');
+    res.render('index', { data, ...ld });
+  } catch (err) {
+    console.error('EN Homepage error:', err);
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/modules/:slug', async (req, res) => {
+  try {
+    const ld = getLangData('en');
+    const mod = ld.modules[req.params.slug];
+    if (!mod) return res.status(404).send('Module not found');
+    const data = await loadDataForLang('en');
+    res.render('module', { data, mod, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/demo', async (req, res) => {
+  try {
+    const data = await loadDataForLang('en');
+    const ld = getLangData('en');
+    res.render('demo', { data, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/about', async (req, res) => {
+  try {
+    const data = await loadDataForLang('en');
+    const ld = getLangData('en');
+    res.render('hakkimizda', { data, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/industries', async (req, res) => {
+  try {
+    const data = await loadDataForLang('en');
+    const ld = getLangData('en');
+    res.render('sectors', { data, sectorsData: ld.sectors, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/industries/:slug', async (req, res) => {
+  try {
+    const ld = getLangData('en');
+    const sector = ld.sectors[req.params.slug];
+    if (!sector) return res.status(404).send('Industry not found');
+    const data = await loadDataForLang('en');
+    res.render('sector', { data, sector, modulesData: ld.modules, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
+  }
+});
+
+app.get('/en/references', async (req, res) => {
+  try {
+    const data = await loadDataForLang('en');
+    const ld = getLangData('en');
+    res.render('referanslar', { data, refs: ld.refs, ...ld });
+  } catch (err) {
+    res.status(500).send('Page could not be loaded');
   }
 });
 

@@ -1,0 +1,112 @@
+{
+  "site": {
+    "title": "OnSuite | Smart Manufacturing Management Platform",
+    "description": "OnSuite - Manage your factory from a single smart platform. Combine your machine data and production processes in a modern dashboard.",
+    "phone": "+90 (232) 245 00 76",
+    "phoneHref": "tel:+902322450076",
+    "copyright": "2025 Siskon Automation. All rights reserved."
+  },
+  "hero": {
+    "badge": "Manufacturing Management Platform",
+    "titleLine1": "Manage Your",
+    "titleHighlight": "Entire Factory",
+    "titleLine3": "From One Screen",
+    "description": "Combine your machine data and production processes in a single modern dashboard. Reduce downtime, increase efficiency.",
+    "ctaPrimary": "Request Demo",
+    "ctaSecondary": "Explore Platform",
+    "heroImage": "assets/images/hero/macbook-dashboard.svg"
+  },
+  "proofBar": {
+    "metrics": [
+      { "count": 40, "label": "Countries" },
+      { "count": 100, "label": "Projects" },
+      { "count": 500, "label": "Production Lines" }
+    ]
+  },
+  "modules": {
+    "overline": "Solutions",
+    "title": "Modular Solutions for",
+    "titleHighlight": "Your Production",
+    "subtitle": "Use each module independently or combine them as a fully integrated platform.",
+    "items": [
+      {
+        "name": "OnTrace",
+        "desc": "Full traceability from raw material to finished product on your production line. Reduce recall processes to seconds.",
+        "metric": "99.2% traceability",
+        "image": "assets/images/modules/trace-hero.png",
+        "size": "large"
+      },
+      {
+        "name": "OnOptima",
+        "desc": "Optimize your production processes with AI-powered analytics. Identify bottlenecks and take automatic actions.",
+        "metric": "15% efficiency increase",
+        "image": "assets/images/modules/optima-hero.png",
+        "size": "large"
+      },
+      {
+        "name": "OnIntegra",
+        "desc": "Seamless integration with your ERP systems. SAP, Microsoft Dynamics and more.",
+        "icon": "assets/images/icons/erp-entegrasyon.png",
+        "size": "small"
+      },
+      {
+        "name": "OnOEE",
+        "desc": "Real-time OEE tracking and performance analytics.",
+        "icon": "assets/images/icons/analiz-optimizasyon.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCNC",
+        "desc": "Automatic data collection from your CNC machines.",
+        "icon": "assets/images/icons/cnc.png",
+        "size": "small"
+      },
+      {
+        "name": "OnTMC",
+        "desc": "OPC UA TMC compliant tobacco industry solutions.",
+        "icon": "assets/images/icons/tmc.png",
+        "size": "small"
+      },
+      {
+        "name": "OnSmartForms",
+        "desc": "Go paperless. Automate data collection, approval workflows, and reporting with digital forms.",
+        "icon": "assets/images/icons/forms-responsive.png",
+        "size": "wide"
+      },
+      {
+        "name": "OnMonitora",
+        "desc": "Monitor and analyze your machines in real time.",
+        "icon": "assets/images/icons/dashboard.png",
+        "size": "small"
+      }
+    ]
+  },
+  "steps": {
+    "overline": "How It Works",
+    "title": "Smart Factory in",
+    "titleHighlight": "Four Steps",
+    "items": [
+      { "number": 1, "title": "Connect", "desc": "Connect your PLCs, SCADA, and machine controllers to OnSuite. No need to change your existing infrastructure.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "number": 2, "title": "Collect", "desc": "All your production data is collected and processed in a central database in real time.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "number": 3, "title": "Analyze", "desc": "OEE, downtime analysis, quality metrics, and trend analytics are calculated automatically.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "number": 4, "title": "Optimize", "desc": "Continuously improve your processes with action recommendations and automatic alerts.", "icon": "assets/images/icons/analiz-optimizasyon.png" }
+    ]
+  },
+  "metrics": [
+    { "count": 30, "suffix": "%", "label": "Downtime Reduction", "icon": "assets/images/icons/alarm-yonetimi.png" },
+    { "count": 15, "suffix": "%", "label": "OEE Increase", "icon": "assets/images/icons/gercek-zamanli.png" },
+    { "count": 2, "suffix": "x", "label": "Reporting Speed", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+  ],
+  "testimonial": {
+    "quote": "Thanks to OnSuite, we reduced downtime on our production line by 35%. Now we track all our data from a single screen. The integration process was completed much faster than we expected.",
+    "name": "Yilmaz Kaya",
+    "role": "Production Manager, Industrial Automation Inc.",
+    "initials": "YK"
+  },
+  "cta": {
+    "title": "See Your System with",
+    "titleHighlight": "Your Own",
+    "titleEnd": "Data",
+    "subtitle": "See how OnSuite can add value to your facility with a personalized 15-minute demo."
+  }
+}

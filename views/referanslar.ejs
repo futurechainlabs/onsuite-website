@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="<%= lang %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Referanslar & Partnerler - OnSuite | <%= data.site.title %></title>
-  <meta name="description" content="OnSuite - 40+ ulkede, 500+ uretim hattinda guvenilen cozum ortagi. Referanslarimiz ve is ortaklarimiz.">
+  <title><%= refs.title %> - OnSuite | <%= data.site.title %></title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +13,6 @@
   <link rel="icon" type="image/png" href="/assets/images/favicon.png">
 </head>
 <body>
-
 <%- include('partials/header') %>
 
 <section class="inner-hero">
@@ -24,10 +22,9 @@
   </div>
 </section>
 
-<!-- CLIENT LOGOS -->
 <section class="ref-clients">
   <div class="container">
-    <h2 class="inner-section-title">Musterilerimiz</h2>
+    <h2 class="inner-section-title"><%= t.refs.clients %></h2>
     <div class="ref-clients__grid">
       <% refs.clients.forEach(function(c) { %>
         <div class="ref-clients__item">
@@ -39,10 +36,9 @@
   </div>
 </section>
 
-<!-- PARTNERS -->
 <section class="ref-partners">
   <div class="container">
-    <h2 class="inner-section-title">Teknoloji Ortaklarimiz</h2>
+    <h2 class="inner-section-title"><%= t.refs.techPartners %></h2>
     <div class="ref-partners__grid">
       <% refs.partners.forEach(function(p) { %>
         <div class="ref-partners__card">
@@ -54,11 +50,10 @@
   </div>
 </section>
 
-<!-- CASE STUDIES -->
 <% if (refs.caseStudies && refs.caseStudies.length > 0) { %>
 <section class="ref-cases">
   <div class="container">
-    <h2 class="inner-section-title">Basari Hikayeleri</h2>
+    <h2 class="inner-section-title"><%= t.refs.successStories %></h2>
     <div class="ref-cases__grid">
       <% refs.caseStudies.forEach(function(cs) { %>
         <div class="ref-cases__card">
@@ -83,9 +78,9 @@
 <section class="inner-cta">
   <div class="container">
     <div class="inner-cta__inner">
-      <h2 class="inner-cta__title">Siz de Referanslarimiz Arasinda Yerinizi Alin</h2>
-      <p class="inner-cta__desc">40+ ulkede guvenilen cozum ortaginizla tanisin.</p>
-      <a href="/demo" class="btn btn--primary btn--lg">Demo Talep Et <span>&rarr;</span></a>
+      <h2 class="inner-cta__title"><%= t.refs.joinCta %></h2>
+      <p class="inner-cta__desc"><%= t.refs.joinCtaDesc %></p>
+      <a href="<%= prefix %>/demo" class="btn btn--primary btn--lg"><%= t.common.demoRequestBtn %> <span>&rarr;</span></a>
     </div>
   </div>
 </section>

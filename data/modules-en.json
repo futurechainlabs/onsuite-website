@@ -1,0 +1,174 @@
+{
+  "ontrace": {
+    "slug": "ontrace",
+    "name": "OnTrace",
+    "tagline": "99.2% Traceability on Your Production Line",
+    "description": "Full traceability from raw material to finished product. Combine lot tracking, recall management, and quality control in one platform.",
+    "heroImage": "assets/images/modules/trace-hero.png",
+    "color": "#0089CF",
+    "problem": {
+      "title": "Are you experiencing traceability gaps on your production lines?",
+      "items": [
+        "Unable to perform lot tracking",
+        "High recall costs",
+        "Manual recording errors",
+        "Cannot identify root cause of quality issues"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Real-time lot tracking from a single screen",
+        "10-second recall scope analysis",
+        "Fully automated digital recording",
+        "Root cause analysis and traceability"
+      ]
+    },
+    "features": [
+      { "title": "Lot & Batch Tracking", "desc": "Track every product from raw material to finished goods. Complete lot-based history.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Recall Management", "desc": "Identify affected products in seconds. Scope analysis is generated automatically.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Quality Control", "desc": "Monitor quality parameters in real time. Automatic alerts on deviations.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Barcode & QR Integration", "desc": "Works seamlessly with your existing barcode and QR systems.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Regulatory Compliance", "desc": "Ready for IATF 16949, FDA 21 CFR Part 11, BRC, and IFS standards.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Reporting & Analytics", "desc": "Traceability reports, trend analysis, and KPI dashboards.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "ERP (SAP, Dynamics)", "Barcode Printers", "MES Systems"],
+    "sectors": ["Automotive", "Food & Beverage", "Pharma", "General Manufacturing"],
+    "ctaTitle": "See OnTrace on Your Own Production Line",
+    "ctaDesc": "See how we can transform your traceability system in a 15-minute demo."
+  },
+  "onoptima": {
+    "slug": "onoptima",
+    "name": "OnOptima",
+    "tagline": "15% Efficiency Increase with AI",
+    "description": "Optimize your production processes with AI-powered analytics. Identify bottlenecks and take automatic actions.",
+    "heroImage": "assets/images/modules/optima-hero.png",
+    "color": "#04bf8a",
+    "problem": {
+      "title": "Can't identify inefficiencies in your production processes?",
+      "items": ["Bottlenecks not identified", "Manual optimization insufficient", "Efficiency losses not visible", "Reactive approach dominant"]
+    },
+    "solution": {
+      "items": ["AI-powered bottleneck detection", "Automatic optimization recommendations", "Real-time efficiency tracking", "Proactive action plans"]
+    },
+    "features": [
+      { "title": "AI Optimization Engine", "desc": "Automatically detect improvement opportunities in your production processes with AI.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Bottleneck Analysis", "desc": "Identify bottlenecks on the production line in real time and get solution recommendations.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Capacity Planning", "desc": "Optimize production capacity based on demand. Maximize resource utilization.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Energy Efficiency", "desc": "Monitor energy consumption and identify reduction opportunities.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Predictive Analytics", "desc": "Learn from historical data to predict future production performance.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Action Management", "desc": "Automatically create and track action plans for identified opportunities.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "ERP Systems", "IoT Sensors", "MES"],
+    "sectors": ["Automotive", "Food & Beverage", "General Manufacturing"],
+    "ctaTitle": "Start Your Efficiency Revolution with OnOptima",
+    "ctaDesc": "See AI-powered optimization with your own data in a 15-minute demo."
+  },
+  "onoee": {
+    "slug": "onoee", "name": "OnOEE", "tagline": "Real-Time OEE Tracking and Performance Analysis",
+    "description": "Monitor your availability, performance, and quality metrics in real time. Instantly detect OEE losses.",
+    "heroImage": "assets/images/modules/optima-hero.png", "color": "#ff3b78",
+    "problem": { "title": "Are you measuring OEE values correctly?", "items": ["Manual OEE calculation errors", "Loss reasons not identified", "Retrospective reporting only", "No line-by-line comparison"] },
+    "solution": { "items": ["Automatic real-time OEE calculation", "Detailed loss categorization", "Live dashboard and trend analysis", "Line and shift-based benchmarking"] },
+    "features": [
+      { "title": "Live OEE Dashboard", "desc": "Track availability, performance, and quality metrics instantly.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Loss Analysis", "desc": "Categorize planned and unplanned downtime. Identify biggest loss sources.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Shift Reports", "desc": "Shift-based performance comparisons and trend analysis.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Target Tracking", "desc": "Set OEE targets and monitor actual performance.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Benchmark", "desc": "Benchmark across lines, plants, and industry averages.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Auto Reporting", "desc": "Daily, weekly, and monthly OEE reports generated automatically.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "MES", "ERP", "Machine Controllers"],
+    "sectors": ["Automotive", "Food & Beverage", "Pharma", "Tobacco", "General Manufacturing"],
+    "ctaTitle": "See Your Performance with OnOEE", "ctaDesc": "Experience real-time OEE tracking in a 15-minute demo."
+  },
+  "onintegra": {
+    "slug": "onintegra", "name": "OnIntegra", "tagline": "Seamless Integration with Your ERP Systems",
+    "description": "Achieve bidirectional data flow with SAP, Microsoft Dynamics, Oracle, and other ERP systems.",
+    "heroImage": "assets/images/modules/connect-hero.png", "color": "#034082",
+    "problem": { "title": "Is there a disconnect between ERP and production data?", "items": ["Manual data transfer wastes time", "ERP and field data mismatch", "Double data entry errors", "No real-time view"] },
+    "solution": { "items": ["Automatic bidirectional data sync", "Full alignment of ERP and field data", "Single source, zero errors", "Instant ERP updates"] },
+    "features": [
+      { "title": "SAP Integration", "desc": "Ready connectors for SAP S/4HANA and ECC. RFC, BAPI, and IDoc support.", "icon": "assets/images/icons/erp-entegrasyon.png" },
+      { "title": "Microsoft Dynamics", "desc": "Bidirectional data flow with Dynamics 365. Work order and inventory sync.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "REST & OPC UA", "desc": "Connect to any system with open APIs. OPC UA and MQTT support.", "icon": "assets/images/icons/entegrasyon-raporlama.png" },
+      { "title": "Data Mapping", "desc": "Map data with drag & drop interface. Define transformation rules.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Error Handling", "desc": "Automatic retry and notification on connection interruptions.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Data Validation", "desc": "Automatic data validation and quality control before transfer.", "icon": "assets/images/icons/forms-responsive.png" }
+    ],
+    "integrations": ["SAP S/4HANA", "Microsoft Dynamics", "Oracle", "REST API", "OPC UA"],
+    "sectors": ["Automotive", "Food & Beverage", "Pharma", "General Manufacturing"],
+    "ctaTitle": "Unite Your Systems with OnIntegra", "ctaDesc": "See how your ERP integration will work in a 15-minute demo."
+  },
+  "oncnc": {
+    "slug": "oncnc", "name": "OnCNC", "tagline": "Automatic Data Collection from Your CNC Machines",
+    "description": "Automatically collect data from Fanuc, Siemens, Heidenhain, and other CNC controllers. Monitor machine utilization rates and production data in real time.",
+    "heroImage": "assets/images/modules/monitora-hero.png", "color": "#f48b68",
+    "problem": { "title": "Do you know your CNC machines' real performance?", "items": ["Machine utilization rate unknown", "Program vs actual time not measured", "Tool life not tracked", "Machine-based cost not calculated"] },
+    "solution": { "items": ["Automatic utilization rate calculation", "Real-time cycle time tracking", "Tool life and maintenance planning", "Machine-based cost analysis"] },
+    "features": [
+      { "title": "Multi-Brand Support", "desc": "Fanuc, Siemens, Heidenhain, Mazak and more. All your CNCs on one platform.", "icon": "assets/images/icons/cnc.png" },
+      { "title": "Cycle Time Analysis", "desc": "Measure program time, cutting time, and wait times separately.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Tool Management", "desc": "Track tool life, optimize change times.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Alarm Management", "desc": "Capture and categorize CNC alarms and errors instantly.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Program Tracking", "desc": "Track which program ran when and how many parts it produced.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Capacity Planning", "desc": "Analyze machine occupancy rates and plan capacity.", "icon": "assets/images/icons/planlama.png" }
+    ],
+    "integrations": ["Fanuc FOCAS", "Siemens Sinumerik", "Heidenhain", "OPC UA", "MTConnect"],
+    "sectors": ["Automotive", "Aerospace", "Mold & Machinery", "General Manufacturing"],
+    "ctaTitle": "Monitor Your Machines with OnCNC", "ctaDesc": "Experience your CNC data collection system in a 15-minute demo."
+  },
+  "ontmc": {
+    "slug": "ontmc", "name": "OnTMC", "tagline": "OPC UA TMC Compliant Tobacco Industry Solution",
+    "description": "Fully compliant data collection with Tobacco Machine Communication (TMC) standard. Direct communication with cigarette machines.",
+    "heroImage": "assets/images/modules/monitora-hero.png", "color": "#034082",
+    "problem": { "title": "Having TMC compliance issues?", "items": ["TMC protocol incompatibility", "Cannot consolidate data across machine brands", "Regulatory reporting difficulty", "Track & Trace gaps"] },
+    "solution": { "items": ["Full TMC 1.0/2.0 compliance", "Multi-brand machine integration", "Automatic regulatory reports", "Product-to-product full traceability"] },
+    "features": [
+      { "title": "TMC Protocol Support", "desc": "Full OPC UA TMC 1.0 and 2.0 compliance. Direct communication with Hauni, GD, Focke machines.", "icon": "assets/images/icons/tmc.png" },
+      { "title": "Multi-Brand Machines", "desc": "Collect and consolidate data from different cigarette machine brands.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Track & Trace", "desc": "Full traceability from tobacco leaf to final product.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Regulatory Reports", "desc": "Automatic reporting compliant with regulatory authorities.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Production Efficiency", "desc": "Machine-level OEE, scrap, and waste analysis.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Packaging Tracking", "desc": "Track every step from packaging line to shipment.", "icon": "assets/images/icons/forms-responsive.png" }
+    ],
+    "integrations": ["OPC UA TMC", "Hauni", "GD", "Focke", "SICK"],
+    "sectors": ["Tobacco"],
+    "ctaTitle": "Digitalize Tobacco Production with OnTMC", "ctaDesc": "Experience our TMC compliant solution in a 15-minute demo."
+  },
+  "onsmartforms": {
+    "slug": "onsmartforms", "name": "OnSmartForms", "tagline": "Go Paperless",
+    "description": "Automate data collection, approval workflows, and reporting with digital forms. Completely eliminate paper-based processes.",
+    "heroImage": "assets/images/modules/connect-hero.png", "color": "#04bf8a",
+    "problem": { "title": "Still working with paper forms?", "items": ["Paper forms can get lost", "Data entry is delayed", "Hours spent on reporting", "Non-compliance and error risk"] },
+    "solution": { "items": ["Digital forms never get lost", "Instant data entry and validation", "Automatic reporting and analysis", "Full compliance and audit trail"] },
+    "features": [
+      { "title": "Form Designer", "desc": "Design your own forms with drag-and-drop. No coding required.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Mobile Data Collection", "desc": "Collect field data from tablets and phones. Works offline too.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Approval Workflows", "desc": "Define multi-step approval processes and send automatic notifications.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Validation Rules", "desc": "Prevent errors with data entry rules. Required fields and range controls.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Audit Trail", "desc": "Who changed what, when? Full audit trail for regulatory readiness.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Integration", "desc": "Automatically transfer collected data to ERP and MES systems.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+    ],
+    "integrations": ["ERP", "MES", "Quality Management Systems", "Email"],
+    "sectors": ["Pharma", "Food & Beverage", "Automotive", "General Manufacturing"],
+    "ctaTitle": "Go Paperless with OnSmartForms", "ctaDesc": "Experience your digital form system in a 15-minute demo."
+  },
+  "onmonitora": {
+    "slug": "onmonitora", "name": "OnMonitora", "tagline": "Monitor Your Machines in Real Time",
+    "description": "Monitor all your production equipment from a single screen. Alarm management, status tracking, and maintenance planning.",
+    "heroImage": "assets/images/modules/monitora-hero.png", "color": "#00B9F2",
+    "problem": { "title": "Do you know your machines' status in real time?", "items": ["Machine downtimes noticed late", "Unplanned maintenance", "Chaotic alarm management", "Machine-based costs unknown"] },
+    "solution": { "items": ["Real-time machine status view", "Predictive maintenance planning", "Centralized alarm management", "Detailed cost analysis"] },
+    "features": [
+      { "title": "Live Monitoring Panel", "desc": "See the status of all your machines from one screen. Color-coded view.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Alarm Management", "desc": "Capture machine alarms instantly and notify relevant personnel.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Predictive Maintenance", "desc": "Learn from machine data to predict failures before they happen.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Energy Monitoring", "desc": "Monitor and optimize machine-level energy consumption.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Maintenance Planning", "desc": "Create and track preventive maintenance schedules.", "icon": "assets/images/icons/planlama.png" },
+      { "title": "Performance Benchmarking", "desc": "Cross-machine performance comparison and trend analysis.", "icon": "assets/images/icons/analiz-raporlama.png" }
+    ],
+    "integrations": ["PLC/SCADA", "OPC UA", "MQTT", "Modbus", "IoT Gateway"],
+    "sectors": ["Automotive", "Food & Beverage", "Tobacco", "General Manufacturing"],
+    "ctaTitle": "Take Control of Your Machines with OnMonitora", "ctaDesc": "Experience your machine monitoring system in a 15-minute demo."
+  }
+}
