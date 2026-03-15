@@ -56,7 +56,7 @@
 
   function handleHeaderScroll() {
     var y = window.scrollY;
-    header.classList.toggle('header--scrolled', y > 60);
+    header.classList.toggle('header--scrolled', y > 100);
     lastScroll = y;
   }
 
@@ -120,6 +120,18 @@
       document.body.style.overflow = isOpen ? '' : 'hidden';
     });
 
+    // Close button
+    var mobileClose = document.getElementById('mobileMenuClose');
+    if (mobileClose) {
+      mobileClose.addEventListener('click', function () {
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('mobile-menu--open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    }
+
+    // Close on link click
     mobileMenu.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         hamburger.setAttribute('aria-expanded', 'false');
@@ -128,6 +140,47 @@
         document.body.style.overflow = '';
       });
     });
+
+    // Mobile accordion toggles
+    mobileMenu.querySelectorAll('.mobile-menu__toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !expanded);
+        var sub = this.nextElementSibling;
+        if (expanded) {
+          sub.hidden = true;
+        } else {
+          sub.hidden = false;
+        }
+      });
+    });
+  }
+
+  /* =========================================================
+     4b. FOOTER MOBILE ACCORDION
+     ========================================================= */
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    document.querySelectorAll('.footer__heading[data-accordion]').forEach(function (heading) {
+      heading.addEventListener('click', function () {
+        this.closest('.footer__col').classList.toggle('footer__col--open');
+      });
+    });
+  }
+
+  /* =========================================================
+     4c. HEADER CTA PULSE — when hero leaves viewport
+     ========================================================= */
+  var heroSection = document.getElementById('hero');
+  var headerCta = document.querySelector('.header__cta');
+  if (heroSection && headerCta) {
+    var heroObserver = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) {
+        headerCta.classList.add('header__cta--pulse');
+        setTimeout(function () { headerCta.classList.remove('header__cta--pulse'); }, 600);
+        heroObserver.disconnect();
+      }
+    }, { threshold: 0 });
+    heroObserver.observe(heroSection);
   }
 
   /* =========================================================
@@ -446,12 +499,8 @@
     });
   }
 
-  // Chat responses
-  var chatResponses = {
-    modules: 'OnSuite 8 modulden olusur: OnTrace (Izlenebilirlik), OnOptima (Optimizasyon), OnOEE (Performans), OnIntegra (ERP), OnCNC, OnTMC, OnSmartForms ve OnMonitora. Hangi modul hakkinda bilgi almak istersiniz?',
-    demo: 'Demo talebiniz icin harika! 15 dakikalik kisisellestirilmis demomuzda sistemi kendi verilerinizle gorebilirsiniz. Demo formumuza yonlendirebilir miyim?',
-    tech: 'Teknik destek icin size yardimci olabilirim. PLC baglantilari, ERP entegrasyonu veya belirli bir modul hakkinda soru sorabilirsiniz.'
-  };
+  // Chat history for AI context
+  var chatHistory = [];
 
   function addBotMessage(text) {
     var quickReplies = chatbotMessages.querySelector('.chatbot__quick-replies');
@@ -475,22 +524,51 @@
     chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
   }
 
+  function addTypingIndicator() {
+    var typing = document.createElement('div');
+    typing.className = 'chatbot__msg chatbot__msg--bot chatbot__typing';
+    typing.innerHTML = '<p><span class="typing-dots"><span>.</span><span>.</span><span>.</span></span></p>';
+    typing.id = 'typingIndicator';
+    chatbotMessages.appendChild(typing);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    var el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  // Send to AI API
+  function sendToAI(userMessage) {
+    chatHistory.push({ role: 'user', content: userMessage });
+    addTypingIndicator();
+
+    fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage, history: chatHistory })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      removeTypingIndicator();
+      var reply = data.reply || 'Baglanti hatasi olustu.';
+      chatHistory.push({ role: 'assistant', content: reply });
+      addBotMessage(reply);
+    })
+    .catch(function () {
+      removeTypingIndicator();
+      addBotMessage('Baglanti hatasi. Bizi +90 (232) 245 00 76 numarasindan arayabilirsiniz.');
+    });
+  }
+
   // Quick reply chips
   document.querySelectorAll('.chatbot__chip').forEach(function (chip) {
     chip.addEventListener('click', function () {
       var reply = chip.dataset.reply;
-      var labels = { modules: 'Moduller', demo: 'Demo', tech: 'Teknik Destek' };
-      addUserMessage(labels[reply] || reply);
-
-      setTimeout(function () {
-        addBotMessage(chatResponses[reply] || 'Bu konuda size yardimci olmak isterim. Daha fazla detay verebilir misiniz?');
-
-        if (chatbotMessages.querySelectorAll('.chatbot__msg--bot').length >= 2) {
-          setTimeout(function () {
-            addBotMessage('Bu konuyu demo sirasinda kendi verilerinizle gormeniz cok daha etkili olur. <a href="#demo" style="color:var(--cyan-300);text-decoration:underline">Demo planlamak ister misiniz?</a>');
-          }, 1500);
-        }
-      }, 600);
+      var labels = { modules: 'OnSuite modullerini anlatir misin?', demo: 'Demo talep etmek istiyorum', tech: 'Teknik bir sorum var' };
+      var userMsg = labels[reply] || reply;
+      addUserMessage(userMsg);
+      sendToAI(userMsg);
     });
   });
 
@@ -500,10 +578,7 @@
     var text = chatbotInput.value.trim();
     addUserMessage(text);
     chatbotInput.value = '';
-
-    setTimeout(function () {
-      addBotMessage('Tesekkurler! Bu konuda size en iyi sekilde yardimci olabilmemiz icin bir demo planlamamizi oneriyorum. <a href="#demo" style="color:var(--cyan-300);text-decoration:underline">Demo Talep Et</a>');
-    }, 800);
+    sendToAI(text);
   }
 
   if (chatbotSend) {

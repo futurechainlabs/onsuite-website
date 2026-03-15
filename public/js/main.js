@@ -56,7 +56,7 @@
 
   function handleHeaderScroll() {
     var y = window.scrollY;
-    header.classList.toggle('header--scrolled', y > 60);
+    header.classList.toggle('header--scrolled', y > 100);
     lastScroll = y;
   }
 
@@ -120,6 +120,18 @@
       document.body.style.overflow = isOpen ? '' : 'hidden';
     });
 
+    // Close button
+    var mobileClose = document.getElementById('mobileMenuClose');
+    if (mobileClose) {
+      mobileClose.addEventListener('click', function () {
+        hamburger.setAttribute('aria-expanded', 'false');
+        mobileMenu.classList.remove('mobile-menu--open');
+        mobileMenu.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      });
+    }
+
+    // Close on link click
     mobileMenu.querySelectorAll('a').forEach(function (link) {
       link.addEventListener('click', function () {
         hamburger.setAttribute('aria-expanded', 'false');
@@ -128,6 +140,47 @@
         document.body.style.overflow = '';
       });
     });
+
+    // Mobile accordion toggles
+    mobileMenu.querySelectorAll('.mobile-menu__toggle').forEach(function (toggle) {
+      toggle.addEventListener('click', function () {
+        var expanded = this.getAttribute('aria-expanded') === 'true';
+        this.setAttribute('aria-expanded', !expanded);
+        var sub = this.nextElementSibling;
+        if (expanded) {
+          sub.hidden = true;
+        } else {
+          sub.hidden = false;
+        }
+      });
+    });
+  }
+
+  /* =========================================================
+     4b. FOOTER MOBILE ACCORDION
+     ========================================================= */
+  if (window.matchMedia('(max-width: 767px)').matches) {
+    document.querySelectorAll('.footer__heading[data-accordion]').forEach(function (heading) {
+      heading.addEventListener('click', function () {
+        this.closest('.footer__col').classList.toggle('footer__col--open');
+      });
+    });
+  }
+
+  /* =========================================================
+     4c. HEADER CTA PULSE — when hero leaves viewport
+     ========================================================= */
+  var heroSection = document.getElementById('hero');
+  var headerCta = document.querySelector('.header__cta');
+  if (heroSection && headerCta) {
+    var heroObserver = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) {
+        headerCta.classList.add('header__cta--pulse');
+        setTimeout(function () { headerCta.classList.remove('header__cta--pulse'); }, 600);
+        heroObserver.disconnect();
+      }
+    }, { threshold: 0 });
+    heroObserver.observe(heroSection);
   }
 
   /* =========================================================
