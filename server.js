@@ -44,7 +44,7 @@ const GEMINI_CONFIGURED = !!GEMINI_KEY;
 let geminiModel = null;
 if (GEMINI_CONFIGURED) {
   const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-  geminiModel = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
+  geminiModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
   console.log('Google Gemini connected (FREE)');
 }
 
@@ -527,27 +527,49 @@ app.post('/api/chat', async (req, res) => {
       return res.status(400).json({ error: 'Gecersiz mesaj' });
     }
 
+    // Static fallback function
+    const staticReply = (msg) => {
+      const fallbacks = {
+        modul: 'OnSuite 8 modulden olusur: OnTrace, OnOptima, OnOEE, OnIntegra, OnCNC, OnTMC, OnSmartForms ve OnMonitora. Detayli bilgi icin demo talep edebilirsiniz.',
+        demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz.',
+        fiyat: 'Fiyatlandirma tesisinizin buyuklugune gore belirlenir. Demo talep etmenizi oneririm.',
+        entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle sorunsuz entegre olur.',
+        default: 'Size yardimci olabilirim. Demo talep edebilir veya +90 (232) 245 00 76 numarasindan arayabilirsiniz.'
+      };
+      const lower = msg.toLowerCase();
+      if (lower.includes('modul') || lower.includes('ontrace') || lower.includes('oee')) return fallbacks.modul;
+      if (lower.includes('demo') || lower.includes('goster')) return fallbacks.demo;
+      if (lower.includes('fiyat') || lower.includes('ucret') || lower.includes('maliyet')) return fallbacks.fiyat;
+      if (lower.includes('entegrasyon') || lower.includes('erp') || lower.includes('sap')) return fallbacks.entegrasyon;
+      return fallbacks.default;
+    };
+
     // Priority: 1) Gemini (free) → 2) OpenAI → 3) Static fallback
     if (GEMINI_CONFIGURED) {
-      // --- Google Gemini ---
-      const chatHistory = [];
-      if (Array.isArray(history)) {
-        history.slice(-6).forEach(h => {
-          if (h.role === 'user') chatHistory.push({ role: 'user', parts: [{ text: h.content.slice(0, 300) }] });
-          if (h.role === 'assistant') chatHistory.push({ role: 'model', parts: [{ text: h.content.slice(0, 300) }] });
+      try {
+        const chatHistory = [];
+        if (Array.isArray(history)) {
+          history.slice(-6).forEach(h => {
+            if (h.role === 'user') chatHistory.push({ role: 'user', parts: [{ text: h.content.slice(0, 300) }] });
+            if (h.role === 'assistant') chatHistory.push({ role: 'model', parts: [{ text: h.content.slice(0, 300) }] });
+          });
+        }
+
+        const chat = geminiModel.startChat({
+          history: chatHistory,
+          systemInstruction: CHATBOT_SYSTEM_PROMPT
         });
+
+        const result = await chat.sendMessage(message);
+        const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
+        return res.json({ reply });
+      } catch (geminiErr) {
+        console.error('Gemini error, falling back:', geminiErr.message);
+        // Fall through to OpenAI or static
       }
+    }
 
-      const chat = geminiModel.startChat({
-        history: chatHistory,
-        systemInstruction: CHATBOT_SYSTEM_PROMPT
-      });
-
-      const result = await chat.sendMessage(message);
-      const reply = result.response.text() || 'Uzgunum, yanit uretemiyorum.';
-      return res.json({ reply });
-
-    } else if (OPENAI_CONFIGURED) {
+    if (OPENAI_CONFIGURED) {
       // --- OpenAI (fallback) ---
       const messages = [{ role: 'system', content: CHATBOT_SYSTEM_PROMPT }];
       if (Array.isArray(history)) {
@@ -567,27 +589,13 @@ app.post('/api/chat', async (req, res) => {
       });
       const reply = completion.choices[0]?.message?.content || 'Yanit alinamadi.';
       return res.json({ reply });
-
-    } else {
-      // --- Static fallback ---
-      const fallbacks = {
-        modul: 'OnSuite 8 modulden olusur: OnTrace, OnOptima, OnOEE, OnIntegra, OnCNC, OnTMC, OnSmartForms ve OnMonitora. Detayli bilgi icin demo talep edebilirsiniz.',
-        demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz.',
-        fiyat: 'Fiyatlandirma tesisinizin buyuklugune gore belirlenir. Demo talep etmenizi oneririm.',
-        entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle sorunsuz entegre olur.',
-        default: 'Size yardimci olabilirim. Demo talep edebilir veya +90 (232) 245 00 76 numarasindan arayabilirsiniz.'
-      };
-      const lower = message.toLowerCase();
-      let reply = fallbacks.default;
-      if (lower.includes('modul') || lower.includes('ontrace') || lower.includes('oee')) reply = fallbacks.modul;
-      else if (lower.includes('demo') || lower.includes('goster')) reply = fallbacks.demo;
-      else if (lower.includes('fiyat') || lower.includes('ucret') || lower.includes('maliyet')) reply = fallbacks.fiyat;
-      else if (lower.includes('entegrasyon') || lower.includes('erp') || lower.includes('sap')) reply = fallbacks.entegrasyon;
-      return res.json({ reply });
     }
+
+    // --- Static fallback (no AI available) ---
+    return res.json({ reply: staticReply(message) });
   } catch (err) {
     console.error('Chat error:', err.message);
-    res.json({ reply: 'Bir hata olustu: ' + (err.message || '').slice(0, 120) });
+    res.json({ reply: staticReply(message) });
   }
 });
 
