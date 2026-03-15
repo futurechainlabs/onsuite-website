@@ -37,16 +37,7 @@ if (SUPABASE_CONFIGURED) {
   console.log('Supabase connected:', SUPABASE_URL);
 }
 
-// --- Google Gemini Config (FREE - primary) ---
-const GEMINI_KEY = process.env.GEMINI_API_KEY;
-const GEMINI_CONFIGURED = !!GEMINI_KEY;
-let geminiModel = null;
-if (GEMINI_CONFIGURED) {
-  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
-  geminiModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-  console.log('Google Gemini connected (FREE)');
-}
-
+// --- Chatbot System Prompt ---
 const CHATBOT_SYSTEM_PROMPT = `Sen OnSuite akilli uretim yonetim platformunun web sitesindeki yardimci asistansin. Adin "OnSuite Asistan".
 
 OnSuite Hakkinda:
@@ -64,6 +55,19 @@ Kurallarin:
 - Rakip firmalar hakkinda yorum yapma
 - Fiyat bilgisi verme, demo icin yonlendir
 - Telefon: +90 (232) 245 00 76`;
+
+// --- Google Gemini Config (FREE - primary) ---
+const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_CONFIGURED = !!GEMINI_KEY;
+let geminiModel = null;
+if (GEMINI_CONFIGURED) {
+  const genAI = new GoogleGenerativeAI(GEMINI_KEY);
+  geminiModel = genAI.getGenerativeModel({
+    model: 'gemini-1.5-flash',
+    systemInstruction: { parts: [{ text: CHATBOT_SYSTEM_PROMPT }] }
+  });
+  console.log('Google Gemini connected (FREE)');
+}
 
 // --- Multer (memory storage) ---
 const upload = multer({
@@ -546,8 +550,7 @@ app.post('/api/chat', async (req, res) => {
         }
 
         const chat = geminiModel.startChat({
-          history: chatHistory,
-          systemInstruction: { parts: [{ text: CHATBOT_SYSTEM_PROMPT }] }
+          history: chatHistory
         });
 
         const result = await chat.sendMessage(message);
