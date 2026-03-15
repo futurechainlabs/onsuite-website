@@ -1,5 +1,7 @@
 const express = require('express');
 const session = require('express-session');
+const multer = require('multer');
+const sharp = require('sharp');
 const path = require('path');
 const fs = require('fs');
 
@@ -7,6 +9,21 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const ADMIN_PASS = process.env.ADMIN_PASS || 'OnSuite2025!';
+const UPLOAD_DIR = path.join(__dirname, 'public', 'assets', 'images');
+
+// --- Multer Setup (temp upload) ---
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 20 * 1024 * 1024 }, // 20MB max
+  fileFilter: (req, file, cb) => {
+    const allowed = /\.(jpg|jpeg|png|svg|webp|gif)$/i;
+    if (allowed.test(path.extname(file.originalname))) {
+      cb(null, true);
+    } else {
+      cb(new Error('Desteklenmeyen dosya formati'));
+    }
+  }
+});
 
 // --- Middleware ---
 app.set('view engine', 'ejs');
@@ -18,7 +35,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'onsuite-secret-key-change-in-prod',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 3600000 } // 1 hour
+  cookie: { maxAge: 3600000 }
 }));
 
 // --- Helpers ---
@@ -33,6 +50,34 @@ function saveData(data) {
 function requireAuth(req, res, next) {
   if (req.session && req.session.admin) return next();
   res.redirect('/admin/login');
+}
+
+// Scan all images in public/assets/images recursively
+function scanImages(dir, base) {
+  const results = [];
+  if (!fs.existsSync(dir)) return results;
+  const entries = fs.readdirSync(dir, { withFileTypes: true });
+  for (const entry of entries) {
+    const fullPath = path.join(dir, entry.name);
+    const relPath = path.join(base, entry.name).replace(/\\/g, '/');
+    if (entry.isDirectory()) {
+      results.push(...scanImages(fullPath, relPath));
+    } else if (/\.(png|jpg|jpeg|svg|webp|gif)$/i.test(entry.name)) {
+      const stat = fs.statSync(fullPath);
+      results.push({
+        name: entry.name,
+        path: 'assets/images/' + relPath,
+        folder: base.replace(/\\/g, '/') || 'root',
+        size: stat.size,
+        sizeStr: stat.size > 1024 * 1024
+          ? (stat.size / (1024 * 1024)).toFixed(1) + ' MB'
+          : (stat.size / 1024).toFixed(0) + ' KB',
+        ext: path.extname(entry.name).toLowerCase().slice(1),
+        modified: stat.mtime.toISOString()
+      });
+    }
+  }
+  return results;
 }
 
 // --- Public Routes ---
@@ -64,6 +109,130 @@ app.get('/admin', requireAuth, (req, res) => {
   res.render('admin', { data, success: req.query.success || null });
 });
 
+// --- Media Library ---
+app.get('/admin/media', requireAuth, (req, res) => {
+  const images = scanImages(UPLOAD_DIR, '');
+  const folders = [...new Set(images.map(i => i.folder))].sort();
+  res.render('admin-media', { images, folders, success: req.query.success || null });
+});
+
+// Upload + process image
+app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'Dosya secilmedi' });
+    }
+
+    const { folder, quality, scale, format } = req.body;
+    const targetFolder = path.join(UPLOAD_DIR, folder || 'hero');
+
+    // Ensure folder exists
+    fs.mkdirSync(targetFolder, { recursive: true });
+
+    const originalName = path.parse(req.file.originalname).name
+      .replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
+    const isSvg = req.file.mimetype === 'image/svg+xml';
+
+    // SVG: save directly (no sharp processing)
+    if (isSvg) {
+      const svgPath = path.join(targetFolder, originalName + '.svg');
+      fs.writeFileSync(svgPath, req.file.buffer);
+      return res.redirect('/admin/media?success=svg');
+    }
+
+    // Raster image processing with Sharp
+    let pipeline = sharp(req.file.buffer);
+    const metadata = await pipeline.metadata();
+
+    // Scale factor
+    const scaleFactor = parseFloat(scale) || 1;
+    if (scaleFactor !== 1 && metadata.width) {
+      const newWidth = Math.round(metadata.width * scaleFactor);
+      pipeline = pipeline.resize(newWidth, null, {
+        kernel: sharp.kernel.lanczos3,
+        fastShrinkOnLoad: false
+      });
+    }
+
+    // Output format + quality
+    const outputFormat = format || 'png';
+    const qualityLevel = parseInt(quality) || 95;
+    let ext = outputFormat;
+    let fileName = originalName;
+
+    if (scaleFactor > 1) {
+      fileName += `@${scaleFactor}x`;
+    }
+
+    if (outputFormat === 'webp') {
+      pipeline = pipeline.webp({ quality: qualityLevel, effort: 6, lossless: qualityLevel >= 100 });
+      ext = 'webp';
+    } else if (outputFormat === 'png') {
+      pipeline = pipeline.png({ quality: qualityLevel, compressionLevel: 6, effort: 10 });
+      ext = 'png';
+    } else if (outputFormat === 'jpeg') {
+      pipeline = pipeline.jpeg({ quality: qualityLevel, mozjpeg: true, chromaSubsampling: '4:4:4' });
+      ext = 'jpg';
+    }
+
+    const outputPath = path.join(targetFolder, `${fileName}.${ext}`);
+    await pipeline.toFile(outputPath);
+
+    // Get output info
+    const outStat = fs.statSync(outputPath);
+    const outMeta = await sharp(outputPath).metadata();
+
+    res.redirect(`/admin/media?success=upload&file=${fileName}.${ext}&w=${outMeta.width}&h=${outMeta.height}&size=${(outStat.size/1024).toFixed(0)}KB`);
+  } catch (err) {
+    console.error('Upload error:', err);
+    res.status(500).send('Yukleme hatasi: ' + err.message);
+  }
+});
+
+// Delete image
+app.post('/admin/media/delete', requireAuth, (req, res) => {
+  try {
+    const imgPath = path.join(__dirname, 'public', req.body.path);
+    // Prevent directory traversal
+    if (!imgPath.startsWith(UPLOAD_DIR)) {
+      return res.status(403).send('Yetkisiz');
+    }
+    if (fs.existsSync(imgPath)) {
+      fs.unlinkSync(imgPath);
+    }
+    res.redirect('/admin/media?success=delete');
+  } catch (err) {
+    res.status(500).send('Silme hatasi: ' + err.message);
+  }
+});
+
+// Image info API (for preview)
+app.get('/admin/api/image-info', requireAuth, async (req, res) => {
+  try {
+    const imgPath = path.join(__dirname, 'public', req.query.path);
+    if (!imgPath.startsWith(path.join(__dirname, 'public'))) {
+      return res.status(403).json({ error: 'Yetkisiz' });
+    }
+    if (!fs.existsSync(imgPath)) {
+      return res.status(404).json({ error: 'Dosya bulunamadi' });
+    }
+    const stat = fs.statSync(imgPath);
+    const ext = path.extname(imgPath).toLowerCase();
+    let info = { size: stat.size, ext };
+    if (ext !== '.svg') {
+      const meta = await sharp(imgPath).metadata();
+      info.width = meta.width;
+      info.height = meta.height;
+      info.format = meta.format;
+      info.density = meta.density;
+    }
+    res.json(info);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// --- Content Save Routes (existing) ---
 app.post('/admin/save', requireAuth, (req, res) => {
   try {
     const data = loadData();
@@ -150,7 +319,7 @@ app.post('/admin/save', requireAuth, (req, res) => {
   }
 });
 
-// API endpoint for data.json (read-only for frontend)
+// API endpoint
 app.get('/api/data', (req, res) => {
   res.json(loadData());
 });
@@ -158,4 +327,5 @@ app.get('/api/data', (req, res) => {
 app.listen(PORT, () => {
   console.log(`OnSuite server running at http://localhost:${PORT}`);
   console.log(`Admin panel: http://localhost:${PORT}/admin`);
+  console.log(`Media library: http://localhost:${PORT}/admin/media`);
 });

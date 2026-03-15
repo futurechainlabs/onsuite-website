@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gorsel Yonetimi - OnSuite Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.6}
+
+    /* Topbar */
+    .topbar{background:linear-gradient(135deg,#000020,#011845,#03285a);padding:16px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+    .topbar__logo{font-size:18px;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px}
+    .topbar__logo span{background:linear-gradient(135deg,#0089CF,#08DCFF);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .topbar__actions{display:flex;gap:12px;align-items:center}
+    .topbar__link{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none;padding:8px 16px;border-radius:100px;transition:all .2s}
+    .topbar__link:hover{color:#fff;background:rgba(255,255,255,.1)}
+    .topbar__link--active{background:rgba(0,185,242,.15);color:#08DCFF}
+    .topbar__link--logout{color:#ff6b8a}
+
+    /* Layout */
+    .container{max-width:1200px;margin:0 auto;padding:32px}
+
+    /* Success message */
+    .success{background:#f0fdf4;border:1px solid #bbf7d0;color:#16a34a;padding:14px 20px;border-radius:12px;font-size:14px;margin-bottom:24px;display:flex;align-items:center;gap:8px}
+    .success::before{content:'\2713';font-weight:700;font-size:16px}
+
+    /* Page header */
+    .page-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:16px}
+    .page-header h1{font-size:24px;font-weight:800;color:#0f172a}
+    .page-header p{font-size:14px;color:#64748b;margin-top:4px}
+
+    /* Upload Card */
+    .upload-card{background:#fff;border-radius:16px;border:1px solid #e2e8f0;padding:32px;margin-bottom:32px}
+    .upload-card h2{font-size:18px;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px}
+    .upload-card h2::before{content:'';width:4px;height:24px;background:linear-gradient(135deg,#0089CF,#08DCFF);border-radius:4px}
+
+    .upload-form{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .upload-left{display:flex;flex-direction:column;gap:16px}
+    .upload-right{display:flex;flex-direction:column;gap:16px}
+
+    /* Drop zone */
+    .dropzone{border:2px dashed #cbd5e1;border-radius:12px;padding:40px;text-align:center;cursor:pointer;transition:all .3s;background:#f8fafc;min-height:180px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px}
+    .dropzone:hover,.dropzone--active{border-color:#0089CF;background:rgba(0,137,207,.03)}
+    .dropzone__icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,rgba(0,137,207,.1),rgba(8,220,255,.1));display:flex;align-items:center;justify-content:center}
+    .dropzone__icon svg{width:24px;height:24px;stroke:#0089CF;fill:none;stroke-width:1.5}
+    .dropzone__text{font-size:14px;font-weight:500;color:#475569}
+    .dropzone__hint{font-size:12px;color:#94a3b8}
+    .dropzone__preview{max-height:140px;border-radius:8px;display:none}
+    .dropzone--has-file .dropzone__preview{display:block}
+    .dropzone--has-file .dropzone__icon,.dropzone--has-file .dropzone__text,.dropzone--has-file .dropzone__hint{display:none}
+
+    /* Form fields */
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:12px;font-weight:600;color:#334155;text-transform:uppercase;letter-spacing:.5px}
+    .field select,.field input[type="text"]{padding:10px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:14px;font-family:inherit;background:#f8fafc;color:#0f172a;outline:none;transition:border-color .2s}
+    .field select:focus,.field input:focus{border-color:#0089CF;box-shadow:0 0 0 3px rgba(0,137,207,.08);background:#fff}
+
+    /* Quality presets */
+    .quality-presets{display:flex;gap:8px;flex-wrap:wrap}
+    .quality-preset{padding:8px 16px;border:1.5px solid #e2e8f0;border-radius:100px;font-size:13px;font-weight:500;cursor:pointer;background:#fff;transition:all .2s;color:#475569}
+    .quality-preset:hover{border-color:#0089CF;color:#0089CF}
+    .quality-preset--active{border-color:#0089CF;background:rgba(0,137,207,.06);color:#0089CF;font-weight:600}
+
+    /* Scale badges */
+    .scale-options{display:flex;gap:8px}
+    .scale-btn{padding:10px 18px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;background:#fff;transition:all .2s;text-align:center;flex:1}
+    .scale-btn:hover{border-color:#0089CF}
+    .scale-btn--active{border-color:#0089CF;background:linear-gradient(135deg,rgba(0,137,207,.06),rgba(8,220,255,.04));color:#0089CF}
+    .scale-btn small{display:block;font-size:11px;font-weight:400;color:#94a3b8;margin-top:2px}
+    .scale-btn--active small{color:#0089CF}
+
+    /* Info panel */
+    .file-info{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;font-size:13px;display:none}
+    .file-info--visible{display:block}
+    .file-info__row{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #f1f5f9}
+    .file-info__row:last-child{border:none}
+    .file-info__label{color:#94a3b8;font-weight:500}
+    .file-info__value{color:#0f172a;font-weight:600}
+
+    .btn-upload{display:inline-flex;align-items:center;gap:8px;padding:14px 32px;border:none;border-radius:100px;background:linear-gradient(135deg,#0089CF,#08DCFF);color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:8px;width:100%:justify-content:center}
+    .btn-upload:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,137,207,.3)}
+    .btn-upload:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+
+    /* Gallery */
+    .gallery-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+    .gallery-header h2{font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px}
+    .gallery-header h2::before{content:'';width:4px;height:24px;background:linear-gradient(135deg,#ff3b78,#ef4060);border-radius:4px}
+    .gallery-filter{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{padding:6px 14px;border:1px solid #e2e8f0;border-radius:100px;font-size:12px;font-weight:500;cursor:pointer;background:#fff;color:#64748b;transition:all .2s}
+    .filter-btn:hover,.filter-btn--active{border-color:#0089CF;color:#0089CF;background:rgba(0,137,207,.04)}
+
+    .gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px}
+    .gallery-item{background:#fff;border-radius:12px;border:1px solid #e2e8f0;overflow:hidden;transition:all .3s;position:relative}
+    .gallery-item:hover{border-color:#0089CF;box-shadow:0 4px 20px rgba(0,137,207,.1);transform:translateY(-2px)}
+    .gallery-item__img-wrap{height:140px;background:#f8fafc;display:flex;align-items:center;justify-content:center;padding:12px;overflow:hidden}
+    .gallery-item__img{max-width:100%;max-height:100%;object-fit:contain;image-rendering:-webkit-optimize-contrast;image-rendering:crisp-edges}
+    .gallery-item__info{padding:12px;border-top:1px solid #f1f5f9}
+    .gallery-item__name{font-size:12px;font-weight:600;color:#0f172a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .gallery-item__meta{font-size:11px;color:#94a3b8;margin-top:4px;display:flex;justify-content:space-between}
+    .gallery-item__badge{position:absolute;top:8px;right:8px;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase}
+    .gallery-item__badge--png{background:#dbeafe;color:#2563eb}
+    .gallery-item__badge--svg{background:#fef3c7;color:#d97706}
+    .gallery-item__badge--webp{background:#d1fae5;color:#059669}
+    .gallery-item__badge--jpg,.gallery-item__badge--jpeg{background:#fce7f3;color:#db2777}
+    .gallery-item__actions{display:flex;gap:6px;margin-top:8px}
+    .gallery-item__btn{flex:1;padding:6px;border:1px solid #e2e8f0;border-radius:8px;font-size:11px;font-weight:500;cursor:pointer;background:#fff;transition:all .15s;text-align:center;text-decoration:none;color:#475569}
+    .gallery-item__btn:hover{border-color:#0089CF;color:#0089CF}
+    .gallery-item__btn--copy{background:#f0f9ff;color:#0089CF;border-color:#bae6fd}
+    .gallery-item__btn--delete{color:#ef4444;border-color:#fecaca}
+    .gallery-item__btn--delete:hover{background:#fef2f2;color:#dc2626}
+
+    .empty-state{text-align:center;padding:60px 20px;color:#94a3b8}
+    .empty-state svg{width:48px;height:48px;margin-bottom:16px;opacity:.4}
+
+    /* Responsive */
+    @media(max-width:768px){
+      .upload-form{grid-template-columns:1fr}
+      .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+      .container{padding:16px}
+    }
+
+    /* Toast */
+    .toast{position:fixed;bottom:24px;right:24px;background:#0f172a;color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:500;z-index:1000;transform:translateY(80px);opacity:0;transition:all .3s}
+    .toast--show{transform:translateY(0);opacity:1}
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <div class="topbar__logo"><span>OnSuite</span> Admin</div>
+    <div class="topbar__actions">
+      <a href="/admin" class="topbar__link">Icerik Yonetimi</a>
+      <a href="/admin/media" class="topbar__link topbar__link--active">Gorsel Yonetimi</a>
+      <a href="/" class="topbar__link" target="_blank">Siteyi Gor</a>
+      <a href="/admin/logout" class="topbar__link topbar__link--logout">Cikis</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <% if (success) { %>
+      <div class="success">
+        <% if (success === 'upload') { %>Gorsel basariyla yuklendi ve islendi!
+        <% } else if (success === 'svg') { %>SVG dosyasi yuklendi!
+        <% } else if (success === 'delete') { %>Gorsel silindi.
+        <% } else { %>Islem basarili!<% } %>
+      </div>
+    <% } %>
+
+    <div class="page-header">
+      <div>
+        <h1>Gorsel Yonetimi</h1>
+        <p>Sitedeki tum gorselleri yonet, yukle ve optimize et</p>
+      </div>
+      <div style="font-size:13px;color:#64748b">
+        Toplam: <strong><%= images.length %></strong> gorsel
+      </div>
+    </div>
+
+    <!-- UPLOAD SECTION -->
+    <div class="upload-card">
+      <h2>Yeni Gorsel Yukle</h2>
+      <form action="/admin/media/upload" method="POST" enctype="multipart/form-data" id="uploadForm">
+        <div class="upload-form">
+          <div class="upload-left">
+            <!-- Dropzone -->
+            <div class="dropzone" id="dropzone">
+              <div class="dropzone__icon">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              </div>
+              <div class="dropzone__text">Dosyayi surukleyin veya tiklayarak secin</div>
+              <div class="dropzone__hint">PNG, JPG, SVG, WebP - Maks 20MB</div>
+              <img class="dropzone__preview" id="preview" alt="Onizleme">
+              <input type="file" name="image" id="fileInput" accept=".png,.jpg,.jpeg,.svg,.webp,.gif" hidden>
+            </div>
+
+            <!-- File info -->
+            <div class="file-info" id="fileInfo">
+              <div class="file-info__row"><span class="file-info__label">Dosya</span><span class="file-info__value" id="infoName">-</span></div>
+              <div class="file-info__row"><span class="file-info__label">Boyut</span><span class="file-info__value" id="infoSize">-</span></div>
+              <div class="file-info__row"><span class="file-info__label">Cozunurluk</span><span class="file-info__value" id="infoRes">-</span></div>
+              <div class="file-info__row"><span class="file-info__label">Format</span><span class="file-info__value" id="infoFormat">-</span></div>
+            </div>
+          </div>
+
+          <div class="upload-right">
+            <!-- Folder -->
+            <div class="field">
+              <label>Hedef Klasor</label>
+              <select name="folder" id="folderSelect">
+                <option value="hero">Hero Gorselleri</option>
+                <option value="modules">Modul Gorselleri</option>
+                <option value="icons">Ikonlar</option>
+                <option value="sectors">Sektor Gorselleri</option>
+                <option value="logos/references">Referans Logolari</option>
+                <option value="logos/partners">Partner Logolari</option>
+              </select>
+            </div>
+
+            <!-- Quality Presets -->
+            <div class="field">
+              <label>Kalite Ayari</label>
+              <div class="quality-presets">
+                <button type="button" class="quality-preset" data-quality="80">Standart (80%)</button>
+                <button type="button" class="quality-preset quality-preset--active" data-quality="95">Yuksek (95%)</button>
+                <button type="button" class="quality-preset" data-quality="100">Maksimum (100%)</button>
+              </div>
+              <input type="hidden" name="quality" id="qualityInput" value="95">
+            </div>
+
+            <!-- Scale -->
+            <div class="field">
+              <label>Cozunurluk / Olcek</label>
+              <div class="scale-options">
+                <button type="button" class="scale-btn" data-scale="1">1x<small>Standart</small></button>
+                <button type="button" class="scale-btn scale-btn--active" data-scale="1">Orijinal<small>Degistirme</small></button>
+                <button type="button" class="scale-btn" data-scale="2">2x<small>Retina</small></button>
+                <button type="button" class="scale-btn" data-scale="3">3x<small>Ultra HD</small></button>
+              </div>
+              <input type="hidden" name="scale" id="scaleInput" value="1">
+            </div>
+
+            <!-- Format -->
+            <div class="field">
+              <label>Cikti Formati</label>
+              <select name="format" id="formatSelect">
+                <option value="png">PNG (Kayipsiz, buyuk dosya)</option>
+                <option value="webp">WebP (Modern, kucuk dosya)</option>
+                <option value="jpeg">JPEG (Fotograflar icin)</option>
+              </select>
+            </div>
+
+            <button type="submit" class="btn-upload" id="uploadBtn" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              Yukle ve Optimize Et
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- GALLERY SECTION -->
+    <div class="gallery-header">
+      <h2>Mevcut Gorseller</h2>
+      <div class="gallery-filter">
+        <button class="filter-btn filter-btn--active" data-filter="all">Tumu</button>
+        <% folders.forEach(function(f) { %>
+          <button class="filter-btn" data-filter="<%= f %>"><%= f %></button>
+        <% }) %>
+      </div>
+    </div>
+
+    <div class="gallery-grid" id="gallery">
+      <% if (images.length === 0) { %>
+        <div class="empty-state" style="grid-column:1/-1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <p>Henuz gorsel yuklenmemis</p>
+        </div>
+      <% } else { %>
+        <% images.forEach(function(img) { %>
+          <div class="gallery-item" data-folder="<%= img.folder %>">
+            <span class="gallery-item__badge gallery-item__badge--<%= img.ext %>"><%= img.ext %></span>
+            <div class="gallery-item__img-wrap">
+              <img src="/<%= img.path %>" alt="<%= img.name %>" class="gallery-item__img" loading="lazy">
+            </div>
+            <div class="gallery-item__info">
+              <div class="gallery-item__name" title="<%= img.name %>"><%= img.name %></div>
+              <div class="gallery-item__meta">
+                <span><%= img.sizeStr %></span>
+                <span><%= img.folder %></span>
+              </div>
+              <div class="gallery-item__actions">
+                <button class="gallery-item__btn gallery-item__btn--copy" onclick="copyPath('<%= img.path %>')">Yolu Kopyala</button>
+                <form method="POST" action="/admin/media/delete" style="flex:1;display:contents" onsubmit="return confirm('Bu gorseli silmek istediginizden emin misiniz?')">
+                  <input type="hidden" name="path" value="<%= img.path %>">
+                  <button type="submit" class="gallery-item__btn gallery-item__btn--delete">Sil</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // --- Dropzone ---
+    var dropzone = document.getElementById('dropzone');
+    var fileInput = document.getElementById('fileInput');
+    var preview = document.getElementById('preview');
+    var uploadBtn = document.getElementById('uploadBtn');
+    var fileInfo = document.getElementById('fileInfo');
+
+    dropzone.addEventListener('click', function() { fileInput.click(); });
+    dropzone.addEventListener('dragover', function(e) { e.preventDefault(); this.classList.add('dropzone--active'); });
+    dropzone.addEventListener('dragleave', function() { this.classList.remove('dropzone--active'); });
+    dropzone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      this.classList.remove('dropzone--active');
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    fileInput.addEventListener('change', function() {
+      if (this.files.length) handleFile(this.files[0]);
+    });
+
+    function handleFile(file) {
+      // Preview
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        preview.src = e.target.result;
+        dropzone.classList.add('dropzone--has-file');
+      };
+      reader.readAsDataURL(file);
+
+      // Info
+      document.getElementById('infoName').textContent = file.name;
+      document.getElementById('infoSize').textContent = file.size > 1024*1024
+        ? (file.size/(1024*1024)).toFixed(1) + ' MB'
+        : (file.size/1024).toFixed(0) + ' KB';
+      document.getElementById('infoFormat').textContent = file.type || 'Bilinmiyor';
+      fileInfo.classList.add('file-info--visible');
+
+      // Get dimensions
+      if (file.type.startsWith('image/') && file.type !== 'image/svg+xml') {
+        var img = new Image();
+        img.onload = function() {
+          document.getElementById('infoRes').textContent = img.width + ' x ' + img.height + ' px';
+        };
+        img.src = URL.createObjectURL(file);
+      } else {
+        document.getElementById('infoRes').textContent = 'SVG (vektorel)';
+      }
+
+      uploadBtn.disabled = false;
+    }
+
+    // --- Quality Presets ---
+    document.querySelectorAll('.quality-preset').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.quality-preset').forEach(function(b) { b.classList.remove('quality-preset--active'); });
+        this.classList.add('quality-preset--active');
+        document.getElementById('qualityInput').value = this.dataset.quality;
+      });
+    });
+
+    // --- Scale Buttons ---
+    document.querySelectorAll('.scale-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.scale-btn').forEach(function(b) { b.classList.remove('scale-btn--active'); });
+        this.classList.add('scale-btn--active');
+        document.getElementById('scaleInput').value = this.dataset.scale;
+      });
+    });
+
+    // --- Gallery Filter ---
+    document.querySelectorAll('.filter-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('filter-btn--active'); });
+        this.classList.add('filter-btn--active');
+        var filter = this.dataset.filter;
+        document.querySelectorAll('.gallery-item').forEach(function(item) {
+          if (filter === 'all' || item.dataset.folder === filter) {
+            item.style.display = '';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // --- Copy Path ---
+    function copyPath(p) {
+      navigator.clipboard.writeText(p).then(function() {
+        showToast('Gorsel yolu kopyalandi: ' + p);
+      });
+    }
+
+    // --- Toast ---
+    function showToast(msg) {
+      var toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('toast--show');
+      setTimeout(function() { toast.classList.remove('toast--show'); }, 3000);
+    }
+
+    // Auto-hide success
+    var successEl = document.querySelector('.success');
+    if (successEl) setTimeout(function() { successEl.style.opacity = '0'; successEl.style.transition = 'opacity .5s'; }, 4000);
+  </script>
+</body>
+</html>
