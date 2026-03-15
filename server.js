@@ -555,6 +555,7 @@ app.post('/api/chat', async (req, res) => {
         return res.json({ reply });
       } catch (geminiErr) {
         console.error('Gemini error, falling back to static:', geminiErr.message);
+        return res.json({ reply: '[Gemini Debug] ' + geminiErr.message });
       }
     }
 
