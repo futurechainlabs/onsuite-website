@@ -232,6 +232,63 @@ app.get('/moduller/:slug', async (req, res) => {
   }
 });
 
+// Demo page
+app.get('/demo', async (req, res) => {
+  try {
+    const data = await loadData();
+    res.render('demo', { data });
+  } catch (err) {
+    console.error('Demo page error:', err);
+    res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// Hakkimizda page (placeholder)
+app.get('/hakkimizda', async (req, res) => {
+  try {
+    const data = await loadData();
+    res.render('hakkimizda', { data });
+  } catch (err) {
+    res.status(500).send('Sayfa yuklenemedi');
+  }
+});
+
+// Demo form submission API
+app.post('/api/demo', async (req, res) => {
+  try {
+    const { name, email, phone, company, sector, productionLines, message } = req.body;
+    if (!name || !email || !phone || !company || !sector) {
+      return res.status(400).json({ ok: false, error: 'Zorunlu alanlari doldurunuz' });
+    }
+
+    const demoRequest = {
+      name, email, phone, company, sector,
+      productionLines: productionLines || '',
+      message: message || '',
+      date: new Date().toISOString(),
+      status: 'new'
+    };
+
+    // Save to Supabase if configured
+    if (SUPABASE_CONFIGURED) {
+      await supabase.from('demo_requests').insert(demoRequest);
+    }
+
+    // Always save to local JSON as backup
+    const demoFile = path.join(__dirname, 'data', 'demo-requests.json');
+    let demos = [];
+    try { demos = JSON.parse(fs.readFileSync(demoFile, 'utf8')); } catch (e) { /* first request */ }
+    demos.push(demoRequest);
+    fs.writeFileSync(demoFile, JSON.stringify(demos, null, 2), 'utf8');
+
+    console.log('New demo request:', name, company, sector);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Demo submit error:', err);
+    res.json({ ok: false, error: 'Sunucu hatasi' });
+  }
+});
+
 // --- Admin Routes ---
 app.get('/admin/login', (req, res) => {
   res.render('admin-login', { error: null });
@@ -252,7 +309,13 @@ app.get('/admin/logout', (req, res) => {
 
 app.get('/admin', requireAuth, async (req, res) => {
   const data = await loadData();
-  res.render('admin', { data, success: req.query.success || null });
+  // Load demo requests
+  let demoRequests = [];
+  try {
+    const demoFile = path.join(__dirname, 'data', 'demo-requests.json');
+    demoRequests = JSON.parse(fs.readFileSync(demoFile, 'utf8'));
+  } catch (e) { /* no requests yet */ }
+  res.render('admin', { data, success: req.query.success || null, modulesData, demoRequests });
 });
 
 // --- Media Library ---
@@ -518,6 +581,20 @@ app.post('/admin/save', requireAuth, async (req, res) => {
         desc: req.body[`mod_desc_${i}`] || m.desc,
         metric: req.body[`mod_metric_${i}`] || m.metric
       }));
+    }
+
+    if (section === 'moduleDetail') {
+      const slug = req.body.modSlug;
+      if (modulesData[slug]) {
+        modulesData[slug].name = req.body.modDetailName || modulesData[slug].name;
+        modulesData[slug].tagline = req.body.modDetailTagline || modulesData[slug].tagline;
+        modulesData[slug].description = req.body.modDetailDesc || modulesData[slug].description;
+        modulesData[slug].color = req.body.modDetailColor || modulesData[slug].color;
+        modulesData[slug].ctaTitle = req.body.modDetailCtaTitle || modulesData[slug].ctaTitle;
+        modulesData[slug].ctaDesc = req.body.modDetailCtaDesc || modulesData[slug].ctaDesc;
+        // Save modules.json
+        fs.writeFileSync(MODULES_FILE, JSON.stringify(modulesData, null, 2), 'utf8');
+      }
     }
 
     await saveData(data);

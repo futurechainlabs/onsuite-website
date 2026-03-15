@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Talep Et - OnSuite | <%= data.site.title %></title>
+  <meta name="description" content="OnSuite akilli uretim yonetim platformunu 15 dakikalik kisisellestirilmis demo ile deneyimleyin.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/design-system.css">
+  <link rel="stylesheet" href="/css/demo.css">
+  <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+</head>
+<body>
+
+<!-- Simplified Header -->
+<header class="demo-header">
+  <div class="container">
+    <div class="demo-header__inner">
+      <a href="/" class="demo-header__logo">
+        <img src="/assets/images/logo.png" alt="OnSuite" width="120" height="28">
+      </a>
+      <a href="/" class="demo-header__back">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Ana Sayfaya Don
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- Demo Page Content -->
+<main class="demo-page">
+  <div class="container">
+    <div class="demo-grid">
+
+      <!-- Left: Info Column -->
+      <div class="demo-info">
+        <h1 class="demo-info__title">OnSuite'i Kendi Verinizle Deneyimleyin</h1>
+        <p class="demo-info__desc">15 dakikalik kisisellestirilmis demo ile tesisinize deger katacagimizi gorun.</p>
+
+        <div class="demo-info__checklist">
+          <div class="demo-info__check">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Canli dashboard demo</span>
+          </div>
+          <div class="demo-info__check">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Sektorunuze ozel senaryo</span>
+          </div>
+          <div class="demo-info__check">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>ROI analizi</span>
+          </div>
+          <div class="demo-info__check">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M5 10l3.5 3.5L15 6" stroke="#04bf8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Entegrasyon yol haritasi</span>
+          </div>
+        </div>
+
+        <div class="demo-info__social">
+          <p class="demo-info__social-text">Bu firmalar da OnSuite ile calisiyor</p>
+          <div class="demo-info__logos">
+            <span class="demo-info__logo-tag">Bosch</span>
+            <span class="demo-info__logo-tag">BSH</span>
+            <span class="demo-info__logo-tag">Unilever</span>
+            <span class="demo-info__logo-tag">Haier</span>
+            <span class="demo-info__logo-tag">Diageo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Form Column -->
+      <div class="demo-form-wrap">
+        <!-- Form State -->
+        <div class="demo-form-card" id="demoFormCard">
+          <h2 class="demo-form__heading">Demo Talep Formu</h2>
+
+          <form id="demoForm" class="demo-form" novalidate>
+            <div class="demo-field">
+              <label for="df-name">Isim Soyisim <span class="req">*</span></label>
+              <input type="text" id="df-name" name="name" required placeholder="Adiniz Soyadiniz">
+            </div>
+
+            <div class="demo-field">
+              <label for="df-email">Is E-postasi <span class="req">*</span></label>
+              <input type="email" id="df-email" name="email" required placeholder="ornek@firma.com">
+            </div>
+
+            <div class="demo-field">
+              <label for="df-phone">Telefon <span class="req">*</span></label>
+              <input type="tel" id="df-phone" name="phone" required placeholder="+90 (5XX) XXX XX XX">
+            </div>
+
+            <div class="demo-field">
+              <label for="df-company">Firma Adi <span class="req">*</span></label>
+              <input type="text" id="df-company" name="company" required placeholder="Firma adiniz">
+            </div>
+
+            <div class="demo-field-row">
+              <div class="demo-field">
+                <label for="df-sector">Sektor <span class="req">*</span></label>
+                <select id="df-sector" name="sector" required>
+                  <option value="">Seciniz</option>
+                  <option value="otomotiv">Otomotiv</option>
+                  <option value="gida">Gida & Icecek</option>
+                  <option value="ilac">Ilac & Saglik</option>
+                  <option value="tutun">Tutun</option>
+                  <option value="havacilik">Havacilik</option>
+                  <option value="genel">Genel Uretim</option>
+                  <option value="diger">Diger</option>
+                </select>
+              </div>
+              <div class="demo-field">
+                <label for="df-lines">Uretim Hatti Sayisi</label>
+                <select id="df-lines" name="productionLines">
+                  <option value="">Seciniz</option>
+                  <option value="1-5">1 - 5</option>
+                  <option value="6-10">6 - 10</option>
+                  <option value="11-25">11 - 25</option>
+                  <option value="26-50">26 - 50</option>
+                  <option value="50+">50+</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="demo-field">
+              <label for="df-message">Mesajiniz <span class="opt">(Opsiyonel)</span></label>
+              <textarea id="df-message" name="message" rows="3" placeholder="Ozel gereksinimlerinizi yazabilirsiniz..."></textarea>
+            </div>
+
+            <button type="submit" class="demo-form__submit" id="demoSubmitBtn">
+              Demo Talep Et <span aria-hidden="true">&rarr;</span>
+            </button>
+
+            <p class="demo-form__privacy">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.75a2.625 2.625 0 00-2.625 2.625V5.25h5.25V4.375A2.625 2.625 0 007 1.75z" stroke="#9ca3af" stroke-width="1.2"/><rect x="2.625" y="5.25" width="8.75" height="6.125" rx="1.5" stroke="#9ca3af" stroke-width="1.2"/></svg>
+              Bilgileriniz gizli ve guvende tutulur.
+            </p>
+          </form>
+        </div>
+
+        <!-- Success State -->
+        <div class="demo-success" id="demoSuccess" style="display:none">
+          <div class="demo-success__icon">
+            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#04bf8a" stroke-width="2.5"/><path d="M15 24l6.5 6.5L33 17" stroke="#04bf8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h2 class="demo-success__title">Talebiniz Alindi!</h2>
+          <p class="demo-success__desc">Ekibimiz 24 saat icinde sizinle iletisime gececek.</p>
+          <a href="/" class="demo-success__link">Bu surede platformumuzu kesfedin <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+(function() {
+  var form = document.getElementById('demoForm');
+  var card = document.getElementById('demoFormCard');
+  var success = document.getElementById('demoSuccess');
+  var submitBtn = document.getElementById('demoSubmitBtn');
+
+  // Pre-fill from URL params
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('sector')) {
+    var sel = document.getElementById('df-sector');
+    if (sel) sel.value = params.get('sector');
+  }
+  if (params.get('lines')) {
+    var sel2 = document.getElementById('df-lines');
+    if (sel2) sel2.value = params.get('lines');
+  }
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    // Basic validation
+    var fields = form.querySelectorAll('[required]');
+    var valid = true;
+    fields.forEach(function(f) {
+      f.classList.remove('demo-field--error');
+      if (!f.value.trim()) {
+        f.classList.add('demo-field--error');
+        valid = false;
+      }
+    });
+    // Email validation
+    var email = document.getElementById('df-email');
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+      email.classList.add('demo-field--error');
+      valid = false;
+    }
+    if (!valid) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Gonderiliyor...';
+
+    var formData = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim(),
+      company: form.company.value.trim(),
+      sector: form.sector.value,
+      productionLines: form.productionLines.value,
+      message: form.message.value.trim()
+    };
+
+    fetch('/api/demo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      if (data.ok) {
+        card.style.display = 'none';
+        success.style.display = 'block';
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = 'Demo Talep Et <span aria-hidden="true">&rarr;</span>';
+        alert(data.error || 'Bir hata olustu. Lutfen tekrar deneyin.');
+      }
+    })
+    .catch(function() {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = 'Demo Talep Et <span aria-hidden="true">&rarr;</span>';
+      alert('Baglanti hatasi. Lutfen tekrar deneyin.');
+    });
+  });
+})();
+</script>
+</body>
+</html>

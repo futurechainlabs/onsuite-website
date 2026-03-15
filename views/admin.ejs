@@ -86,6 +86,12 @@
       <a href="#sec-metrics" class="sidebar__link">Sonuc Metrikleri</a>
       <a href="#sec-testimonial" class="sidebar__link">Musteri Yorumu</a>
       <a href="#sec-cta" class="sidebar__link">CTA Bolumu</a>
+      <div class="sidebar__title" style="margin-top:24px">Ic Sayfalar</div>
+      <a href="#sec-module-pages" class="sidebar__link">Modul Sayfalari</a>
+      <a href="#sec-demo-requests" class="sidebar__link">Demo Talepleri</a>
+      <div class="sidebar__title" style="margin-top:24px">Hizli Erisim</div>
+      <a href="/demo" class="sidebar__link" target="_blank">Demo Sayfasi</a>
+      <a href="/moduller/ontrace" class="sidebar__link" target="_blank">OnTrace Sayfasi</a>
     </aside>
 
     <main class="main">
@@ -391,6 +397,98 @@
             </div>
             <button type="submit" class="btn-save">Kaydet</button>
           </form>
+        </div>
+      </div>
+
+      <!-- MODULE DETAIL PAGES -->
+      <div class="card" id="sec-module-pages">
+        <div class="card__header">
+          <span class="card__title">Modul Sayfalari</span>
+          <span class="card__badge"><%= Object.keys(modulesData).length %> modul</span>
+        </div>
+        <div class="card__body">
+          <p style="font-size:13px;color:#64748b;margin-bottom:16px">Her modulun detay sayfasini buradan duzenleyebilirsiniz. Degisiklikler <code>/moduller/[slug]</code> sayfasina yansir.</p>
+          <% Object.keys(modulesData).forEach(function(slug) { var m = modulesData[slug]; %>
+            <details class="module-item" style="cursor:pointer">
+              <summary class="module-item__header" style="list-style:none;display:flex;align-items:center;justify-content:space-between">
+                <span><%= m.name %></span>
+                <span style="font-size:11px;color:#94a3b8;font-weight:400">/moduller/<%= slug %></span>
+              </summary>
+              <form method="POST" action="/admin/save" style="margin-top:12px">
+                <input type="hidden" name="section" value="moduleDetail">
+                <input type="hidden" name="modSlug" value="<%= slug %>">
+                <div class="field-row">
+                  <div class="field">
+                    <label>Modul Adi</label>
+                    <input type="text" name="modDetailName" value="<%= m.name %>">
+                  </div>
+                  <div class="field">
+                    <label>Renk</label>
+                    <input type="color" name="modDetailColor" value="<%= m.color %>" style="height:42px">
+                  </div>
+                </div>
+                <div class="field">
+                  <label>Tagline (Hero Basligi)</label>
+                  <input type="text" name="modDetailTagline" value="<%= m.tagline %>">
+                </div>
+                <div class="field">
+                  <label>Aciklama</label>
+                  <textarea name="modDetailDesc" rows="2"><%= m.description %></textarea>
+                </div>
+                <div class="field-row">
+                  <div class="field">
+                    <label>CTA Basligi</label>
+                    <input type="text" name="modDetailCtaTitle" value="<%= m.ctaTitle %>">
+                  </div>
+                  <div class="field">
+                    <label>CTA Aciklamasi</label>
+                    <input type="text" name="modDetailCtaDesc" value="<%= m.ctaDesc %>">
+                  </div>
+                </div>
+                <button type="submit" class="btn-save" style="margin-top:8px">Kaydet</button>
+              </form>
+            </details>
+          <% }); %>
+        </div>
+      </div>
+
+      <!-- DEMO REQUESTS -->
+      <div class="card" id="sec-demo-requests">
+        <div class="card__header">
+          <span class="card__title">Demo Talepleri</span>
+          <span class="card__badge"><%= demoRequests.length %> talep</span>
+        </div>
+        <div class="card__body">
+          <% if (demoRequests.length === 0) { %>
+            <p style="font-size:14px;color:#94a3b8;text-align:center;padding:24px 0">Henuz demo talebi yok.</p>
+          <% } else { %>
+            <div style="overflow-x:auto">
+              <table style="width:100%;border-collapse:collapse;font-size:13px">
+                <thead>
+                  <tr style="border-bottom:2px solid #e2e8f0;text-align:left">
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">Tarih</th>
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">Isim</th>
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">Firma</th>
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">Sektor</th>
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">E-posta</th>
+                    <th style="padding:10px 8px;font-weight:600;color:#334155">Telefon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% demoRequests.slice().reverse().forEach(function(dr) { %>
+                    <tr style="border-bottom:1px solid #f1f5f9">
+                      <td style="padding:10px 8px;color:#64748b;white-space:nowrap"><%= dr.date ? new Date(dr.date).toLocaleDateString('tr-TR') : '-' %></td>
+                      <td style="padding:10px 8px;font-weight:500"><%= dr.name %></td>
+                      <td style="padding:10px 8px"><%= dr.company %></td>
+                      <td style="padding:10px 8px"><%= dr.sector %></td>
+                      <td style="padding:10px 8px"><a href="mailto:<%= dr.email %>" style="color:#0089CF"><%= dr.email %></a></td>
+                      <td style="padding:10px 8px;white-space:nowrap"><%= dr.phone %></td>
+                    </tr>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          <% } %>
         </div>
       </div>
 
