@@ -23,7 +23,7 @@
 
   <%- include('partials/header') %>
 
-  <main>
+  <main id="main-content">
 
     <!-- ============================================================
          SECTION 1: HERO
@@ -50,7 +50,7 @@
           <div class="hero__actions reveal reveal-d3">
             <a href="<%= prefix %>/demo" class="btn btn--primary">
               <%= data.hero.ctaPrimary %>
-              <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <a href="#modules" class="btn btn--secondary"><%= data.hero.ctaSecondary %></a>
           </div>
@@ -73,15 +73,15 @@
     <section class="proof-bar" aria-label="<%= t.home.references %>">
       <div class="container">
         <div class="proof-bar__logos reveal">
-          <img src="assets/images/logos/references/bosch.png" alt="Bosch" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/bsh.png" alt="BSH" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/haier-europe.png" alt="Haier Europe" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/unilever.png" alt="Unilever" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/pmi.png" alt="Philip Morris" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/borgwarner.png" alt="BorgWarner" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/diageo.png" alt="Diageo" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/jti.png" alt="JTI" class="proof-bar__logo" loading="lazy">
-          <img src="assets/images/logos/references/maxion.png" alt="Maxion" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/bosch.png" alt="Bosch" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/bsh.png" alt="BSH" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/haier-europe.png" alt="Haier Europe" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/unilever.png" alt="Unilever" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/pmi.png" alt="Philip Morris" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/borgwarner.png" alt="BorgWarner" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/diageo.png" alt="Diageo" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/jti.png" alt="JTI" class="proof-bar__logo" loading="lazy">
+          <img src="/assets/images/logos/references/maxion.png" alt="Maxion" class="proof-bar__logo" loading="lazy">
         </div>
         <div class="proof-bar__metrics reveal reveal-d1">
           <% data.proofBar.metrics.forEach(function(m, i) { %>
@@ -218,8 +218,8 @@
             <div class="tabs__panel tabs__panel--active" role="tabpanel" data-panel="automotive">
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/otomotiv.png" alt="<%= t.home.tabAutomotive %>" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/trace-hero.png" alt="OnTrace" class="tabs__visual-img" loading="lazy">
+                  <img src="/assets/images/sectors/otomotiv.png" alt="<%= t.home.tabAutomotive %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="/assets/images/modules/trace-hero.png" alt="OnTrace" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
                   <h3><%= t.home.automotiveTitle %></h3>
@@ -238,8 +238,8 @@
             <div class="tabs__panel" role="tabpanel" data-panel="food" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/gida.png" alt="<%= t.home.tabFood %>" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/connect-hero.png" alt="OnSuite Connect" class="tabs__visual-img" loading="lazy">
+                  <img src="/assets/images/sectors/gida.png" alt="<%= t.home.tabFood %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="/assets/images/modules/connect-hero.png" alt="OnSuite Connect" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
                   <h3><%= t.home.foodTitle %></h3>
@@ -258,8 +258,8 @@
             <div class="tabs__panel" role="tabpanel" data-panel="pharma" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/ilac.png" alt="<%= t.home.tabPharma %>" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/hero/factory-isometric.png" alt="OnSuite" class="tabs__visual-img" loading="lazy">
+                  <img src="/assets/images/sectors/ilac.png" alt="<%= t.home.tabPharma %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="/assets/images/hero/factory-isometric.png" alt="OnSuite" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
                   <h3><%= t.home.pharmaTitle %></h3>
@@ -278,8 +278,8 @@
             <div class="tabs__panel" role="tabpanel" data-panel="tobacco" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/icons/tmc.png" alt="<%= t.home.tabTobacco %>" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/monitora-hero.png" alt="OnMonitora" class="tabs__visual-img" loading="lazy">
+                  <img src="/assets/images/icons/tmc.png" alt="<%= t.home.tabTobacco %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="/assets/images/modules/monitora-hero.png" alt="OnMonitora" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
                   <h3><%= t.home.tobaccoTitle %></h3>
@@ -298,8 +298,8 @@
             <div class="tabs__panel" role="tabpanel" data-panel="general" hidden>
               <div class="tabs__panel-inner">
                 <div class="tabs__visual">
-                  <img src="assets/images/sectors/genel-uretim.png" alt="<%= t.home.tabGeneral %>" class="tabs__sector-icon" loading="lazy">
-                  <img src="assets/images/modules/optima-hero.png" alt="OnOptima" class="tabs__visual-img" loading="lazy">
+                  <img src="/assets/images/sectors/genel-uretim.png" alt="<%= t.home.tabGeneral %>" class="tabs__sector-icon" loading="lazy">
+                  <img src="/assets/images/modules/optima-hero.png" alt="OnOptima" class="tabs__visual-img" loading="lazy">
                 </div>
                 <div class="tabs__info">
                   <h3><%= t.home.generalTitle %></h3>
@@ -330,15 +330,15 @@
         </div>
 
         <div class="partner-grid reveal">
-          <div class="partner-card"><img src="assets/images/logos/partners/microsoft.png" alt="Microsoft" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/beckhoff.png" alt="Beckhoff" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/ge-vernova.png" alt="GE Vernova" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/inginition.png" alt="Ignition" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/sick.png" alt="SICK" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/universal-robots.png" alt="Universal Robots" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/sewio.png" alt="Sewio" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/markem-maje.png" alt="Markem-Imaje" class="partner-card__logo" loading="lazy"></div>
-          <div class="partner-card"><img src="assets/images/logos/partners/interroll.png" alt="Interroll" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/microsoft.png" alt="Microsoft" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/beckhoff.png" alt="Beckhoff" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/ge-vernova.png" alt="GE Vernova" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/inginition.png" alt="Ignition" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/sick.png" alt="SICK" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/universal-robots.png" alt="Universal Robots" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/sewio.png" alt="Sewio" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/markem-maje.png" alt="Markem-Imaje" class="partner-card__logo" loading="lazy"></div>
+          <div class="partner-card"><img src="/assets/images/logos/partners/interroll.png" alt="Interroll" class="partner-card__logo" loading="lazy"></div>
         </div>
       </div>
     </section>
@@ -429,7 +429,7 @@
             <div class="roi-calc__actions">
               <a href="<%= prefix %>/demo" class="btn btn--primary" style="width:100%">
                 <%= t.home.roiCta %>
-                <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </a>
             </div>
           </div>
@@ -447,7 +447,7 @@
         <div class="cta-block__actions reveal reveal-d2">
           <a href="<%= prefix %>/demo" class="btn btn--primary">
             <%= t.home.ctaDemoBtn %>
-            <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <a href="<%= data.site.phoneHref %>" class="btn btn--ghost"><%= t.home.ctaCallBtn %></a>
         </div>

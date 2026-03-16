@@ -3,7 +3,7 @@
    "Vay canina" dedirtecek gorsel sistem
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap');
+/* Fonts loaded via <link> in HTML templates — no @import to avoid render-blocking chain */
 
 /* === CUSTOM PROPERTIES === */
 :root {
@@ -245,8 +245,18 @@ h4,.h4{font:600 var(--h4)/1.3 var(--font-h);color:var(--gray-900)}
 .text-center{text-align:center}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
 
+/* === SKIP LINK === */
+.skip-link{position:absolute;left:-9999px;top:auto;padding:8px 16px;background:#000;color:#fff;z-index:10000;font-size:14px;font-weight:600;border-radius:0 0 8px 0;text-decoration:none}
+.skip-link:focus{left:0;top:0}
+
+/* === FOCUS INDICATORS === */
+:focus-visible{outline:3px solid var(--blue-500);outline-offset:2px;border-radius:4px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--blue-500);outline-offset:2px}
+.btn:focus-visible{outline:3px solid var(--blue-500);outline-offset:3px}
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
   .reveal{opacity:1;transform:none}
   html{scroll-behavior:auto}
+  .card:hover,.btn:hover{transform:none!important}
 }

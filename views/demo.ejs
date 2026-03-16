@@ -7,7 +7,7 @@
   <meta name="description" content="<%= t.demo.desc %>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/design-system.css">
   <link rel="stylesheet" href="/css/pages.css">
   <link rel="stylesheet" href="/css/demo.css">
@@ -23,9 +23,9 @@
       </a>
       <div style="display:flex;align-items:center;gap:16px">
         <div class="lang-switch" style="display:flex;align-items:center;gap:6px">
-          <a href="/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'tr' ? '#0089CF' : '#9ca3af' %>">TR</a>
+          <a href="/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'tr' ? '#0089CF' : '#6b7280' %>">TR</a>
           <span style="color:#e5e7eb">|</span>
-          <a href="/en/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'en' ? '#0089CF' : '#9ca3af' %>">EN</a>
+          <a href="/en/demo" style="text-decoration:none;font-size:13px;font-weight:600;color:<%= lang === 'en' ? '#0089CF' : '#6b7280' %>">EN</a>
         </div>
         <a href="<%= prefix %>/" class="demo-header__back">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 15L7.5 10l5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -120,13 +120,13 @@
               <%= t.demo.submit %> <span aria-hidden="true">&rarr;</span>
             </button>
             <p class="demo-form__privacy">
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.75a2.625 2.625 0 00-2.625 2.625V5.25h5.25V4.375A2.625 2.625 0 007 1.75z" stroke="#9ca3af" stroke-width="1.2"/><rect x="2.625" y="5.25" width="8.75" height="6.125" rx="1.5" stroke="#9ca3af" stroke-width="1.2"/></svg>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.75a2.625 2.625 0 00-2.625 2.625V5.25h5.25V4.375A2.625 2.625 0 007 1.75z" stroke="#6b7280" stroke-width="1.2"/><rect x="2.625" y="5.25" width="8.75" height="6.125" rx="1.5" stroke="#6b7280" stroke-width="1.2"/></svg>
               <%= t.demo.privacy %>
             </p>
           </form>
         </div>
 
-        <div class="demo-success" id="demoSuccess" style="display:none">
+        <div class="demo-success" id="demoSuccess" style="display:none" role="alert" tabindex="-1">
           <div class="demo-success__icon">
             <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" stroke="#04bf8a" stroke-width="2.5"/><path d="M15 24l6.5 6.5L33 17" stroke="#04bf8a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
@@ -159,9 +159,9 @@
     e.preventDefault();
     var fields = form.querySelectorAll('[required]');
     var valid = true;
-    fields.forEach(function(f) { f.classList.remove('demo-field--error'); if (!f.value.trim()) { f.classList.add('demo-field--error'); valid = false; } });
+    fields.forEach(function(f) { f.classList.remove('demo-field--error'); f.setAttribute('aria-invalid','false'); if (!f.value.trim()) { f.classList.add('demo-field--error'); f.setAttribute('aria-invalid','true'); valid = false; } });
     var email = document.getElementById('df-email');
-    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email.classList.add('demo-field--error'); valid = false; }
+    if (email.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { email.classList.add('demo-field--error'); email.setAttribute('aria-invalid','true'); valid = false; }
     if (!valid) return;
 
     submitBtn.disabled = true;
@@ -179,7 +179,7 @@
     })
     .then(function(res) { return res.json(); })
     .then(function(data) {
-      if (data.ok) { card.style.display = 'none'; success.style.display = 'block'; }
+      if (data.ok) { card.style.display = 'none'; success.style.display = 'block'; success.focus(); }
       else { submitBtn.disabled = false; submitBtn.innerHTML = submitText + ' <span>&rarr;</span>'; alert(data.error || errorGen); }
     })
     .catch(function() { submitBtn.disabled = false; submitBtn.innerHTML = submitText + ' <span>&rarr;</span>'; alert(errorConn); });

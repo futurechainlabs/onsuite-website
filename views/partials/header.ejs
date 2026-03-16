@@ -1,13 +1,14 @@
 <!-- ============================================================
      HEADER / NAVIGATION
      ============================================================ -->
+<a href="#main-content" class="skip-link"><%= lang === 'en' ? 'Skip to main content' : 'Ana icerige atla' %></a>
 <header class="header" id="header">
   <div class="container header__inner">
-    <a href="<%= prefix %>/" class="header__logo" aria-label="OnSuite Ana Sayfa">
+    <a href="<%= prefix %>/" class="header__logo" aria-label="<%= lang === 'en' ? 'OnSuite Home' : 'OnSuite Ana Sayfa' %>">
       <img src="/assets/images/logo.png" alt="OnSuite" width="160" height="40">
     </a>
 
-    <nav class="header__nav" aria-label="Ana menu">
+    <nav class="header__nav" aria-label="<%= lang === 'en' ? 'Main menu' : 'Ana menu' %>">
       <ul class="nav__list">
         <li class="nav__item nav__item--dropdown">
           <button class="nav__link" aria-expanded="false" aria-haspopup="true">
@@ -105,15 +106,15 @@
     </nav>
 
     <div class="header__actions">
-      <div class="lang-switch" role="radiogroup" aria-label="Dil secimi">
+      <div class="lang-switch" aria-label="<%= lang === 'en' ? 'Language selection' : 'Dil secimi' %>">
         <% var currentPath = typeof currentUrl !== 'undefined' ? currentUrl : ''; %>
-        <a href="/" class="lang-switch__btn<%= lang === 'tr' ? ' lang-switch__btn--active' : '' %>" style="text-decoration:none">TR</a>
-        <span class="lang-switch__sep">|</span>
-        <a href="/en" class="lang-switch__btn<%= lang === 'en' ? ' lang-switch__btn--active' : '' %>" style="text-decoration:none">EN</a>
+        <a href="/" class="lang-switch__btn<%= lang === 'tr' ? ' lang-switch__btn--active' : '' %>" style="text-decoration:none"<%= lang === 'tr' ? ' aria-current="true"' : '' %>>TR</a>
+        <span class="lang-switch__sep" aria-hidden="true">|</span>
+        <a href="/en" class="lang-switch__btn<%= lang === 'en' ? ' lang-switch__btn--active' : '' %>" style="text-decoration:none"<%= lang === 'en' ? ' aria-current="true"' : '' %>>EN</a>
       </div>
       <a href="<%= prefix %>/<%= lang === 'en' ? 'demo' : 'demo' %>" class="btn btn--primary btn--sm header__cta">
         <%= t.nav.demo %>
-        <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="btn__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.33 8h9.34M8.67 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
 
@@ -128,11 +129,11 @@
   <div class="mobile-menu__inner">
     <div class="mobile-menu__top">
       <a href="<%= prefix %>/" class="header__logo"><img src="/assets/images/logo.png" alt="OnSuite" width="140" height="35"></a>
-      <button class="mobile-menu__close" id="mobileMenuClose" aria-label="Kapat">
+      <button class="mobile-menu__close" id="mobileMenuClose" aria-label="<%= lang === 'en' ? 'Close' : 'Kapat' %>">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
       </button>
     </div>
-    <nav aria-label="Mobil menu">
+    <nav aria-label="<%= lang === 'en' ? 'Mobile menu' : 'Mobil menu' %>">
       <ul class="mobile-menu__list">
         <li class="mobile-menu__item mobile-menu__item--accordion">
           <button class="mobile-menu__toggle" aria-expanded="false">

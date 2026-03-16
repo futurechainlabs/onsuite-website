@@ -2,12 +2,12 @@
      CHATBOT WIDGET
      ============================================================ -->
 <div class="chatbot" id="chatbot">
-  <button class="chatbot__trigger" id="chatbotTrigger" aria-label="<%= t.home.chatbotName %>">
+  <button class="chatbot__trigger" id="chatbotTrigger" aria-label="<%= t.home.chatbotName %>" aria-expanded="false">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
   <div class="chatbot__teaser" id="chatbotTeaser" hidden>
     <p><%= t.home.chatbotTeaser %></p>
-    <button class="chatbot__teaser-close" aria-label="Close">&times;</button>
+    <button class="chatbot__teaser-close" aria-label="<%= lang === 'en' ? 'Close' : 'Kapat' %>">&times;</button>
   </div>
   <div class="chatbot__panel" id="chatbotPanel" hidden>
     <div class="chatbot__header">
@@ -17,7 +17,7 @@
       </div>
       <button class="chatbot__minimize" id="chatbotMinimize" aria-label="Minimize"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8h8" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg></button>
     </div>
-    <div class="chatbot__messages" id="chatbotMessages">
+    <div class="chatbot__messages" id="chatbotMessages" aria-live="polite">
       <div class="chatbot__msg chatbot__msg--bot"><p><%= t.home.chatbotGreeting %></p></div>
       <div class="chatbot__quick-replies">
         <button class="chatbot__chip" data-reply="modules"><%= t.home.chatbotChipModules %></button>

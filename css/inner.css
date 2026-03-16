@@ -4,24 +4,10 @@
    ============================================================ */
 
 /* =========================
-   SHARED BUTTONS (from module.css)
+   BUTTON OVERRIDES (inner page specifics only)
+   Base styles in design-system.css
    ========================= */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all .2s ease-out;
-  cursor: pointer;
-  border: none;
-}
-.btn--primary { background: #ff3b78; color: #fff; padding: 16px 32px; min-width: 200px; justify-content: center; }
-.btn--primary:hover { background: #ef4060; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,59,120,.3); }
-.btn--ghost { background: transparent; border: 2px solid rgba(255,255,255,.3); color: #fff; padding: 14px 30px; }
-.btn--ghost:hover { border-color: #fff; background: rgba(255,255,255,.1); }
+.btn--primary { min-width: 200px; justify-content: center; }
 .btn--lg { padding: 18px 40px; font-size: 17px; }
 
 /* =========================

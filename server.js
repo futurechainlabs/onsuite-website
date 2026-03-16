@@ -5,6 +5,7 @@ let sharp = null;
 try { sharp = require('sharp'); } catch (e) { console.warn('Sharp not available, using Cloudinary for image processing'); }
 const path = require('path');
 const fs = require('fs');
+const crypto = require('crypto');
 const { v2: cloudinary } = require('cloudinary');
 const { createClient } = require('@supabase/supabase-js');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
@@ -14,6 +15,23 @@ const PORT = process.env.PORT || 3000;
 const DATA_FILE = path.join(__dirname, 'data.json');
 const ADMIN_PASS = process.env.ADMIN_PASS || 'OnSuite2025!';
 const UPLOAD_DIR = path.join(__dirname, 'public', 'assets', 'images');
+
+// --- Security: HTML sanitizer ---
+function sanitize(str) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#x27;');
+}
+
+// --- Rate limiter (simple in-memory) ---
+const rateLimits = {};
+function rateLimit(key, maxRequests, windowMs) {
+  const now = Date.now();
+  if (!rateLimits[key]) rateLimits[key] = [];
+  rateLimits[key] = rateLimits[key].filter(t => now - t < windowMs);
+  if (rateLimits[key].length >= maxRequests) return false;
+  rateLimits[key].push(now);
+  return true;
+}
 
 // --- Cloudinary Config ---
 const CLOUDINARY_CONFIGURED = !!(process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY);
@@ -80,36 +98,75 @@ const upload = multer({
 // --- Middleware ---
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'onsuite-secret-key-change-in-prod',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { maxAge: 3600000 }
+
+// Security headers
+app.use((req, res, next) => {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.removeHeader('X-Powered-By');
+  next();
+});
+
+// Static files with cache headers (1 week for assets)
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true
 }));
 
-// --- Data Helpers (Supabase or JSON file) ---
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true, limit: '1mb' }));
+
+const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
+app.use(session({
+  secret: SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3600000,
+    httpOnly: true,
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production'
+  }
+}));
+
+// --- Data Helpers (Supabase or JSON file, with in-memory cache) ---
+let _dataCache = null;
+let _dataCacheTime = 0;
+const DATA_CACHE_TTL = 60000; // 1 minute
+
 async function loadData() {
+  const now = Date.now();
+  if (_dataCache && (now - _dataCacheTime) < DATA_CACHE_TTL) return _dataCache;
+
+  let result;
   if (SUPABASE_CONFIGURED) {
     const { data, error } = await supabase
       .from('site_content')
       .select('content')
       .eq('id', 1)
       .single();
-    if (data && data.content) return data.content;
-    // Fallback: if no row exists, seed from file
-    const fileData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    await supabase.from('site_content').upsert({ id: 1, content: fileData });
-    return fileData;
+    if (data && data.content) { result = data.content; }
+    else {
+      const fileData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+      await supabase.from('site_content').upsert({ id: 1, content: fileData });
+      result = fileData;
+    }
+  } else {
+    result = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   }
-  return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+  _dataCache = result;
+  _dataCacheTime = now;
+  return result;
 }
 
 async function saveData(content) {
   // Always save to file as backup
   fs.writeFileSync(DATA_FILE, JSON.stringify(content, null, 2), 'utf8');
+  _dataCache = content;
+  _dataCacheTime = Date.now();
   if (SUPABASE_CONFIGURED) {
     await supabase.from('site_content').upsert({ id: 1, content });
   }
@@ -411,15 +468,34 @@ app.get('/en/references', async (req, res) => {
 // Demo form submission API
 app.post('/api/demo', async (req, res) => {
   try {
+    // Rate limit: 5 requests per IP per 10 minutes
+    const ip = req.ip || req.connection.remoteAddress;
+    if (!rateLimit('demo:' + ip, 5, 600000)) {
+      return res.status(429).json({ ok: false, error: 'Cok fazla istek. Lutfen bekleyin.' });
+    }
+
     const { name, email, phone, company, sector, productionLines, message } = req.body;
     if (!name || !email || !phone || !company || !sector) {
       return res.status(400).json({ ok: false, error: 'Zorunlu alanlari doldurunuz' });
     }
 
+    // Input validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ ok: false, error: 'Gecerli bir e-posta adresi giriniz' });
+    }
+    if (name.length > 100 || email.length > 100 || phone.length > 30 || company.length > 100) {
+      return res.status(400).json({ ok: false, error: 'Alan uzunlugu siniri asildi' });
+    }
+
     const demoRequest = {
-      name, email, phone, company, sector,
-      productionLines: productionLines || '',
-      message: message || '',
+      name: sanitize(name.trim()),
+      email: sanitize(email.trim()),
+      phone: sanitize(phone.trim()),
+      company: sanitize(company.trim()),
+      sector: sanitize((sector || '').trim()),
+      productionLines: sanitize((productionLines || '').trim()),
+      message: sanitize((message || '').trim().slice(0, 500)),
       date: new Date().toISOString(),
       status: 'new'
     };
@@ -450,6 +526,10 @@ app.get('/admin/login', (req, res) => {
 });
 
 app.post('/admin/login', (req, res) => {
+  const loginIp = req.ip || req.connection.remoteAddress;
+  if (!rateLimit('login:' + loginIp, 5, 900000)) {
+    return res.render('admin-login', { error: 'Cok fazla deneme. 15 dakika bekleyin.' });
+  }
   if (req.body.password === ADMIN_PASS) {
     req.session.admin = true;
     return res.redirect('/admin');
@@ -504,7 +584,9 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
   try {
     if (!req.file) return res.status(400).send('Dosya secilmedi');
 
-    const { folder, quality, scale, format } = req.body;
+    const { quality, scale, format } = req.body;
+    // Sanitize folder name to prevent path traversal
+    const folder = (req.body.folder || 'hero').replace(/[^a-zA-Z0-9_-]/g, '');
     const originalName = path.parse(req.file.originalname).name
       .replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase();
     const scaleFactor = parseFloat(scale) || 1;
@@ -560,6 +642,14 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
       let ext = path.extname(req.file.originalname).slice(1).toLowerCase();
       const isSvg = req.file.mimetype === 'image/svg+xml';
 
+      // Block SVGs containing script tags
+      if (isSvg) {
+        const svgContent = req.file.buffer.toString('utf8');
+        if (/<script|javascript:|on\w+\s*=/i.test(svgContent)) {
+          return res.status(400).send('SVG dosyasi guvenlik kontrolunu gecemedi');
+        }
+      }
+
       if (!isSvg && sharp) {
         try {
           let pipeline = sharp(req.file.buffer);
@@ -590,7 +680,11 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
         }
       }
 
-      const targetFolder = path.join(UPLOAD_DIR, folder || 'hero');
+      const targetFolder = path.join(UPLOAD_DIR, folder);
+      // Verify target is within UPLOAD_DIR
+      if (!targetFolder.startsWith(UPLOAD_DIR)) {
+        return res.status(400).send('Gecersiz klasor');
+      }
       fs.mkdirSync(targetFolder, { recursive: true });
       const outputPath = path.join(targetFolder, `${fileName}.${ext}`);
       fs.writeFileSync(outputPath, processedBuffer);
@@ -600,7 +694,7 @@ app.post('/admin/media/upload', requireAuth, upload.single('image'), async (req,
     res.redirect(`/admin/media?success=upload&url=${encodeURIComponent(resultUrl)}`);
   } catch (err) {
     console.error('Upload error:', err);
-    res.status(500).send('Yukleme hatasi: ' + err.message);
+    res.status(500).send('Yukleme hatasi. Lutfen tekrar deneyin.');
   }
 });
 
@@ -768,6 +862,12 @@ app.get('/api/data', async (req, res) => {
 // --- Chatbot API ---
 app.post('/api/chat', async (req, res) => {
   try {
+    // Rate limit: 20 messages per IP per 5 minutes
+    const chatIp = req.ip || req.connection.remoteAddress;
+    if (!rateLimit('chat:' + chatIp, 20, 300000)) {
+      return res.json({ reply: 'Cok fazla mesaj gonderdiniz. Lutfen biraz bekleyin.' });
+    }
+
     const { message, history } = req.body;
     if (!message || typeof message !== 'string' || message.length > 500) {
       return res.status(400).json({ error: 'Gecersiz mesaj' });

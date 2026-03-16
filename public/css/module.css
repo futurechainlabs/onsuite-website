@@ -457,34 +457,10 @@
 }
 
 /* =========================
-   SHARED BUTTON STYLES (module page)
+   BUTTON OVERRIDES (module page specifics only)
+   Base styles in design-system.css
    ========================= */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 16px;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all .2s ease-out;
-  cursor: pointer;
-  border: none;
-}
-
-.btn--primary {
-  background: #ff3b78;
-  color: #FFFFFF;
-  padding: 16px 32px;
-  min-width: 200px;
-  justify-content: center;
-}
-
-.btn--primary:hover {
-  background: #ef4060;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255,59,120,.3);
-}
+.btn--primary { min-width: 200px; justify-content: center; }
 
 .btn--tertiary {
   background: transparent;
