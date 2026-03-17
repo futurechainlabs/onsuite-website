@@ -76,36 +76,28 @@
               <span class="canvas-shell__dots" aria-hidden="true">
                 <span></span><span></span><span></span>
               </span>
-              <span class="canvas-shell__title">OnSuite — Live Dashboard</span>
+              <span class="canvas-shell__title"><%= data.hero.canvasTitle %></span>
             </div>
             <canvas id="cHero" width="580" height="330"></canvas>
           </div>
 
           <!-- Floating stat cards -->
-          <div class="hero__float hero__float--oee reveal reveal-d3">
-            <span class="hero__float-label">OEE</span>
-            <span class="hero__float-value">87.4%</span>
+          <% if (data.hero.floats) { data.hero.floats.forEach(function(f, i) { %>
+          <div class="hero__float hero__float--<%= i === 0 ? 'oee' : 'uptime' %> reveal reveal-d3">
+            <span class="hero__float-label"><%= f.label %></span>
+            <span class="hero__float-value"><%= f.value %></span>
           </div>
-          <div class="hero__float hero__float--uptime reveal reveal-d3">
-            <span class="hero__float-label">Uptime</span>
-            <span class="hero__float-value">99.2%</span>
-          </div>
+          <% }) } %>
 
           <!-- Mobile fallback -->
           <div class="hero-mobile-fallback">
             <div class="hero-mobile-fallback__stats">
+              <% if (data.hero.mobileFallback) { data.hero.mobileFallback.forEach(function(mf) { %>
               <div class="hero-mobile-fallback__stat">
-                <span class="hero-mobile-fallback__stat-value">87%</span>
-                <span class="hero-mobile-fallback__stat-label">OEE</span>
+                <span class="hero-mobile-fallback__stat-value"><%= mf.value %></span>
+                <span class="hero-mobile-fallback__stat-label"><%= mf.label %></span>
               </div>
-              <div class="hero-mobile-fallback__stat">
-                <span class="hero-mobile-fallback__stat-value">&lt;2s</span>
-                <span class="hero-mobile-fallback__stat-label">Gecikme</span>
-              </div>
-              <div class="hero-mobile-fallback__stat">
-                <span class="hero-mobile-fallback__stat-value">99%</span>
-                <span class="hero-mobile-fallback__stat-label">Uptime</span>
-              </div>
+              <% }) } %>
             </div>
           </div>
         </div>
@@ -162,9 +154,9 @@
     <section class="section section--dark ref-metrics" id="ref-metrics">
       <div class="container">
         <div class="ref-metrics__header">
-          <p class="section__overline reveal"><%= t.home.references %></p>
+          <p class="section__overline reveal"><%= data.refMetricsHeader.overline %></p>
           <h2 class="section__title reveal reveal-d1">
-            Musterilerimizin <span class="text-gradient">olculebilir sonuclari</span>
+            <%= data.refMetricsHeader.title %> <span class="text-gradient"><%= data.refMetricsHeader.titleHighlight %></span>
           </h2>
         </div>
 
@@ -217,7 +209,7 @@
             <div class="canvas-shell">
               <div class="canvas-shell__bar">
                 <span class="canvas-shell__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span class="canvas-shell__title">Connect — Data Flow</span>
+                <span class="canvas-shell__title"><%= data.featureSections.connect.canvasTitle %></span>
               </div>
               <canvas id="cConnect" width="520" height="300"></canvas>
             </div>
@@ -260,7 +252,7 @@
             <div class="canvas-shell">
               <div class="canvas-shell__bar">
                 <span class="canvas-shell__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span class="canvas-shell__title">Optima — OEE Waterfall</span>
+                <span class="canvas-shell__title"><%= data.featureSections.optima.canvasTitle %></span>
               </div>
               <canvas id="cOptima" width="520" height="300"></canvas>
             </div>
@@ -279,7 +271,7 @@
             <div class="canvas-shell">
               <div class="canvas-shell__bar">
                 <span class="canvas-shell__dots" aria-hidden="true"><span></span><span></span><span></span></span>
-                <span class="canvas-shell__title">Trace — Lot Flow</span>
+                <span class="canvas-shell__title"><%= data.featureSections.trace.canvasTitle %></span>
               </div>
               <canvas id="cTrace" width="520" height="300"></canvas>
             </div>

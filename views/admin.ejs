@@ -86,6 +86,11 @@
       <a href="#sec-metrics" class="sidebar__link">Sonuc Metrikleri</a>
       <a href="#sec-testimonial" class="sidebar__link">Musteri Yorumu</a>
       <a href="#sec-cta" class="sidebar__link">CTA Bolumu</a>
+      <a href="#sec-stats" class="sidebar__link">Istatistik Seridi</a>
+      <a href="#sec-ref-metrics" class="sidebar__link">Referans Metrikleri</a>
+      <a href="#sec-features" class="sidebar__link">Ozellik Bolumleri</a>
+      <a href="#sec-products" class="sidebar__link">Urun Gridi</a>
+      <a href="#sec-value" class="sidebar__link">Deger Tablari</a>
       <div class="sidebar__title" style="margin-top:24px">Ic Sayfalar</div>
       <a href="#sec-module-pages" class="sidebar__link">Modul Sayfalari</a>
       <a href="#sec-demo-requests" class="sidebar__link">Demo Talepleri</a>
@@ -395,6 +400,283 @@
               <label>Alt Metin</label>
               <textarea name="ctaSubtitle"><%= data.cta.subtitle %></textarea>
             </div>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- STATS STRIP -->
+      <div class="card" id="sec-stats">
+        <div class="card__header">
+          <span class="card__title">Istatistik Seridi</span>
+          <span class="card__badge">Stats Strip</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="statsStrip">
+            <% data.statsStrip.forEach(function(s, i) { %>
+            <div class="field-row" style="margin-bottom:12px">
+              <div class="field">
+                <label>Deger #<%= i+1 %></label>
+                <input type="text" name="stats_value_<%= i %>" value="<%= s.value %>">
+              </div>
+              <div class="field">
+                <label>Etiket #<%= i+1 %></label>
+                <input type="text" name="stats_label_<%= i %>" value="<%= s.label %>">
+              </div>
+            </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- REFERENCE METRICS -->
+      <div class="card" id="sec-ref-metrics">
+        <div class="card__header">
+          <span class="card__title">Referans Metrikleri</span>
+          <span class="card__badge">Ref Metrics</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="refMetrics">
+            <div class="section-divider">Baslik</div>
+            <div class="field-row" style="margin-bottom:16px">
+              <div class="field">
+                <label>Baslik</label>
+                <input type="text" name="refHeader_title" value="<%= data.refMetricsHeader ? data.refMetricsHeader.title : '' %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan</label>
+                <input type="text" name="refHeader_highlight" value="<%= data.refMetricsHeader ? data.refMetricsHeader.titleHighlight : '' %>">
+              </div>
+            </div>
+            <div class="section-divider">Metrik Kartlari</div>
+            <% data.refMetrics.forEach(function(rm, i) { %>
+            <div class="module-item">
+              <div class="module-item__header">Metrik #<%= i+1 %></div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Deger</label>
+                  <input type="text" name="ref_value_<%= i %>" value="<%= rm.value %>">
+                </div>
+                <div class="field">
+                  <label>Etiket</label>
+                  <input type="text" name="ref_label_<%= i %>" value="<%= rm.label %>">
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Aciklama</label>
+                  <textarea name="ref_desc_<%= i %>" rows="2"><%= rm.desc %></textarea>
+                </div>
+                <div class="field">
+                  <label>Renk (cyan/coral/blue)</label>
+                  <input type="text" name="ref_color_<%= i %>" value="<%= rm.color %>">
+                </div>
+              </div>
+            </div>
+            <% }) %>
+            <div class="section-divider">Sektor Kutulari</div>
+            <% data.sectorCases.forEach(function(sc, i) { %>
+            <div class="module-item">
+              <div class="module-item__header"><%= sc.title %></div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Baslik</label>
+                  <input type="text" name="sector_title_<%= i %>" value="<%= sc.title %>">
+                </div>
+                <div class="field">
+                  <label>Aciklama</label>
+                  <input type="text" name="sector_desc_<%= i %>" value="<%= sc.desc %>">
+                </div>
+              </div>
+            </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- FEATURE SECTIONS -->
+      <div class="card" id="sec-features">
+        <div class="card__header">
+          <span class="card__title">Ozellik Bolumleri</span>
+          <span class="card__badge">Connect / Optima / Trace</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="featureSections">
+            <% ['connect','optima','trace'].forEach(function(key) { var fs = data.featureSections[key]; %>
+            <div class="section-divider"><%= key.toUpperCase() %></div>
+            <div class="module-item">
+              <div class="field">
+                <label>Etiket (Tag)</label>
+                <input type="text" name="feat_<%= key %>_tag" value="<%= fs.tag %>">
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Baslik</label>
+                  <input type="text" name="feat_<%= key %>_title" value="<%= fs.title %>">
+                </div>
+                <div class="field">
+                  <label>Vurgulanan</label>
+                  <input type="text" name="feat_<%= key %>_titleHighlight" value="<%= fs.titleHighlight %>">
+                </div>
+              </div>
+              <div class="field">
+                <label>Aciklama</label>
+                <textarea name="feat_<%= key %>_desc" rows="2"><%= fs.desc %></textarea>
+              </div>
+              <div class="field">
+                <label>Canvas Basligi</label>
+                <input type="text" name="feat_<%= key %>_canvasTitle" value="<%= fs.canvasTitle || '' %>">
+              </div>
+              <div class="field">
+                <label>Etiketler (virgul ile ayirin)</label>
+                <input type="text" name="feat_<%= key %>_chips" value="<%= fs.chips.join(', ') %>">
+              </div>
+            </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- PRODUCTS GRID -->
+      <div class="card" id="sec-products">
+        <div class="card__header">
+          <span class="card__title">Urun Gridi</span>
+          <span class="card__badge"><%= data.productsGrid.backbone.length + data.productsGrid.complementary.length %> urun</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="productsGrid">
+            <div class="field-row-3" style="margin-bottom:16px">
+              <div class="field">
+                <label>Ust Baslik</label>
+                <input type="text" name="pg_overline" value="<%= data.productsGrid.overline %>">
+              </div>
+              <div class="field">
+                <label>Baslik</label>
+                <input type="text" name="pg_title" value="<%= data.productsGrid.title %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan</label>
+                <input type="text" name="pg_highlight" value="<%= data.productsGrid.titleHighlight %>">
+              </div>
+            </div>
+            <div class="field">
+              <label>Alt Baslik</label>
+              <input type="text" name="pg_subtitle" value="<%= data.productsGrid.subtitle %>">
+            </div>
+            <div class="section-divider">Omurga Urunler (4 Ana)</div>
+            <% data.productsGrid.backbone.forEach(function(p, i) { %>
+            <div class="module-item">
+              <div class="module-item__header" style="display:flex;align-items:center;gap:8px">
+                <span style="width:12px;height:12px;border-radius:50%;background:<%= p.color %>;display:inline-block"></span>
+                <%= p.name %>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Isim</label>
+                  <input type="text" name="bb_name_<%= i %>" value="<%= p.name %>">
+                </div>
+                <div class="field">
+                  <label>Renk</label>
+                  <input type="color" name="bb_color_<%= i %>" value="<%= p.color %>" style="height:42px">
+                </div>
+              </div>
+              <div class="field">
+                <label>Aciklama</label>
+                <textarea name="bb_desc_<%= i %>" rows="2"><%= p.desc %></textarea>
+              </div>
+              <div class="field">
+                <label>Etiketler (virgul ile)</label>
+                <input type="text" name="bb_tags_<%= i %>" value="<%= p.tags.join(', ') %>">
+              </div>
+            </div>
+            <% }) %>
+            <div class="section-divider">Tamamlayici Urunler (6)</div>
+            <% data.productsGrid.complementary.forEach(function(p, i) { %>
+            <div class="module-item">
+              <div class="module-item__header" style="display:flex;align-items:center;gap:8px">
+                <span style="width:12px;height:12px;border-radius:50%;background:<%= p.color %>;display:inline-block"></span>
+                <%= p.name %>
+              </div>
+              <div class="field-row">
+                <div class="field">
+                  <label>Isim</label>
+                  <input type="text" name="comp_name_<%= i %>" value="<%= p.name %>">
+                </div>
+                <div class="field">
+                  <label>Renk</label>
+                  <input type="color" name="comp_color_<%= i %>" value="<%= p.color %>" style="height:42px">
+                </div>
+              </div>
+              <div class="field">
+                <label>Aciklama</label>
+                <textarea name="comp_desc_<%= i %>" rows="2"><%= p.desc %></textarea>
+              </div>
+              <div class="field">
+                <label>Etiketler (virgul ile)</label>
+                <input type="text" name="comp_tags_<%= i %>" value="<%= p.tags.join(', ') %>">
+              </div>
+            </div>
+            <% }) %>
+            <button type="submit" class="btn-save">Kaydet</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- VALUE TABS -->
+      <div class="card" id="sec-value">
+        <div class="card__header">
+          <span class="card__title">Deger Tablari</span>
+          <span class="card__badge">Value Tabs</span>
+        </div>
+        <div class="card__body">
+          <form method="POST" action="/admin/save">
+            <input type="hidden" name="section" value="valueTabs">
+            <div class="field-row-3" style="margin-bottom:16px">
+              <div class="field">
+                <label>Ust Baslik</label>
+                <input type="text" name="vt_overline" value="<%= data.valueTabs.overline %>">
+              </div>
+              <div class="field">
+                <label>Baslik</label>
+                <input type="text" name="vt_title" value="<%= data.valueTabs.title %>">
+              </div>
+              <div class="field">
+                <label>Vurgulanan</label>
+                <input type="text" name="vt_highlight" value="<%= data.valueTabs.titleHighlight %>">
+              </div>
+            </div>
+            <div class="field">
+              <label>Alt Baslik</label>
+              <input type="text" name="vt_subtitle" value="<%= data.valueTabs.subtitle %>">
+            </div>
+            <% data.valueTabs.tabs.forEach(function(tab, i) { %>
+            <div class="section-divider">Tab: <%= tab.label %></div>
+            <div class="module-item">
+              <div class="field">
+                <label>Tab Etiketi</label>
+                <input type="text" name="vt_tab_label_<%= i %>" value="<%= tab.label %>">
+              </div>
+              <% tab.points.forEach(function(pt, j) { %>
+              <div class="field-row" style="margin-top:8px">
+                <div class="field">
+                  <label>Nokta <%= j+1 %> Baslik</label>
+                  <input type="text" name="vt_pt_title_<%= i %>_<%= j %>" value="<%= pt.title %>">
+                </div>
+                <div class="field">
+                  <label>Nokta <%= j+1 %> Aciklama</label>
+                  <input type="text" name="vt_pt_desc_<%= i %>_<%= j %>" value="<%= pt.desc %>">
+                </div>
+              </div>
+              <% }) %>
+            </div>
+            <% }) %>
             <button type="submit" class="btn-save">Kaydet</button>
           </form>
         </div>

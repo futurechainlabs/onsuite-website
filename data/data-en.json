@@ -24,8 +24,19 @@
       { "label": "On-Premise & Hybrid", "color": "blue" },
       { "label": "GDPR Compliant", "color": "coral" },
       { "label": "TR · RO · EE Local Teams", "color": "green" }
-    ]
+    ],
+    "floats": [
+      {"label": "OEE", "value": "87.4%"},
+      {"label": "Uptime", "value": "99.2%"}
+    ],
+    "mobileFallback": [
+      {"value": "87%", "label": "OEE"},
+      {"value": "<2s", "label": "Latency"},
+      {"value": "99%", "label": "Uptime"}
+    ],
+    "canvasTitle": "OnSuite — Live Dashboard"
   },
+  "statsStripTitle": "OnSuite in Numbers",
   "statsStrip": [
     { "value": "90+", "label": "Modules" },
     { "value": "10", "label": "Product Family" },
@@ -39,6 +50,11 @@
       { "count": 100, "label": "Projects" },
       { "count": 500, "label": "Production Lines" }
     ]
+  },
+  "refMetricsHeader": {
+    "overline": "References",
+    "title": "Our clients'",
+    "titleHighlight": "measurable results"
   },
   "refMetrics": [
     {
@@ -77,14 +93,16 @@
       "title": "Every PLC, every protocol,",
       "titleHighlight": "one data point",
       "desc": "Unify all field hardware across different brands and protocols into a single standard. Brand-independent, sub-2-second latency, zero data loss.",
-      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"]
+      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"],
+      "canvasTitle": "Connect — Data Flow"
     },
     "optima": {
       "tag": "Optima — OEE & Efficiency",
       "title": "Make your lost hours",
       "titleHighlight": "visible.",
       "desc": "Automatically record downtime reasons. See loss analysis on a single screen. Assign actions, track, close. Average +12-18 points OEE increase in the first 6 months.",
-      "chips": ["OEE", "Downtime Analysis", "Scrap Management", "Preventive Maintenance", "Andon", "AI Prediction"]
+      "chips": ["OEE", "Downtime Analysis", "Scrap Management", "Preventive Maintenance", "Andon", "AI Prediction"],
+      "canvasTitle": "Optima — OEE Waterfall"
     },
     "trace": {
       "tag": "Trace",
@@ -96,7 +114,8 @@
         { "title": "Customer recall readiness", "desc": "Recall time reduced from hours to minutes" },
         { "title": "Jidoka & blocking", "desc": "Automatic detection and stopping of non-quality products" }
       ],
-      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"]
+      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"],
+      "canvasTitle": "Trace — Lot Flow"
     }
   },
   "productsGrid": {

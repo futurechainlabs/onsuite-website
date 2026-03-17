@@ -24,8 +24,19 @@
       { "label": "On-Premise & Hibrit", "color": "blue" },
       { "label": "KVKK & GDPR Uyumlu", "color": "coral" },
       { "label": "TR · RO · EE Yerel Ekip", "color": "green" }
-    ]
+    ],
+    "floats": [
+      {"label": "OEE", "value": "87.4%"},
+      {"label": "Uptime", "value": "99.2%"}
+    ],
+    "mobileFallback": [
+      {"value": "87%", "label": "OEE"},
+      {"value": "<2s", "label": "Gecikme"},
+      {"value": "99%", "label": "Uptime"}
+    ],
+    "canvasTitle": "OnSuite — Canli Dashboard"
   },
+  "statsStripTitle": "Rakamlarla OnSuite",
   "statsStrip": [
     { "value": "90+", "label": "Modul" },
     { "value": "10", "label": "Urun Ailesi" },
@@ -39,6 +50,11 @@
       { "count": 100, "label": "Proje" },
       { "count": 500, "label": "Uretim Hatti" }
     ]
+  },
+  "refMetricsHeader": {
+    "overline": "Referanslar",
+    "title": "Musterilerimizin",
+    "titleHighlight": "olculebilir sonuclari"
   },
   "refMetrics": [
     {
@@ -77,14 +93,16 @@
       "title": "Her PLC, her protokol,",
       "titleHighlight": "tek veri noktasi",
       "desc": "Farkli marka ve protokoldeki tum saha donanimini tek standartta birlestirin. Marka bagimsiz, 2 saniye alti gecikme, sifir veri kaybi.",
-      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"]
+      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"],
+      "canvasTitle": "Connect — Veri Akisi"
     },
     "optima": {
       "tag": "Optima — OEE & Verimlilik",
       "title": "Kayip saatlerinizi",
       "titleHighlight": "gorunur kilin.",
       "desc": "Durus nedenlerini otomatik kayit altina alin. Kayip analizini tek ekranda gorun. Aksiyon atayin, takip edin, kapatin. Ilk 6 ayda ortalama +12-18 puan OEE artisi.",
-      "chips": ["OEE", "Durus Analizi", "Fire Yonetimi", "Onleyici Bakim", "Andon", "AI Tahmin"]
+      "chips": ["OEE", "Durus Analizi", "Fire Yonetimi", "Onleyici Bakim", "Andon", "AI Tahmin"],
+      "canvasTitle": "Optima — OEE Waterfall"
     },
     "trace": {
       "tag": "Trace",
@@ -96,7 +114,8 @@
         { "title": "Musteri geri cagirma hazirligi", "desc": "Saatlerden dakikalara inen geri cagirma suresi" },
         { "title": "Jidoka & bloklama", "desc": "Kalite disi urunlerin otomatik tespiti ve durdurma" }
       ],
-      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"]
+      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"],
+      "canvasTitle": "Trace — Lot Akisi"
     }
   },
   "productsGrid": {

@@ -863,6 +863,84 @@ app.post('/admin/save', requireAuth, async (req, res) => {
       }
     }
 
+    if (section === 'statsStrip') {
+      data.statsStrip = data.statsStrip.map((s, i) => ({
+        ...s,
+        value: req.body[`stats_value_${i}`] || s.value,
+        label: req.body[`stats_label_${i}`] || s.label
+      }));
+    }
+
+    if (section === 'refMetrics') {
+      if (!data.refMetricsHeader) data.refMetricsHeader = {};
+      data.refMetricsHeader.title = req.body.refHeader_title || '';
+      data.refMetricsHeader.titleHighlight = req.body.refHeader_highlight || '';
+      data.refMetrics = data.refMetrics.map((rm, i) => ({
+        ...rm,
+        value: req.body[`ref_value_${i}`] || rm.value,
+        label: req.body[`ref_label_${i}`] || rm.label,
+        desc: req.body[`ref_desc_${i}`] || rm.desc,
+        color: req.body[`ref_color_${i}`] || rm.color
+      }));
+      data.sectorCases = data.sectorCases.map((sc, i) => ({
+        ...sc,
+        title: req.body[`sector_title_${i}`] || sc.title,
+        desc: req.body[`sector_desc_${i}`] || sc.desc
+      }));
+    }
+
+    if (section === 'featureSections') {
+      ['connect','optima','trace'].forEach(key => {
+        if (!data.featureSections[key]) return;
+        data.featureSections[key].tag = req.body[`feat_${key}_tag`] || data.featureSections[key].tag;
+        data.featureSections[key].title = req.body[`feat_${key}_title`] || data.featureSections[key].title;
+        data.featureSections[key].titleHighlight = req.body[`feat_${key}_titleHighlight`] || data.featureSections[key].titleHighlight;
+        data.featureSections[key].desc = req.body[`feat_${key}_desc`] || data.featureSections[key].desc;
+        data.featureSections[key].canvasTitle = req.body[`feat_${key}_canvasTitle`] || data.featureSections[key].canvasTitle;
+        const chipsStr = req.body[`feat_${key}_chips`];
+        if (chipsStr) {
+          data.featureSections[key].chips = chipsStr.split(',').map(c => c.trim()).filter(Boolean);
+        }
+      });
+    }
+
+    if (section === 'productsGrid') {
+      data.productsGrid.overline = req.body.pg_overline || data.productsGrid.overline;
+      data.productsGrid.title = req.body.pg_title || data.productsGrid.title;
+      data.productsGrid.titleHighlight = req.body.pg_highlight || data.productsGrid.titleHighlight;
+      data.productsGrid.subtitle = req.body.pg_subtitle || data.productsGrid.subtitle;
+      data.productsGrid.backbone = data.productsGrid.backbone.map((p, i) => ({
+        ...p,
+        name: req.body[`bb_name_${i}`] || p.name,
+        color: req.body[`bb_color_${i}`] || p.color,
+        desc: req.body[`bb_desc_${i}`] || p.desc,
+        tags: req.body[`bb_tags_${i}`] ? req.body[`bb_tags_${i}`].split(',').map(t => t.trim()).filter(Boolean) : p.tags
+      }));
+      data.productsGrid.complementary = data.productsGrid.complementary.map((p, i) => ({
+        ...p,
+        name: req.body[`comp_name_${i}`] || p.name,
+        color: req.body[`comp_color_${i}`] || p.color,
+        desc: req.body[`comp_desc_${i}`] || p.desc,
+        tags: req.body[`comp_tags_${i}`] ? req.body[`comp_tags_${i}`].split(',').map(t => t.trim()).filter(Boolean) : p.tags
+      }));
+    }
+
+    if (section === 'valueTabs') {
+      data.valueTabs.overline = req.body.vt_overline || data.valueTabs.overline;
+      data.valueTabs.title = req.body.vt_title || data.valueTabs.title;
+      data.valueTabs.titleHighlight = req.body.vt_highlight || data.valueTabs.titleHighlight;
+      data.valueTabs.subtitle = req.body.vt_subtitle || data.valueTabs.subtitle;
+      data.valueTabs.tabs = data.valueTabs.tabs.map((tab, i) => ({
+        ...tab,
+        label: req.body[`vt_tab_label_${i}`] || tab.label,
+        points: tab.points.map((pt, j) => ({
+          ...pt,
+          title: req.body[`vt_pt_title_${i}_${j}`] || pt.title,
+          desc: req.body[`vt_pt_desc_${i}_${j}`] || pt.desc
+        }))
+      }));
+    }
+
     await saveData(data);
     res.redirect('/admin?success=1');
   } catch (err) {
