@@ -318,9 +318,14 @@ app.get('/', async (req, res) => {
     res.render('index', { data, ...ld });
   } catch (err) {
     console.error('Homepage error:', err);
-    const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    const ld = getLangData('tr');
-    res.render('index', { data, ...ld });
+    try {
+      const data = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+      const ld = getLangData('tr');
+      res.render('index', { data, ...ld });
+    } catch (err2) {
+      console.error('Homepage fallback error:', err2);
+      res.status(500).send('Homepage error: ' + err.message + ' | Fallback: ' + err2.message);
+    }
   }
 });
 
@@ -397,7 +402,7 @@ app.get('/en', async (req, res) => {
     res.render('index', { data, ...ld });
   } catch (err) {
     console.error('EN Homepage error:', err);
-    res.status(500).send('Page could not be loaded');
+    res.status(500).send('EN Homepage error: ' + err.message);
   }
 });
 
