@@ -61,7 +61,7 @@ const CHATBOT_SYSTEM_PROMPT = `Sen OnSuite akilli uretim yonetim platformunun we
 OnSuite Hakkinda:
 - Siskon Otomasyon tarafindan gelistirilen MES (Manufacturing Execution System) platformu
 - 40+ ulke, 100+ proje, 500+ uretim hattinda kullaniliyor
-- 8 modul: OnTrace (Izlenebilirlik), OnOptima (Uretim Optimizasyonu), OnOEE (Performans Analizi), OnIntegra (ERP Entegrasyonu), OnCNC (CNC Veri Toplama), OnTMC (Tutun Sektoru), OnSmartForms (Dijital Formlar), OnMonitora (Makine Izleme)
+- 10 urun: OnConnect (PLC & Protokol Koprusu), OnOptima (OEE & Verimlilik), OnTrace (Izlenebilirlik), OnIntegra (ERP Entegrasyonu), OnCNC (CNC Veri Toplama), OnMonitora (Makine Izleme), OnCarboniq (Enerji & ESG), OnCore (On-Premise AI), OnSmartForms (Dijital Formlar), OnTMC (Tutun Sektoru)
 - Sektorler: Otomotiv, Gida & Icecek, Ilac, Tutun, Genel Uretim
 - Partnerler: Microsoft, Beckhoff, GE Vernova, Ignition, SICK, Universal Robots
 - Referanslar: Bosch, BSH, Haier, Unilever, Philip Morris, BorgWarner, Diageo, JTI, Maxion
@@ -876,7 +876,7 @@ app.post('/api/chat', async (req, res) => {
     // Static fallback function
     const staticReply = (msg) => {
       const fallbacks = {
-        modul: 'OnSuite 8 modulden olusur: OnTrace, OnOptima, OnOEE, OnIntegra, OnCNC, OnTMC, OnSmartForms ve OnMonitora. Detayli bilgi icin demo talep edebilirsiniz.',
+        modul: 'OnSuite 10 urunden olusur: OnConnect, OnOptima, OnTrace, OnIntegra, OnCNC, OnMonitora, OnCarboniq, OnCore, OnSmartForms ve OnTMC. Detayli bilgi icin demo talep edebilirsiniz.',
         demo: 'Demo icin +90 (232) 245 00 76 numarasini arayabilir veya sayfadaki formu doldurabilirsiniz.',
         fiyat: 'Fiyatlandirma tesisinizin buyuklugune gore belirlenir. Demo talep etmenizi oneririm.',
         entegrasyon: 'OnSuite; SAP, Microsoft Dynamics, Oracle gibi ERP sistemleriyle sorunsuz entegre olur.',

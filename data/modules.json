@@ -73,42 +73,116 @@
     "ctaTitle": "OnOptima ile Verimlilik Devriminizi Baslayin",
     "ctaDesc": "15 dakikalik demo ile AI destekli optimizasyonu kendi verinizle gorun."
   },
-  "onoee": {
-    "slug": "onoee",
-    "name": "OnOEE",
-    "tagline": "Gercek Zamanli OEE Takibi ve Performans Analizi",
-    "description": "Kullanilabilirlik, performans ve kalite metriklerinizi gercek zamanli izleyin. OEE kayiplarini aninda tespit edin.",
-    "heroImage": "assets/images/modules/optima-hero.png",
-    "color": "#ff3b78",
+  "onconnect": {
+    "slug": "onconnect",
+    "name": "OnConnect",
+    "tagline": "Her PLC, Her Protokol, Tek Veri Noktasi",
+    "description": "Farkli marka ve protokoldeki tum saha donanimini tek standartta birlestirin. Marka bagimsiz, 2 saniye alti gecikme, sifir veri kaybi.",
+    "heroImage": "assets/images/modules/connect-hero.png",
+    "color": "#0089CF",
     "problem": {
-      "title": "OEE degerlerinizi dogru olcemiyor musunuz?",
+      "title": "Farkli PLC markalari arasinda veri birlestiremiyor musunuz?",
       "items": [
-        "Manuel OEE hesaplama hatalari",
-        "Kayip nedenleri tanimlanamiyor",
-        "Gecmise donuk raporlama",
-        "Hat bazli karsilastirma yapilemiyor"
+        "Her PLC markasi icin ayri yazilim",
+        "Protokol uyumsuzluklari",
+        "Veri toplama gecikmeleri",
+        "Tek noktadan izleme imkani yok"
       ]
     },
     "solution": {
       "items": [
-        "Otomatik ve gercek zamanli OEE hesaplama",
-        "Detayli kayip kategorizasyonu",
-        "Canli dashboard ve trend analizi",
-        "Hat ve vardiya bazli kiyaslama"
+        "Tek platformda tum PLC markalari",
+        "OPC-UA, MQTT, Modbus, S7 destegi",
+        "2 saniye alti veri gecikme suresi",
+        "Merkezi veri havuzu ve izleme"
       ]
     },
     "features": [
-      { "title": "Canli OEE Dashboard", "desc": "Kullanilabilirlik, performans ve kalite metriklerini anlik takip edin.", "icon": "assets/images/icons/dashboard.png" },
-      { "title": "Kayip Analizi", "desc": "Planlanan ve plansiz duruslari kategorize edin. En buyuk kayip kaynaklarini belirleyin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
-      { "title": "Vardiya Raporlari", "desc": "Vardiya bazli performans karsilastirmalari ve trend analizleri.", "icon": "assets/images/icons/analiz-raporlama.png" },
-      { "title": "Hedef Takibi", "desc": "OEE hedeflerinizi belirleyin ve gerceklesen performansi izleyin.", "icon": "assets/images/icons/gercek-zamanli.png" },
-      { "title": "Benchmark", "desc": "Hatlar, tesisler ve sektorel ortalamalar arasinda benchmark yapin.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
-      { "title": "Otomatik Raporlama", "desc": "Gunluk, haftalik ve aylik OEE raporlari otomatik olusturulur.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+      { "title": "Multi-Protokol Destek", "desc": "Siemens S7, Beckhoff, Allen Bradley, OPC-UA, MQTT, Modbus ve daha fazlasi.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Canli Veri Akisi", "desc": "Tum saha donanimindan gercek zamanli veri toplama ve isleme.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Veri Normalizasyon", "desc": "Farkli kaynaklardan gelen veriyi tek standartta birlestirin.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Edge Computing", "desc": "Yerel islem gucu ile dusuk gecikme ve yuksek guvenilirlik.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Otomatik Kesif", "desc": "Agdaki cihazlari otomatik taniyin ve yapilandirin.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Veri Kalite Izleme", "desc": "Baglanti durumu, veri kaybi ve gecikme metriklerini izleyin.", "icon": "assets/images/icons/alarm-yonetimi.png" }
     ],
-    "integrations": ["PLC/SCADA", "MES", "ERP", "Makine Kontrolculeri"],
-    "sectors": ["Otomotiv", "Gida & Icecek", "Ilac", "Tutun", "Genel Uretim"],
-    "ctaTitle": "OnOEE ile Performansinizi Gorun",
-    "ctaDesc": "Gercek zamanli OEE takibini 15 dakikalik demo ile deneyimleyin."
+    "integrations": ["Siemens S7", "Beckhoff TwinCAT", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Tutun", "Beyaz Esya", "Genel Uretim"],
+    "ctaTitle": "OnConnect ile Tum Cihazlarinizi Birlestirin",
+    "ctaDesc": "PLC baglanti altyapinizi 15 dakikalik demo ile deneyimleyin."
+  },
+  "oncarboniq": {
+    "slug": "oncarboniq",
+    "name": "OnCarboniq",
+    "tagline": "Enerji Tuketimi ve ESG Raporlamasi",
+    "description": "Makine bazli enerji tuketimini izleyin, karbon ayak izinizi hesaplayin ve AB CBAM uyumlu ESG raporlari olusturun.",
+    "heroImage": "assets/images/modules/connect-hero.png",
+    "color": "#04bf8a",
+    "problem": {
+      "title": "Enerji tuketiminizi ve karbon ayak izinizi olcebiliyor musunuz?",
+      "items": [
+        "Makine bazli enerji tuketimi bilinmiyor",
+        "Karbon ayak izi hesaplanamıyor",
+        "ESG raporlama zorlugu",
+        "AB CBAM uyumluluk gereksinimleri"
+      ]
+    },
+    "solution": {
+      "items": [
+        "Hat ve makine bazinda kWh takibi",
+        "Otomatik karbon ayak izi hesaplama",
+        "ISO 50001 uyumlu raporlama",
+        "AB CBAM ve ESG rapor otomasyonu"
+      ]
+    },
+    "features": [
+      { "title": "Enerji Izleme", "desc": "Makine, hat ve tesis bazinda gercek zamanli enerji tuketim takibi.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Karbon Hesaplama", "desc": "Scope 1, 2 ve 3 karbon emisyon hesaplamalari.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "ESG Raporlama", "desc": "Surdurulebilirlik raporu otomasyonu ve AB CBAM uyumu.", "icon": "assets/images/icons/entegrasyon-raporlama.png" },
+      { "title": "Kayip Tespit", "desc": "Bosta calisan makineleri ve enerji kaybini tespit edin.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "ISO 50001", "desc": "Enerji yonetim sistemi standardina uyumlu altyapi.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Benchmark", "desc": "Tesis ve hat bazli enerji verimlilik karsilastirmasi.", "icon": "assets/images/icons/analiz-optimizasyon.png" }
+    ],
+    "integrations": ["Enerji Sayaclari", "PLC/SCADA", "IoT Sensorler", "ERP Sistemleri"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Genel Uretim"],
+    "ctaTitle": "OnCarboniq ile Enerji Verimliligini Artirin",
+    "ctaDesc": "Enerji izleme ve ESG raporlamayi 15 dakikalik demo ile deneyimleyin."
+  },
+  "oncore": {
+    "slug": "oncore",
+    "name": "OnCore",
+    "tagline": "On-Premise AI ile Uretim Zekasi",
+    "description": "Fabrika veriniz disari cikmadan yapay zeka ile analiz edin. On-premise LLM, RAG ve tahmin modelleri ile uretim zekanizi artirin.",
+    "heroImage": "assets/images/modules/optima-hero.png",
+    "color": "#413C85",
+    "problem": {
+      "title": "Uretim verinizi AI ile degerlendiremiyor musunuz?",
+      "items": [
+        "Bulut tabanli AI cozumlerinde veri guvenligi endisesi",
+        "Uretim verisi fabrikadan cikmamali",
+        "Manuel analiz yetersiz kaliyor",
+        "Tahminsel bakim yapilemiyor"
+      ]
+    },
+    "solution": {
+      "items": [
+        "On-premise LLM ile guvenli AI",
+        "RAG tabanli bilgi sorgulama",
+        "Tahminsel bakim ve ariza oncesi uyari",
+        "Veri fabrikadan cikmadan analiz"
+      ]
+    },
+    "features": [
+      { "title": "On-Premise LLM", "desc": "NVIDIA DGX altyapisi ile yerel buyuk dil modeli. Veriniz fabrikada kalir.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "RAG Motoru", "desc": "Uretim dokumanlari ve gecmis verilerden akilli sorgulama.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Tahminsel Analiz", "desc": "Gecmis verilerden ogrenerek ariza ve kalite sorunlarini onceden tahmin edin.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Anomali Tespiti", "desc": "Normal disindan sapmalari otomatik tespit ve uyari.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Dogal Dil Sorgulama", "desc": "Uretim verilerinizi Turkce sorularla sorgulayın.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Model Yonetimi", "desc": "AI modellerini egitme, test etme ve devreye alma.", "icon": "assets/images/icons/planlama.png" }
+    ],
+    "integrations": ["NVIDIA DGX", "OnSuite Platform", "PLC/SCADA", "ERP"],
+    "sectors": ["Otomotiv", "Gida & Icecek", "Genel Uretim"],
+    "ctaTitle": "OnCore ile Uretim Zekanizi Artirin",
+    "ctaDesc": "On-premise AI cozumumuzu 15 dakikalik demo ile deneyimleyin."
   },
   "onintegra": {
     "slug": "onintegra",

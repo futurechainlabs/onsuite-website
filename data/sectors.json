@@ -18,7 +18,7 @@
       "Otomatik kalite kontrol ve SPC",
       "ERP & MES entegrasyonu ile kesintisiz veri akisi"
     ],
-    "modules": ["ontrace", "onoee", "onoptima", "onintegra", "onmonitora"],
+    "modules": ["onconnect", "ontrace", "onoptima", "onintegra", "onmonitora"],
     "references": ["Bosch", "BSH", "BorgWarner", "Maxion"],
     "stats": [
       { "value": "%99.2", "label": "Izlenebilirlik Orani" },
@@ -45,7 +45,7 @@
       "Otomatik geri cagirma kapsam analizi",
       "Dijital formlarla kagitsiz kalite kontrol"
     ],
-    "modules": ["ontrace", "onoee", "onsmartforms", "onintegra", "onmonitora"],
+    "modules": ["onconnect", "ontrace", "onoptima", "onsmartforms", "onintegra", "onmonitora"],
     "references": ["Unilever", "Diageo", "Haier"],
     "stats": [
       { "value": "%100", "label": "Lot Izlenebilirlik" },
@@ -72,7 +72,7 @@
       "Seri numarasi bazli urunten urune izlenebilirlik",
       "Otomatik sapma ve CAPA yonetimi"
     ],
-    "modules": ["ontrace", "onsmartforms", "onoee", "onintegra"],
+    "modules": ["ontrace", "onsmartforms", "onoptima", "onintegra"],
     "references": ["Philip Morris"],
     "stats": [
       { "value": "%100", "label": "Denetim Izi" },
@@ -99,7 +99,7 @@
       "Otomatik TAPDK ve regulasyon raporlari",
       "Milisaniye hassasiyetinde veri toplama"
     ],
-    "modules": ["ontmc", "ontrace", "onoee", "onmonitora"],
+    "modules": ["ontmc", "ontrace", "onoptima", "onmonitora"],
     "references": ["Philip Morris", "JTI"],
     "stats": [
       { "value": "TMC", "label": "Tam Uyum" },

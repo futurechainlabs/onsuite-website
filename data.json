@@ -7,20 +7,188 @@
     "copyright": "2025 Siskon Otomasyon. Tum haklari saklidir."
   },
   "hero": {
-    "badge": "Uretim Yonetim Platformu",
-    "titleLine1": "Fabrikanizi",
-    "titleHighlight": "Tek Ekrandan",
-    "titleLine3": "Yonetin",
-    "description": "Makine verilerinizi ve uretim sureclerinizi tek bir modern dashboard'da birlestirin. Duruslari azaltin, verimliligi artirin.",
+    "badge": "10 Urun · 90+ Modul · TR · RO · EE",
+    "titleLine1": "Fabrikanizin",
+    "titleHighlight": "tam kontrolu",
+    "titleLine3": "tek platformda",
+    "description": "Anlik uretim gorunurlugu — hat, istasyon, vardiya. OEE, durus, fire analizi ve aksiyon yonetimi. PLC'den ERP'ye entegrasyon + on-premise AI altyapisi.",
     "ctaPrimary": "Demo Talep Et",
-    "ctaSecondary": "Platformu Kesfet",
-    "heroImage": "assets/images/hero/macbook-dashboard.svg"
+    "ctaSecondary": "Urunleri Kesfet",
+    "heroImage": "assets/images/hero/macbook-dashboard.svg",
+    "feats": [
+      "Anlik uretim gorunurlugu — hat, istasyon, vardiya",
+      "OEE · Durus · Fire analizi ve aksiyon yonetimi",
+      "PLC'den ERP'ye entegrasyon + on-premise AI altyapisi"
+    ],
+    "badges": [
+      { "label": "On-Premise & Hibrit", "color": "blue" },
+      { "label": "KVKK & GDPR Uyumlu", "color": "coral" },
+      { "label": "TR · RO · EE Yerel Ekip", "color": "green" }
+    ]
   },
+  "statsStrip": [
+    { "value": "90+", "label": "Modul" },
+    { "value": "10", "label": "Urun Ailesi" },
+    { "value": "3", "label": "Ulke Operasyonu" },
+    { "value": "<2sn", "label": "Veri Gecikmesi" },
+    { "value": "100%", "label": "On-Premise Secenegi" }
+  ],
   "proofBar": {
     "metrics": [
       { "count": 40, "label": "Ulke" },
       { "count": 100, "label": "Proje" },
       { "count": 500, "label": "Uretim Hatti" }
+    ]
+  },
+  "refMetrics": [
+    {
+      "value": "+8-18",
+      "label": "puan OEE iyilestirmesi",
+      "desc": "Connect + Optima kurulumu sonrasi ilk 6 ayda gozlemlenen tipik OEE artis araligi. Durus nedenlerinin gorunur hale gelmesiyle uretim verimliligi artiyor.",
+      "tags": ["Otomotiv Yan Sanayi", "Beyaz Esya"],
+      "color": "cyan"
+    },
+    {
+      "value": "%30-65",
+      "label": "fire ve hurda azaltma",
+      "desc": "Trace + Jidoka modulleriyle hat basinda anlik kalite kontrolu sayesinde ulasilan fire dususu. Geri cagirma suresi saatlerden dakikalara iniyor.",
+      "tags": ["Gida & Icecek", "Elektronik"],
+      "color": "coral"
+    },
+    {
+      "value": "%50-80",
+      "label": "manuel raporlama suresi azalmasi",
+      "desc": "DSF Forms + Optima entegrasyonuyla vardiya sonu raporlama surecinin otomasyona alinmasi. Operatorler veri girisi yerine uretime odaklaniyor.",
+      "tags": ["Tutun", "Makine & Metal"],
+      "color": "blue"
+    }
+  ],
+  "sectorCases": [
+    { "icon": "car", "title": "Otomotiv & Yan Sanayi", "desc": "IATF 16949 uyumlu izlenebilirlik, OEE optimizasyonu ve durus analizi. Yuksek hacimli montaj hatlarinda kanitlanmis.", "modules": ["Connect", "Optima", "Trace"] },
+    { "icon": "food", "title": "Gida & Icecek", "desc": "Parti takibi, hijyen kayitlari ve geri cagirma yonetimi. Lot bazli tam izlenebilirlik ile musteri sikayetlerinde dramatik dusus.", "modules": ["Trace", "DSF Forms", "Carboniq"] },
+    { "icon": "tobacco", "title": "Tutun", "desc": "Yuksek hizli uretim hatlarinda gercek zamanli izleme ve raporlama otomasyonu. Vardiya sonu raporlama suresi -%80 azaldi.", "modules": ["Live", "Optima", "DSF Forms"] },
+    { "icon": "appliance", "title": "Beyaz Esya", "desc": "Montaj hatti OEE takibi ve kalite kontrol entegrasyonu. Coklu PLC markasiyla kurulan Connect altyapisi uretim verisini tek havuzda topladi.", "modules": ["Connect", "Optima", "Integra"] },
+    { "icon": "electronics", "title": "Elektronik & EMS", "desc": "SMT hatlarinda seri no bazli izlenebilirlik ve test sonucu entegrasyonu. Fire oraninda -%62 iyilesme ilk 4 ayda olculdu.", "modules": ["Trace", "CNC", "Integra"] },
+    { "icon": "machine", "title": "Makine & Metal", "desc": "CNC tezgah takim omru yonetimi ve onleyici bakim planlamasi. Beklenmedik duruslar ilk yilda %40 azaldi.", "modules": ["CNC", "Optima", "DSF Forms"] }
+  ],
+  "featureSections": {
+    "connect": {
+      "tag": "Connect — Baglanti Katmani",
+      "title": "Her PLC, her protokol,",
+      "titleHighlight": "tek veri noktasi",
+      "desc": "Farkli marka ve protokoldeki tum saha donanimini tek standartta birlestirin. Marka bagimsiz, 2 saniye alti gecikme, sifir veri kaybi.",
+      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"]
+    },
+    "optima": {
+      "tag": "Optima — OEE & Verimlilik",
+      "title": "Kayip saatlerinizi",
+      "titleHighlight": "gorunur kilin.",
+      "desc": "Durus nedenlerini otomatik kayit altina alin. Kayip analizini tek ekranda gorun. Aksiyon atayin, takip edin, kapatin. Ilk 6 ayda ortalama +12-18 puan OEE artisi.",
+      "chips": ["OEE", "Durus Analizi", "Fire Yonetimi", "Onleyici Bakim", "Andon", "AI Tahmin"]
+    },
+    "trace": {
+      "tag": "Trace",
+      "title": "Ham maddeden",
+      "titleHighlight": "sevkiyata tam iz",
+      "desc": "Lot, seri no ve BOM bazli izlenebilirlik. Hangi parca, hangi operator, hangi makine, hangi vardiya — tum gecmisi saniyeler icinde sorgulayin.",
+      "bullets": [
+        { "title": "Lot / SeriNo bazli tam kayit", "desc": "Ham maddeden son urune her islem adimi" },
+        { "title": "Musteri geri cagirma hazirligi", "desc": "Saatlerden dakikalara inen geri cagirma suresi" },
+        { "title": "Jidoka & bloklama", "desc": "Kalite disi urunlerin otomatik tespiti ve durdurma" }
+      ],
+      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"]
+    }
+  },
+  "productsGrid": {
+    "overline": "Urun Ailesi",
+    "title": "10 urun · 90+ modul ·",
+    "titleHighlight": "tek platform",
+    "subtitle": "Ihtiyaciniza gore tek modulle baslayin, platforma buyuyun. Tum urunler birbirine entegre calisir.",
+    "backbone": [
+      { "icon": "plug", "name": "Connect", "desc": "Tum saha donanimlarini tek veri katmanina baglayan evrensel PLC & protokol koprusu.", "tags": ["S7", "Beckhoff", "OPC-UA", "MQTT", "Modbus"], "color": "#E5FAF8" },
+      { "icon": "chart", "name": "Optima", "desc": "OEE analizi, durus & fire yonetimi, onleyici bakim. Ilk 6 ayda +12-18 puan OEE.", "tags": ["OEE", "Durus/Fire", "Bakim", "Andon"], "color": "#EDFBF3" },
+      { "icon": "search", "name": "Trace", "desc": "Lot, SN ve BOM bazli tam izlenebilirlik. Sevkiyattan sahaya her adim kayit altinda.", "tags": ["Lot/SN", "BOM", "Kanban", "Jidoka"], "color": "#FEF0E8" },
+      { "icon": "link", "name": "Integra", "desc": "SAP, Logo, Netsis ile cift yonlu entegrasyon. Manuel veri aktarimi ortadan kalkar.", "tags": ["SAP RFC", "Logo", "Netsis", "REST API"], "color": "#F0EEFF" }
+    ],
+    "complementary": [
+      { "icon": "gear", "name": "CNC", "desc": "Fanuc, Siemens 840D ve Brother tezgahlardan program ve takim omru verisi.", "tags": ["Fanuc Focas", "Siemens 840D", "MTConnect"], "color": "#EBF0FF" },
+      { "icon": "monitor", "name": "Live / Monitora", "desc": "Gercek zamanli izleme, alarm yonetimi, recete/formul editoru ve batch takibi.", "tags": ["RT Izleme", "Alarm", "Batch", "LLM"], "color": "#FFF3E8" },
+      { "icon": "leaf", "name": "Carboniq", "desc": "Enerji tuketimi, karbon ayak izi ve AB CBAM uyumlu ESG raporlamasi.", "tags": ["Karbon", "ISO 50001", "CBAM"], "color": "#E5FAF8" },
+      { "icon": "form", "name": "DSF Forms", "desc": "Dijital saha formu ve is emirleri. Kagitsiz uretim operasyonu.", "tags": ["Saha Formu", "Is Emri", "Kontrol Listesi"], "color": "#FFF0F0" },
+      { "icon": "tobacco", "name": "TMC", "desc": "OPC UA TMC uyumlu tutun sektoru cozumu.", "tags": ["OPC UA TMC", "Hauni", "GD"], "color": "#FFF0F0" },
+      { "icon": "brain", "name": "Core / AI", "desc": "On-premise LLM, RAG ve tahmin modelleri. Veri fabrikadan cikmadan AI ile analiz.", "tags": ["On-Premise LLM", "RAG", "NVIDIA DGX"], "color": "rgba(78,120,244,.15)" }
+    ]
+  },
+  "valueTabs": {
+    "overline": "OnSuite Size Ne Saglar?",
+    "title": "4 operasyon alaninda",
+    "titleHighlight": "olculebilir fark",
+    "subtitle": "Musterilerimiz operasyon problemiyle gelir, urun adiyla degil. Sizi hangi alan ilgilendiriyor?",
+    "tabs": [
+      {
+        "label": "Uretim",
+        "icon": "factory",
+        "kpis": [
+          { "label": "OEE Iyilestirme", "value": 0.78, "unit": "+12-18 puan" },
+          { "label": "Durus Gorunurlugu", "value": 0.95, "unit": "%95" },
+          { "label": "Raporlama Suresi", "value": 0.80, "unit": "-%80" },
+          { "label": "Plan Sapmasi", "value": 0.65, "unit": "-%65" }
+        ],
+        "points": [
+          { "icon": "chart-down", "title": "Durus nedenlerinde tam gorunurluk", "desc": "Otomatik kayit, siniflandirma ve sorumlu atama." },
+          { "icon": "chart-up", "title": "OEE bazli performans takibi", "desc": "Hat, vardiya ve ekipman bazinda anlik analiz." },
+          { "icon": "robot", "title": "AI ile durus tahmini", "desc": "On-premise LLM ile ariza oncesi uyari." },
+          { "icon": "clipboard", "title": "Aksiyon ve iyilestirme takibi", "desc": "Sorumlu atama, kapanma ve etkinlik olcumu." }
+        ]
+      },
+      {
+        "label": "Kalite",
+        "icon": "microscope",
+        "kpis": [
+          { "label": "Fire Azaltma", "value": 0.60, "unit": "-%60" },
+          { "label": "Erken Hata", "value": 0.92, "unit": "%92" },
+          { "label": "Izlenebilirlik", "value": 1.0, "unit": "%100" },
+          { "label": "Musteri Sikayeti", "value": 0.45, "unit": "-%45" }
+        ],
+        "points": [
+          { "icon": "search", "title": "Otomatik kalite gozlemi", "desc": "Jidoka ve kontrol listeleri ile sifir kacak hedefi." },
+          { "icon": "box", "title": "Lot bazli tam izlenebilirlik", "desc": "Ham maddeden sevkiyata LOT/SN takibi." },
+          { "icon": "traffic", "title": "Anlik kalite alarmi", "desc": "Limit disi olcumde aninda alarm ve durdurma." },
+          { "icon": "chart", "title": "Otomatik kalite raporlari", "desc": "Musteri ve donem bazli raporlama." }
+        ]
+      },
+      {
+        "label": "Enerji",
+        "icon": "bolt",
+        "kpis": [
+          { "label": "Enerji Tasarrufu", "value": 0.18, "unit": "-%18" },
+          { "label": "CO2 Azaltma", "value": 0.22, "unit": "-%22" },
+          { "label": "Rapor Otomasyon", "value": 0.90, "unit": "%90" },
+          { "label": "ISO 50001 Uyum", "value": 0.85, "unit": "%85" }
+        ],
+        "points": [
+          { "icon": "bolt", "title": "Makine bazli enerji izleme", "desc": "Hat ve makine bazinda kWh takibi." },
+          { "icon": "leaf", "title": "Karbon ayak izi", "desc": "ISO 50001 ve AB CBAM uyumlu raporlama." },
+          { "icon": "chart-down", "title": "Kayip enerji tespiti", "desc": "Bosta calisan makineleri tespit et." },
+          { "icon": "clipboard", "title": "ESG raporlamasi", "desc": "Surdurulebilirlik raporu otomasyonu." }
+        ]
+      },
+      {
+        "label": "Entegrasyon",
+        "icon": "link",
+        "kpis": [
+          { "label": "ERP Senkron", "value": 0.99, "unit": "%99.x" },
+          { "label": "Entegrasyon Hizi", "value": 0.75, "unit": "x3" },
+          { "label": "Manuel Giris", "value": 0.80, "unit": "-%80" },
+          { "label": "Veri Dogrulugu", "value": 0.97, "unit": "%97" }
+        ],
+        "points": [
+          { "icon": "link", "title": "ERP cift yonlu senkron", "desc": "SAP, Logo, Netsis ile anlik alisveris." },
+          { "icon": "rocket", "title": "Hizli entegrasyon", "desc": "2-4 haftada hazir konektorler." },
+          { "icon": "lock", "title": "Guvenli veri transferi", "desc": "On-premise veya sifreli API." },
+          { "icon": "antenna", "title": "Coklu sistem yonetimi", "desc": "ERP, MES, SCADA ve IoT tek noktadan." }
+        ]
+      }
     ]
   },
   "modules": {
@@ -50,9 +218,9 @@
         "size": "small"
       },
       {
-        "name": "OnOEE",
-        "desc": "Gercek zamanli OEE takibi ve performans analizleri.",
-        "icon": "assets/images/icons/analiz-optimizasyon.png",
+        "name": "OnConnect",
+        "desc": "Her PLC, her protokol, tek veri noktasi. Marka bagimsiz baglanti katmani.",
+        "icon": "assets/images/icons/entegrasyon-nodes.png",
         "size": "small"
       },
       {
@@ -77,6 +245,18 @@
         "name": "OnMonitora",
         "desc": "Makinelerinizi gercek zamanli izleyin ve analiz edin.",
         "icon": "assets/images/icons/dashboard.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCarboniq",
+        "desc": "Enerji tuketimi, karbon ayak izi ve ESG raporlamasi.",
+        "icon": "assets/images/icons/analiz-raporlama.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCore",
+        "desc": "On-premise AI ile uretim zekasi. LLM, RAG ve tahmin modelleri.",
+        "icon": "assets/images/icons/analiz-optimizasyon.png",
         "size": "small"
       }
     ]

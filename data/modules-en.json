@@ -63,23 +63,59 @@
     "ctaTitle": "Start Your Efficiency Revolution with OnOptima",
     "ctaDesc": "See AI-powered optimization with your own data in a 15-minute demo."
   },
-  "onoee": {
-    "slug": "onoee", "name": "OnOEE", "tagline": "Real-Time OEE Tracking and Performance Analysis",
-    "description": "Monitor your availability, performance, and quality metrics in real time. Instantly detect OEE losses.",
-    "heroImage": "assets/images/modules/optima-hero.png", "color": "#ff3b78",
-    "problem": { "title": "Are you measuring OEE values correctly?", "items": ["Manual OEE calculation errors", "Loss reasons not identified", "Retrospective reporting only", "No line-by-line comparison"] },
-    "solution": { "items": ["Automatic real-time OEE calculation", "Detailed loss categorization", "Live dashboard and trend analysis", "Line and shift-based benchmarking"] },
+  "onconnect": {
+    "slug": "onconnect", "name": "OnConnect", "tagline": "Every PLC, Every Protocol, One Data Point",
+    "description": "Unify all field hardware across different brands and protocols into a single standard. Brand-independent, sub-2-second latency, zero data loss.",
+    "heroImage": "assets/images/modules/connect-hero.png", "color": "#0089CF",
+    "problem": { "title": "Can't consolidate data across different PLC brands?", "items": ["Separate software for each PLC brand", "Protocol incompatibilities", "Data collection delays", "No single-point monitoring"] },
+    "solution": { "items": ["All PLC brands on one platform", "OPC-UA, MQTT, Modbus, S7 support", "Sub-2-second data latency", "Centralized data pool and monitoring"] },
     "features": [
-      { "title": "Live OEE Dashboard", "desc": "Track availability, performance, and quality metrics instantly.", "icon": "assets/images/icons/dashboard.png" },
-      { "title": "Loss Analysis", "desc": "Categorize planned and unplanned downtime. Identify biggest loss sources.", "icon": "assets/images/icons/alarm-yonetimi.png" },
-      { "title": "Shift Reports", "desc": "Shift-based performance comparisons and trend analysis.", "icon": "assets/images/icons/analiz-raporlama.png" },
-      { "title": "Target Tracking", "desc": "Set OEE targets and monitor actual performance.", "icon": "assets/images/icons/gercek-zamanli.png" },
-      { "title": "Benchmark", "desc": "Benchmark across lines, plants, and industry averages.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
-      { "title": "Auto Reporting", "desc": "Daily, weekly, and monthly OEE reports generated automatically.", "icon": "assets/images/icons/entegrasyon-raporlama.png" }
+      { "title": "Multi-Protocol Support", "desc": "Siemens S7, Beckhoff, Allen Bradley, OPC-UA, MQTT, Modbus and more.", "icon": "assets/images/icons/entegrasyon-nodes.png" },
+      { "title": "Live Data Stream", "desc": "Real-time data collection and processing from all field hardware.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Data Normalization", "desc": "Unify data from different sources into a single standard.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Edge Computing", "desc": "Local processing power for low latency and high reliability.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "Auto Discovery", "desc": "Automatically detect and configure devices on the network.", "icon": "assets/images/icons/dashboard.png" },
+      { "title": "Data Quality Monitoring", "desc": "Monitor connection status, data loss, and latency metrics.", "icon": "assets/images/icons/alarm-yonetimi.png" }
     ],
-    "integrations": ["PLC/SCADA", "MES", "ERP", "Machine Controllers"],
-    "sectors": ["Automotive", "Food & Beverage", "Pharma", "Tobacco", "General Manufacturing"],
-    "ctaTitle": "See Your Performance with OnOEE", "ctaDesc": "Experience real-time OEE tracking in a 15-minute demo."
+    "integrations": ["Siemens S7", "Beckhoff TwinCAT", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"],
+    "sectors": ["Automotive", "Food & Beverage", "Tobacco", "White Goods", "General Manufacturing"],
+    "ctaTitle": "Unify All Your Devices with OnConnect", "ctaDesc": "Experience PLC connectivity in a 15-minute demo."
+  },
+  "oncarboniq": {
+    "slug": "oncarboniq", "name": "OnCarboniq", "tagline": "Energy Consumption and ESG Reporting",
+    "description": "Monitor machine-level energy consumption, calculate your carbon footprint, and generate EU CBAM-compliant ESG reports.",
+    "heroImage": "assets/images/modules/connect-hero.png", "color": "#04bf8a",
+    "problem": { "title": "Can you measure your energy consumption and carbon footprint?", "items": ["Machine-level energy consumption unknown", "Carbon footprint not calculable", "ESG reporting difficulties", "EU CBAM compliance requirements"] },
+    "solution": { "items": ["Line and machine-level kWh tracking", "Automatic carbon footprint calculation", "ISO 50001 compliant reporting", "EU CBAM and ESG report automation"] },
+    "features": [
+      { "title": "Energy Monitoring", "desc": "Real-time energy consumption tracking by machine, line, and facility.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Carbon Calculation", "desc": "Scope 1, 2, and 3 carbon emission calculations.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "ESG Reporting", "desc": "Sustainability report automation and EU CBAM compliance.", "icon": "assets/images/icons/entegrasyon-raporlama.png" },
+      { "title": "Loss Detection", "desc": "Detect idle machines and energy waste.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "ISO 50001", "desc": "Infrastructure compliant with energy management system standard.", "icon": "assets/images/icons/forms-responsive.png" },
+      { "title": "Benchmark", "desc": "Facility and line-level energy efficiency comparison.", "icon": "assets/images/icons/analiz-optimizasyon.png" }
+    ],
+    "integrations": ["Energy Meters", "PLC/SCADA", "IoT Sensors", "ERP Systems"],
+    "sectors": ["Automotive", "Food & Beverage", "General Manufacturing"],
+    "ctaTitle": "Increase Energy Efficiency with OnCarboniq", "ctaDesc": "Experience energy monitoring and ESG reporting in a 15-minute demo."
+  },
+  "oncore": {
+    "slug": "oncore", "name": "OnCore", "tagline": "Production Intelligence with On-Premise AI",
+    "description": "Analyze your factory data with AI without it leaving your premises. Enhance your production intelligence with on-premise LLM, RAG, and prediction models.",
+    "heroImage": "assets/images/modules/optima-hero.png", "color": "#413C85",
+    "problem": { "title": "Can't leverage AI for your production data?", "items": ["Data security concerns with cloud AI", "Production data must stay on-premise", "Manual analysis is insufficient", "Predictive maintenance not possible"] },
+    "solution": { "items": ["Secure AI with on-premise LLM", "RAG-based knowledge querying", "Predictive maintenance and pre-failure alerts", "Analysis without data leaving the factory"] },
+    "features": [
+      { "title": "On-Premise LLM", "desc": "Local large language model on NVIDIA DGX. Your data stays in the factory.", "icon": "assets/images/icons/analiz-optimizasyon.png" },
+      { "title": "RAG Engine", "desc": "Smart querying from production documents and historical data.", "icon": "assets/images/icons/analiz-raporlama.png" },
+      { "title": "Predictive Analytics", "desc": "Learn from historical data to predict failures and quality issues.", "icon": "assets/images/icons/gercek-zamanli.png" },
+      { "title": "Anomaly Detection", "desc": "Automatic detection and alerting of deviations from normal.", "icon": "assets/images/icons/alarm-yonetimi.png" },
+      { "title": "Natural Language Query", "desc": "Query your production data with natural language questions.", "icon": "assets/images/icons/veri-toplama.png" },
+      { "title": "Model Management", "desc": "Train, test, and deploy AI models.", "icon": "assets/images/icons/planlama.png" }
+    ],
+    "integrations": ["NVIDIA DGX", "OnSuite Platform", "PLC/SCADA", "ERP"],
+    "sectors": ["Automotive", "Food & Beverage", "General Manufacturing"],
+    "ctaTitle": "Enhance Your Production Intelligence with OnCore", "ctaDesc": "Experience our on-premise AI solution in a 15-minute demo."
   },
   "onintegra": {
     "slug": "onintegra", "name": "OnIntegra", "tagline": "Seamless Integration with Your ERP Systems",

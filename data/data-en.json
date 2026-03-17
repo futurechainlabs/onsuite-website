@@ -7,20 +7,188 @@
     "copyright": "2025 Siskon Automation. All rights reserved."
   },
   "hero": {
-    "badge": "Manufacturing Management Platform",
-    "titleLine1": "Manage Your",
-    "titleHighlight": "Entire Factory",
-    "titleLine3": "From One Screen",
-    "description": "Combine your machine data and production processes in a single modern dashboard. Reduce downtime, increase efficiency.",
+    "badge": "10 Products · 90+ Modules · TR · RO · EE",
+    "titleLine1": "Full control",
+    "titleHighlight": "of your factory",
+    "titleLine3": "one platform",
+    "description": "Real-time production visibility — line, station, shift. OEE, downtime, scrap analysis and action management. PLC to ERP integration + on-premise AI infrastructure.",
     "ctaPrimary": "Request Demo",
-    "ctaSecondary": "Explore Platform",
-    "heroImage": "assets/images/hero/macbook-dashboard.svg"
+    "ctaSecondary": "Explore Products",
+    "heroImage": "assets/images/hero/macbook-dashboard.svg",
+    "feats": [
+      "Real-time production visibility — line, station, shift",
+      "OEE · Downtime · Scrap analysis and action management",
+      "PLC to ERP integration + on-premise AI infrastructure"
+    ],
+    "badges": [
+      { "label": "On-Premise & Hybrid", "color": "blue" },
+      { "label": "GDPR Compliant", "color": "coral" },
+      { "label": "TR · RO · EE Local Teams", "color": "green" }
+    ]
   },
+  "statsStrip": [
+    { "value": "90+", "label": "Modules" },
+    { "value": "10", "label": "Product Family" },
+    { "value": "3", "label": "Country Operations" },
+    { "value": "<2sec", "label": "Data Latency" },
+    { "value": "100%", "label": "On-Premise Option" }
+  ],
   "proofBar": {
     "metrics": [
       { "count": 40, "label": "Countries" },
       { "count": 100, "label": "Projects" },
       { "count": 500, "label": "Production Lines" }
+    ]
+  },
+  "refMetrics": [
+    {
+      "value": "+8-18",
+      "label": "points OEE improvement",
+      "desc": "Typical OEE increase range observed in the first 6 months after Connect + Optima deployment. Production efficiency increases as downtime causes become visible.",
+      "tags": ["Automotive Suppliers", "White Goods"],
+      "color": "cyan"
+    },
+    {
+      "value": "30-65%",
+      "label": "scrap and waste reduction",
+      "desc": "Scrap reduction achieved through real-time quality control at line level with Trace + Jidoka modules. Recall time drops from hours to minutes.",
+      "tags": ["Food & Beverage", "Electronics"],
+      "color": "coral"
+    },
+    {
+      "value": "50-80%",
+      "label": "manual reporting time reduction",
+      "desc": "Automation of shift-end reporting process with DSF Forms + Optima integration. Operators focus on production instead of data entry.",
+      "tags": ["Tobacco", "Machine & Metal"],
+      "color": "blue"
+    }
+  ],
+  "sectorCases": [
+    { "icon": "car", "title": "Automotive & Suppliers", "desc": "IATF 16949 compliant traceability, OEE optimization and downtime analysis. Proven on high-volume assembly lines.", "modules": ["Connect", "Optima", "Trace"] },
+    { "icon": "food", "title": "Food & Beverage", "desc": "Batch tracking, hygiene records and recall management. Dramatic drop in customer complaints with full lot traceability.", "modules": ["Trace", "DSF Forms", "Carboniq"] },
+    { "icon": "tobacco", "title": "Tobacco", "desc": "Real-time monitoring and reporting automation on high-speed production lines. Shift-end reporting time reduced by 80%.", "modules": ["Live", "Optima", "DSF Forms"] },
+    { "icon": "appliance", "title": "White Goods", "desc": "Assembly line OEE tracking and quality control integration. Connect infrastructure with multi-PLC brands consolidated production data.", "modules": ["Connect", "Optima", "Integra"] },
+    { "icon": "electronics", "title": "Electronics & EMS", "desc": "Serial number-based traceability and test result integration on SMT lines. 62% scrap reduction measured in the first 4 months.", "modules": ["Trace", "CNC", "Integra"] },
+    { "icon": "machine", "title": "Machine & Metal", "desc": "CNC tool life management and preventive maintenance planning. Unexpected downtimes reduced by 40% in the first year.", "modules": ["CNC", "Optima", "DSF Forms"] }
+  ],
+  "featureSections": {
+    "connect": {
+      "tag": "Connect — Connectivity Layer",
+      "title": "Every PLC, every protocol,",
+      "titleHighlight": "one data point",
+      "desc": "Unify all field hardware across different brands and protocols into a single standard. Brand-independent, sub-2-second latency, zero data loss.",
+      "chips": ["Siemens S7", "Beckhoff", "Allen Bradley", "OPC-UA", "MQTT", "Modbus", "MTConnect", "TCP/IP"]
+    },
+    "optima": {
+      "tag": "Optima — OEE & Efficiency",
+      "title": "Make your lost hours",
+      "titleHighlight": "visible.",
+      "desc": "Automatically record downtime reasons. See loss analysis on a single screen. Assign actions, track, close. Average +12-18 points OEE increase in the first 6 months.",
+      "chips": ["OEE", "Downtime Analysis", "Scrap Management", "Preventive Maintenance", "Andon", "AI Prediction"]
+    },
+    "trace": {
+      "tag": "Trace",
+      "title": "From raw material to",
+      "titleHighlight": "shipment — full trace",
+      "desc": "Lot, serial number and BOM-based traceability. Which part, which operator, which machine, which shift — query the entire history in seconds.",
+      "bullets": [
+        { "title": "Full Lot/Serial No recording", "desc": "Every process step from raw material to finished product" },
+        { "title": "Customer recall readiness", "desc": "Recall time reduced from hours to minutes" },
+        { "title": "Jidoka & blocking", "desc": "Automatic detection and stopping of non-quality products" }
+      ],
+      "chips": ["Lot/SN", "BOM", "Jidoka", "Kanban", "Pick2Light"]
+    }
+  },
+  "productsGrid": {
+    "overline": "Product Family",
+    "title": "10 products · 90+ modules ·",
+    "titleHighlight": "one platform",
+    "subtitle": "Start with a single module, grow to the platform. All products work integrated with each other.",
+    "backbone": [
+      { "icon": "plug", "name": "Connect", "desc": "Universal PLC & protocol bridge connecting all field hardware to a single data layer.", "tags": ["S7", "Beckhoff", "OPC-UA", "MQTT", "Modbus"], "color": "#E5FAF8" },
+      { "icon": "chart", "name": "Optima", "desc": "OEE analysis, downtime & scrap management, preventive maintenance. +12-18 points OEE in first 6 months.", "tags": ["OEE", "Downtime/Scrap", "Maintenance", "Andon"], "color": "#EDFBF3" },
+      { "icon": "search", "name": "Trace", "desc": "Full traceability based on lot, SN and BOM. Every step from shipment to field is recorded.", "tags": ["Lot/SN", "BOM", "Kanban", "Jidoka"], "color": "#FEF0E8" },
+      { "icon": "link", "name": "Integra", "desc": "Bidirectional integration with SAP, Logo, Netsis. Eliminates manual data transfer.", "tags": ["SAP RFC", "Logo", "Netsis", "REST API"], "color": "#F0EEFF" }
+    ],
+    "complementary": [
+      { "icon": "gear", "name": "CNC", "desc": "Program and tool life data from Fanuc, Siemens 840D and Brother machines.", "tags": ["Fanuc Focas", "Siemens 840D", "MTConnect"], "color": "#EBF0FF" },
+      { "icon": "monitor", "name": "Live / Monitora", "desc": "Real-time monitoring, alarm management, recipe/formula editor and batch tracking.", "tags": ["RT Monitoring", "Alarm", "Batch", "LLM"], "color": "#FFF3E8" },
+      { "icon": "leaf", "name": "Carboniq", "desc": "Energy consumption, carbon footprint and EU CBAM compliant ESG reporting.", "tags": ["Carbon", "ISO 50001", "CBAM"], "color": "#E5FAF8" },
+      { "icon": "form", "name": "DSF Forms", "desc": "Digital field forms and work orders. Paperless production operations.", "tags": ["Field Form", "Work Order", "Checklist"], "color": "#FFF0F0" },
+      { "icon": "tobacco", "name": "TMC", "desc": "OPC UA TMC compliant tobacco industry solution.", "tags": ["OPC UA TMC", "Hauni", "GD"], "color": "#FFF0F0" },
+      { "icon": "brain", "name": "Core / AI", "desc": "On-premise LLM, RAG and prediction models. AI analysis without data leaving the factory.", "tags": ["On-Premise LLM", "RAG", "NVIDIA DGX"], "color": "rgba(78,120,244,.15)" }
+    ]
+  },
+  "valueTabs": {
+    "overline": "What Does OnSuite Deliver?",
+    "title": "Measurable difference in",
+    "titleHighlight": "4 operation areas",
+    "subtitle": "Our customers come with operation problems, not product names. Which area interests you?",
+    "tabs": [
+      {
+        "label": "Production",
+        "icon": "factory",
+        "kpis": [
+          { "label": "OEE Improvement", "value": 0.78, "unit": "+12-18 pts" },
+          { "label": "Downtime Visibility", "value": 0.95, "unit": "95%" },
+          { "label": "Reporting Time", "value": 0.80, "unit": "-80%" },
+          { "label": "Plan Deviation", "value": 0.65, "unit": "-65%" }
+        ],
+        "points": [
+          { "icon": "chart-down", "title": "Full visibility on downtime causes", "desc": "Automatic recording, classification and responsibility assignment." },
+          { "icon": "chart-up", "title": "OEE-based performance tracking", "desc": "Real-time analysis by line, shift and equipment." },
+          { "icon": "robot", "title": "AI-powered downtime prediction", "desc": "Pre-failure warning with on-premise LLM." },
+          { "icon": "clipboard", "title": "Action and improvement tracking", "desc": "Responsibility assignment, closure and effectiveness measurement." }
+        ]
+      },
+      {
+        "label": "Quality",
+        "icon": "microscope",
+        "kpis": [
+          { "label": "Scrap Reduction", "value": 0.60, "unit": "-60%" },
+          { "label": "Early Detection", "value": 0.92, "unit": "92%" },
+          { "label": "Traceability", "value": 1.0, "unit": "100%" },
+          { "label": "Customer Complaints", "value": 0.45, "unit": "-45%" }
+        ],
+        "points": [
+          { "icon": "search", "title": "Automatic quality monitoring", "desc": "Zero-escape target with Jidoka and checklists." },
+          { "icon": "box", "title": "Full lot-based traceability", "desc": "LOT/SN tracking from raw material to shipment." },
+          { "icon": "traffic", "title": "Real-time quality alarm", "desc": "Instant alarm and stop on out-of-limit measurements." },
+          { "icon": "chart", "title": "Automatic quality reports", "desc": "Customer and period-based reporting." }
+        ]
+      },
+      {
+        "label": "Energy",
+        "icon": "bolt",
+        "kpis": [
+          { "label": "Energy Savings", "value": 0.18, "unit": "-18%" },
+          { "label": "CO2 Reduction", "value": 0.22, "unit": "-22%" },
+          { "label": "Report Automation", "value": 0.90, "unit": "90%" },
+          { "label": "ISO 50001 Compliance", "value": 0.85, "unit": "85%" }
+        ],
+        "points": [
+          { "icon": "bolt", "title": "Machine-level energy monitoring", "desc": "kWh tracking by line and machine." },
+          { "icon": "leaf", "title": "Carbon footprint", "desc": "ISO 50001 and EU CBAM compliant reporting." },
+          { "icon": "chart-down", "title": "Energy loss detection", "desc": "Detect idle running machines." },
+          { "icon": "clipboard", "title": "ESG reporting", "desc": "Sustainability report automation." }
+        ]
+      },
+      {
+        "label": "Integration",
+        "icon": "link",
+        "kpis": [
+          { "label": "ERP Sync", "value": 0.99, "unit": "99.x%" },
+          { "label": "Integration Speed", "value": 0.75, "unit": "x3" },
+          { "label": "Manual Entry", "value": 0.80, "unit": "-80%" },
+          { "label": "Data Accuracy", "value": 0.97, "unit": "97%" }
+        ],
+        "points": [
+          { "icon": "link", "title": "Bidirectional ERP sync", "desc": "Real-time exchange with SAP, Logo, Netsis." },
+          { "icon": "rocket", "title": "Fast integration", "desc": "Ready connectors in 2-4 weeks." },
+          { "icon": "lock", "title": "Secure data transfer", "desc": "On-premise or encrypted API." },
+          { "icon": "antenna", "title": "Multi-system management", "desc": "ERP, MES, SCADA and IoT from one point." }
+        ]
+      }
     ]
   },
   "modules": {
@@ -50,9 +218,9 @@
         "size": "small"
       },
       {
-        "name": "OnOEE",
-        "desc": "Real-time OEE tracking and performance analytics.",
-        "icon": "assets/images/icons/analiz-optimizasyon.png",
+        "name": "OnConnect",
+        "desc": "Every PLC, every protocol, one data point. Brand-independent connectivity layer.",
+        "icon": "assets/images/icons/entegrasyon-nodes.png",
         "size": "small"
       },
       {
@@ -77,6 +245,18 @@
         "name": "OnMonitora",
         "desc": "Monitor and analyze your machines in real time.",
         "icon": "assets/images/icons/dashboard.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCarboniq",
+        "desc": "Energy consumption, carbon footprint and ESG reporting.",
+        "icon": "assets/images/icons/analiz-raporlama.png",
+        "size": "small"
+      },
+      {
+        "name": "OnCore",
+        "desc": "On-premise AI for production intelligence. LLM, RAG and prediction models.",
+        "icon": "assets/images/icons/analiz-optimizasyon.png",
         "size": "small"
       }
     ]

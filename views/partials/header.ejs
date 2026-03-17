@@ -30,7 +30,7 @@
               </div>
               <div class="mega-menu__col">
                 <span class="mega-menu__label"><%= t.nav.capabilities %></span>
-                <a href="<%= prefix %>/<%= lang === 'en' ? 'modules/onoee' : 'moduller/onoee' %>" class="mega-menu__item">
+                <a href="<%= prefix %>/<%= lang === 'en' ? 'modules/onoptima' : 'moduller/onoptima' %>" class="mega-menu__item">
                   <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
                   <div><span class="mega-menu__name"><%= t.nav.oeePerf %></span><span class="mega-menu__desc"><%= t.nav.oeePerfDesc %></span></div>
                 </a>
@@ -61,9 +61,9 @@
                   <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
                   <div><span class="mega-menu__name">OnOptima</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Production Optimization' : 'Uretim Optimizasyonu' %></span></div>
                 </a>
-                <a href="<%= prefix %>/<%= modPath %>/onoee" class="mega-menu__item">
-                  <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-                  <div><span class="mega-menu__name">OnOEE</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Performance Analytics' : 'Performans Analizi' %></span></div>
+                <a href="<%= prefix %>/<%= modPath %>/onconnect" class="mega-menu__item">
+                  <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 12h8"/><path d="M12 8v8"/><circle cx="5" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></div>
+                  <div><span class="mega-menu__name">OnConnect</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Machine Connectivity' : 'Makine Baglantisi' %></span></div>
                 </a>
               </div>
               <div class="mega-menu__col">
@@ -90,6 +90,14 @@
                 <a href="<%= prefix %>/<%= modPath %>/onsmartforms" class="mega-menu__item">
                   <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
                   <div><span class="mega-menu__name">OnSmartForms</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Digital Forms' : 'Dijital Formlar' %></span></div>
+                </a>
+                <a href="<%= prefix %>/<%= modPath %>/oncarboniq" class="mega-menu__item">
+                  <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 22L12 2l10 20H2z"/><path d="M12 9v5"/><circle cx="12" cy="17" r="1"/></svg></div>
+                  <div><span class="mega-menu__name">OnCarboniq</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Carbon Footprint' : 'Karbon Ayak Izi' %></span></div>
+                </a>
+                <a href="<%= prefix %>/<%= modPath %>/oncore" class="mega-menu__item">
+                  <div class="mega-menu__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1"/></svg></div>
+                  <div><span class="mega-menu__name">OnCore</span><span class="mega-menu__desc"><%= lang === 'en' ? 'Core Platform' : 'Temel Platform' %></span></div>
                 </a>
               </div>
             </div>
@@ -143,12 +151,14 @@
           <div class="mobile-menu__sub" hidden>
             <a href="<%= prefix %>/<%= modPath %>/ontrace" class="mobile-menu__sublink">OnTrace</a>
             <a href="<%= prefix %>/<%= modPath %>/onoptima" class="mobile-menu__sublink">OnOptima</a>
-            <a href="<%= prefix %>/<%= modPath %>/onoee" class="mobile-menu__sublink">OnOEE</a>
+            <a href="<%= prefix %>/<%= modPath %>/onconnect" class="mobile-menu__sublink">OnConnect</a>
             <a href="<%= prefix %>/<%= modPath %>/onintegra" class="mobile-menu__sublink">OnIntegra</a>
             <a href="<%= prefix %>/<%= modPath %>/onmonitora" class="mobile-menu__sublink">OnMonitora</a>
             <a href="<%= prefix %>/<%= modPath %>/oncnc" class="mobile-menu__sublink">OnCNC</a>
             <a href="<%= prefix %>/<%= modPath %>/ontmc" class="mobile-menu__sublink">OnTMC</a>
             <a href="<%= prefix %>/<%= modPath %>/onsmartforms" class="mobile-menu__sublink">OnSmartForms</a>
+            <a href="<%= prefix %>/<%= modPath %>/oncarboniq" class="mobile-menu__sublink">OnCarboniq</a>
+            <a href="<%= prefix %>/<%= modPath %>/oncore" class="mobile-menu__sublink">OnCore</a>
           </div>
         </li>
         <li class="mobile-menu__item"><a href="<%= prefix %>/<%= lang === 'en' ? 'industries' : 'sektorler' %>" class="mobile-menu__link"><%= t.nav.sectors %></a></li>
