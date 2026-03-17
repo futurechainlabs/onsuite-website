@@ -141,6 +141,7 @@ async function loadData() {
   const now = Date.now();
   if (_dataCache && (now - _dataCacheTime) < DATA_CACHE_TTL) return _dataCache;
 
+  const fileData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
   let result;
   if (SUPABASE_CONFIGURED) {
     const { data, error } = await supabase
@@ -148,14 +149,25 @@ async function loadData() {
       .select('content')
       .eq('id', 1)
       .single();
-    if (data && data.content) { result = data.content; }
-    else {
-      const fileData = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    if (data && data.content) {
+      // Merge: file data as base, Supabase overrides, but missing keys come from file
+      result = { ...fileData, ...data.content };
+      // Deep merge hero object so new fields (feats, badges) are preserved
+      if (fileData.hero) {
+        result.hero = { ...fileData.hero, ...(data.content.hero || {}) };
+      }
+      // Sync updated data back to Supabase if file has new keys
+      const fileKeys = Object.keys(fileData);
+      const dbKeys = Object.keys(data.content);
+      if (fileKeys.length > dbKeys.length) {
+        await supabase.from('site_content').upsert({ id: 1, content: result });
+      }
+    } else {
       await supabase.from('site_content').upsert({ id: 1, content: fileData });
       result = fileData;
     }
   } else {
-    result = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
+    result = fileData;
   }
   _dataCache = result;
   _dataCacheTime = now;
