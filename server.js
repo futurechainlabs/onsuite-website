@@ -119,11 +119,15 @@ app.use(express.static(path.join(__dirname, 'public'), {
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
+// Trust proxy for Render (needed for secure cookies behind reverse proxy)
+app.set('trust proxy', 1);
+
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 app.use(session({
   secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
+  proxy: true,
   cookie: {
     maxAge: 3600000,
     httpOnly: true,
