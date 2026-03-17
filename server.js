@@ -943,6 +943,12 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+// Global error handler — shows details even in production
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err);
+  res.status(500).send('<pre>Error: ' + err.message + '\n\n' + err.stack + '</pre>');
+});
+
 app.listen(PORT, () => {
   console.log(`OnSuite server running at http://localhost:${PORT}`);
   console.log(`Admin panel: http://localhost:${PORT}/admin`);
